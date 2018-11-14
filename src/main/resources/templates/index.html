@@ -5,12 +5,16 @@
     <title>Webblog</title>
 </head>
 <body>
+
+
+<h1 th:if="${currentUser != null}" th:text="${currentUser.username}"></h1>
+
 <div th:each="article: ${articles}">
     <h1 th:text="${article.title}">Hallo Welt</h1>
     <p th:text="${article.text}">Text</p>
 </div>
 <div>
-    <a href="login.html"/>
+    <a href="/login">Login</a>
 </div>
 </body>
 </html>

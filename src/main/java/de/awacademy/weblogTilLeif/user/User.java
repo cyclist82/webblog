@@ -1,18 +1,24 @@
 package de.awacademy.weblogTilLeif.user;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
+import javax.persistence.*;
 
 @Entity
 public class User {
 
-	@GeneratedValue
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 
+	@Column(unique = true)
 	private String username;
 	private String password;
 
 	public User() {
+	}
+
+	public User(String username, String password) {
+		this.username = username;
+		this.password = password;
 	}
 
 	public String getUsername() {

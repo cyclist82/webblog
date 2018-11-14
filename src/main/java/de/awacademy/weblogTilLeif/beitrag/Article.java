@@ -16,6 +16,11 @@ public class Article {
 	public Article() {
 	}
 
+	public Article(String title, String text) {
+		this.title = title;
+		this.text = text;
+	}
+
 	public Article(String title) {
 		this.title = title;
 	}
