@@ -1,5 +1,6 @@
 package de.awacademy.weblogTilLeif.beitrag;
 
+import de.awacademy.weblogTilLeif.user.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,11 +26,11 @@ public class ArticleController {
 	}
 
 	@PostMapping("/article")
-	public String create(@ModelAttribute("article") @Valid ArticleDTO articleDTO, BindingResult bindingResult) {
+	public String create(@ModelAttribute("article") @Valid ArticleDTO articleDTO, BindingResult bindingResult, @ModelAttribute("currentUser") User currentUser) {
 		if (bindingResult.hasErrors()) {
 			return "createArticle";
 		}
-		Article article = new Article(articleDTO.getTitle(), articleDTO.getText());
+		Article article = new Article(articleDTO.getTitle(), articleDTO.getText(),currentUser);
 		articleRepository.save(article);
 		return "redirect:/";
 	}

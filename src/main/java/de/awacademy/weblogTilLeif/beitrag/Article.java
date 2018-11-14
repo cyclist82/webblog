@@ -17,7 +17,7 @@ public class Article {
 	@Lob
 	private String text;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn
 	private User user;
 
@@ -26,9 +26,10 @@ public class Article {
 	public Article() {
 	}
 
-	public Article(String title, String text) {
+	public Article(String title, String text, User user) {
 		this.title = title;
 		this.text = text;
+		this.user = user;
 		this.creationDateTime = Instant.now();
 	}
 

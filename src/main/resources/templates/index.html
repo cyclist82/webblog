@@ -5,17 +5,19 @@
     <title>Webblog</title>
 </head>
 <body>
-
-
-<h1 th:if="${currentUser != null}" th:text="${currentUser.username}"></h1>
-
-
-<div th:each="article: ${articles}">
-    <h1 th:text="${article.title}">Hallo Welt</h1>
-    <p th:text="${article.text}">Text</p>
+<h1>
+    <th:block th:each="greeting: ${greetings}" th:text="${greeting.text + ', '}"></th:block>
+    <th:block th:text="${currentUser != null ? currentUser.username : 'Unbekannter'}"></th:block>
+    !
+</h1>
+<div><a href="/article">Create Greeting</a></div>
+<div th:if="${currentUser == null}">
+    <a href="/login">Login</a> - <a href="/signup">Signup</a>
 </div>
-<div>
-    <a href="/login">Login</a> - <a href="/signup">Signup</a> - <a href="/article">New Article</a>
+<div th:if="${currentUser != null}">
+    <form th:action="@{/logout}" method="post">
+        <button type="submit">Logout</button>
+    </form>
 </div>
 </body>
 </html>

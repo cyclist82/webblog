@@ -9,9 +9,9 @@ import java.util.UUID;
 public class User {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-//	@GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
-	private long id;
+	@GeneratedValue(generator = "UUID")
+	@GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
+	private UUID id;
 
 	@Column(unique = true)
 	private String username;
