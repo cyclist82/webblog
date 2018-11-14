@@ -5,9 +5,12 @@
     <title>Webblog</title>
 </head>
 <body>
-<div th:each="article: ${articles}" >
+<div th:each="article: ${articles}">
     <h1 th:text="${article.title}">Hallo Welt</h1>
-    <p th:text="${article}">Text</p>
+    <p th:text="${article.text}">Text</p>
+</div>
+<div>
+    <a href="login.html"/>
 </div>
 </body>
 </html>
