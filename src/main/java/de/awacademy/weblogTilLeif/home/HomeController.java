@@ -24,7 +24,7 @@ public class HomeController {
 
 	@GetMapping("/")
 	public String home(Model model) {
-		model.addAttribute("articles", articleRepository.findAll());
+		model.addAttribute("articles", articleRepository.findAllByOrderByCreationDateTimeDesc());
 		return "index";
 	}
 }

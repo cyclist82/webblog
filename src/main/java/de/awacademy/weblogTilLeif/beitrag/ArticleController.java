@@ -27,10 +27,13 @@ public class ArticleController {
 
 	@PostMapping("/article")
 	public String create(@ModelAttribute("article") @Valid ArticleDTO articleDTO, BindingResult bindingResult, @ModelAttribute("currentUser") User currentUser) {
+		if (currentUser == null) {
+			return "redirect:/";
+		}
 		if (bindingResult.hasErrors()) {
 			return "createArticle";
 		}
-		Article article = new Article(articleDTO.getTitle(), articleDTO.getText(),currentUser);
+		Article article = new Article(articleDTO.getTitle(), articleDTO.getText(), currentUser);
 		articleRepository.save(article);
 		return "redirect:/";
 	}
