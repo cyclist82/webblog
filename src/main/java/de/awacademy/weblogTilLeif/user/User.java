@@ -9,9 +9,7 @@ import java.util.UUID;
 public class User {
 
 	@Id
-	@GeneratedValue(generator = "UUID")
-	@GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
-	private UUID id;
+	private String id;
 
 	@Column(unique = true)
 	private String username;
@@ -24,6 +22,7 @@ public class User {
 	public User(String username, String password) {
 		this.username = username;
 		this.password = password;
+		this.id = UUID.randomUUID().toString();
 	}
 
 	public String getUsername() {

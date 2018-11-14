@@ -5,13 +5,18 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+import java.util.Locale;
+import java.util.UUID;
 
 @Entity
 public class Article {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private String id;
 
 	private String title;
 	@Lob
@@ -21,7 +26,7 @@ public class Article {
 	@JoinColumn
 	private User user;
 
-	private Instant creationDateTime;
+	private LocalDateTime creationDateTime;
 
 	public Article() {
 	}
@@ -30,7 +35,8 @@ public class Article {
 		this.title = title;
 		this.text = text;
 		this.user = user;
-		this.creationDateTime = Instant.now();
+		this.creationDateTime = LocalDateTime.now();
+		this.id = UUID.randomUUID().toString();
 	}
 
 	public Article(String title) {
@@ -43,5 +49,14 @@ public class Article {
 
 	public String getText() {
 		return text;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	// Should this be Part of the Article...or Article Service???
+	public String getCreationDateTime() {
+		return DateTimeFormatter.ofLocalizedDateTime(FormatStyle.FULL, FormatStyle.LONG).withLocale(Locale.GERMANY).withZone(ZoneId.of("Europe/Berlin")).format(creationDateTime);
 	}
 }

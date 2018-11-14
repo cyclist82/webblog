@@ -6,11 +6,21 @@
 </head>
 <body>
 <h1>
-    <th:block th:each="greeting: ${greetings}" th:text="${greeting.text + ', '}"></th:block>
+
+
     <th:block th:text="${currentUser != null ? currentUser.username : 'Unbekannter'}"></th:block>
-    !
 </h1>
-<div><a href="/article">Create Greeting</a></div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6" th:each="article: ${articles}">
+            <h1 th:text="${article.title}">Titel</h1>
+            <p th:text="${article.text}">Text</p>
+            <small th:text="${article.getCreationDateTime()}">Zeit</small>
+        </div>
+    </div>
+</div>
+
+<div><a href="/article">Beitrag schreiben</a></div>
 <div th:if="${currentUser == null}">
     <a href="/login">Login</a> - <a href="/signup">Signup</a>
 </div>
