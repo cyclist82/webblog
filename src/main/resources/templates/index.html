@@ -15,16 +15,21 @@
 </div>
 <div class="container">
     <div class="row">
-        <div class="col-md-6" th:each="article: ${articles}">
-            <div>
-                <h1 th:text="${article.title}">Titel</h1>
-                <span th:text="'Erstellt von '+${article.getUser().username}"></span>
-            </div>
-            <div>
-                <p th:text="${article.text}">Text</p>
-            </div>
-            <div>
-                <small th:text="${article.getCreationDateTime()}">Zeit</small>
+        <div class="col-md-6 px-2 py-2" th:each="article: ${articles}">
+            <div class="col border rounded p-2">
+                <div>
+                    <h1 th:text="${article.title}">Titel</h1>
+
+                </div>
+                <div>
+                    <p th:text="${article.text}">Text</p>
+                </div>
+                <div class="container p-0">
+                    <div class="row">
+                        <small class="col-md-6" th:text="'Erstellt von '+${article.getUser().username}"></small>
+                        <small class="col-md-6 text-right" th:text="${article.getCreationDateTime()}">Zeit</small>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

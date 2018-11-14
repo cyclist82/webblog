@@ -57,6 +57,6 @@ public class Article {
 
 	// Should this be Part of the Article...or Article Service???
 	public String getCreationDateTime() {
-		return DateTimeFormatter.ofLocalizedDateTime(FormatStyle.FULL, FormatStyle.LONG).withLocale(Locale.GERMANY).withZone(ZoneId.of("Europe/Berlin")).format(creationDateTime);
+		return DateTimeFormatter.ofLocalizedDateTime(FormatStyle.LONG, FormatStyle.LONG).withLocale(Locale.GERMANY).withZone(ZoneId.of("Europe/Berlin")).format(creationDateTime);
 	}
 }
