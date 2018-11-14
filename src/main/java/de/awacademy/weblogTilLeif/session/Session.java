@@ -1,10 +1,9 @@
 package de.awacademy.weblogTilLeif.session;
 
 import de.awacademy.weblogTilLeif.user.User;
+import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
@@ -14,15 +13,16 @@ public class Session {
 	private String id;
 
 	@ManyToOne
+	@JoinColumn
 	private User user;
 
-	public Session(){
+	public Session() {
 
 	}
 
 	public Session(User user) {
-		this.id= UUID.randomUUID().toString();
 		this.user = user;
+		this.id = UUID.randomUUID().toString();
 	}
 
 	public String getId() {

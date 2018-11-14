@@ -1,10 +1,14 @@
 package de.awacademy.weblogTilLeif.beitrag;
 
 
+import javax.validation.constraints.Size;
+
 public class ArticleDTO {
 
-private String title;
-private String text;
+	@Size(min = 2, message = "Bitte etwas länger")
+	private String title;
+	@Size(min = 2, message = "Bitte etwas länger")
+	private String text;
 
 	public ArticleDTO() {
 	}

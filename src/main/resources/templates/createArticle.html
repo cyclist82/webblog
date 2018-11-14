@@ -7,8 +7,8 @@
 <body>
 <h1>Login</h1>
 <form th:action="@{/article}" method="post" th:object="${article}">
-    Username: <input type="text" th:field="*{titel}"><br/>
-    Passwort: <input type="text" th:field="*{text}"><br/>
+    Titel: <input type="text" th:field="*{title}"><br/>
+    Text: <input type="text" th:field="*{text}"><br/>
     <button type="submit">Abschicken</button>
 </form>
 </body>

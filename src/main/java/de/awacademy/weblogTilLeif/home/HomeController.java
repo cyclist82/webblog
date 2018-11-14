@@ -23,12 +23,7 @@ public class HomeController {
 
 
 	@GetMapping("/")
-	public String home(@CookieValue(value = "sessionId", defaultValue = "") String sessionId, Model model) {
-		Optional<Session> optionalSession = sessionRepository.findById(sessionId);
-		if (optionalSession.isPresent()) {
-			model.addAttribute("currentUser", optionalSession.get().getUser());
-		}
-
+	public String home(Model model) {
 		model.addAttribute("articles", articleRepository.findAll());
 		return "index";
 	}

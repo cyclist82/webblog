@@ -9,12 +9,13 @@
 
 <h1 th:if="${currentUser != null}" th:text="${currentUser.username}"></h1>
 
+
 <div th:each="article: ${articles}">
     <h1 th:text="${article.title}">Hallo Welt</h1>
     <p th:text="${article.text}">Text</p>
 </div>
 <div>
-    <a href="/login">Login</a>
+    <a href="/login">Login</a> - <a href="/signup">Signup</a> - <a href="/article">New Article</a>
 </div>
 </body>
 </html>

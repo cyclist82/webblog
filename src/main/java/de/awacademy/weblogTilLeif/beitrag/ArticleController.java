@@ -2,9 +2,12 @@ package de.awacademy.weblogTilLeif.beitrag;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import javax.validation.Valid;
 
 @Controller
 public class ArticleController {
@@ -22,7 +25,10 @@ public class ArticleController {
 	}
 
 	@PostMapping("/article")
-	public String create(@ModelAttribute("greeting") ArticleDTO articleDTO) {
+	public String create(@ModelAttribute("article") @Valid ArticleDTO articleDTO, BindingResult bindingResult) {
+		if (bindingResult.hasErrors()) {
+			return "createArticle";
+		}
 		Article article = new Article(articleDTO.getTitle(), articleDTO.getText());
 		articleRepository.save(article);
 		return "redirect:/";
