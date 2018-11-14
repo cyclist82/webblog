@@ -1,10 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Webblog</title>
 </head>
 <body>
-<h1>Hallo Welt</h1>
+<div th:each="article: ${articles}" >
+    <h1 th:text="${article.title}">Hallo Welt</h1>
+    <p th:text="${article}">Text</p>
+</div>
 </body>
 </html>
