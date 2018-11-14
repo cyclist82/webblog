@@ -13,9 +13,16 @@
 <div class="container">
     <div class="row">
         <div class="col-md-6" th:each="article: ${articles}">
-            <h1 th:text="${article.title}">Titel</h1>
-            <p th:text="${article.text}">Text</p>
-            <small th:text="${article.getCreationDateTime()}">Zeit</small>
+            <div>
+                <h1 th:text="${article.title}">Titel</h1>
+                <span th:text="'Erstellt von '+${article.getUser().username}"></span>
+            </div>
+            <div>
+                <p th:text="${article.text}">Text</p>
+            </div>
+            <div>
+                <small th:text="${article.getCreationDateTime()}">Zeit</small>
+            </div>
         </div>
     </div>
 </div>
