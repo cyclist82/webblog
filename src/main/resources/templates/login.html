@@ -9,7 +9,7 @@
 <form th:action="@{/login}" method="post" th:object="${login}">
     Username: <input type="text" th:field="*{username}"><br/>
     Passwort: <input type="password" th:field="*{password}"><br/>
-    <button type="submit">Login</button>
+    <button class="btn btn-primary" type="submit">Login</button>
 </form>
 </body>
 </html>

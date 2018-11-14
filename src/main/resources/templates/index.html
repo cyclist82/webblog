@@ -6,9 +6,13 @@
     <link rel="stylesheet" href="/webjars/bootstrap/4.1.3/css/bootstrap.min.css">
 </head>
 <body>
-<h1>
-    <th:block th:text="${currentUser != null ? currentUser.username : 'Unbekannter'}"></th:block>
-</h1>
+<div class="container">
+    <div class="row">
+        <div class="col text-center">
+            <h1 th:text="${currentUser != null ? 'Hallo '+currentUser.username : 'Willkommen zu unserem Blog'}"></h1>
+        </div>
+    </div>
+</div>
 <div class="container">
     <div class="row">
         <div class="col-md-6" th:each="article: ${articles}">
@@ -25,15 +29,21 @@
         </div>
     </div>
 </div>
+<div class="container">
+    <div class="row">
+        <div class="col text-right p-3">
+            <!--Write Article Button just available if User Logged in-->
+            <a th:if="${currentUser != null}" class="btn btn-primary" href="/article">Beitrag schreiben</a>
+            <!--If not logged in Button SignUp is available-->
+            <a th:if="${currentUser == null}" class="btn btn-primary" href="/login">Login</a>
+            <a th:if="${currentUser == null}" class="btn btn-primary" href="/signup">Signup</a>
 
-<div th:if="${currentUser != null}"><a href="/article">Beitrag schreiben</a></div>
-<div th:if="${currentUser == null}">
-    <a href="/login">Login</a> - <a href="/signup">Signup</a>
-</div>
-<div th:if="${currentUser != null}">
-    <form th:action="@{/logout}" method="post">
-        <button type="submit">Logout</button>
-    </form>
+            <!--Logout button is available if Logged in-->
+            <form th:if="${currentUser != null}" th:action="@{/logout}" method="post">
+                <button class="btn btn-primary" type="submit">Logout</button>
+            </form>
+        </div>
+    </div>
 </div>
 <script src="/webjars/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 <script src="/webjars/jquery/3.3.1-1/jquery.min.js"></script>
