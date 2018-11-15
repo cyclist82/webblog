@@ -29,6 +29,7 @@ public class Article {
 
 	@OneToMany(fetch = FetchType.EAGER)
 	@JoinColumn
+	@OrderBy(value = "createdDateTime ASC")
 	private List<Comment> comments = new ArrayList<>();
 
 	private LocalDateTime creationDateTime;
