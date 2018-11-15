@@ -29,16 +29,20 @@ public class SignupController {
 
 	@PostMapping("signup")
 	public String signup(@ModelAttribute("signup") @Valid SignupDTO signupDTO, BindingResult bindingResult) {
+		// Validation for existing User
 		if (userRepository.existsByUsername(signupDTO.getUsername())) {
 			bindingResult.addError(new FieldError("signup", "username", "User bereits vorhanden. Bitte einloggen"));
 			return "redirect:/login";
 		}
+		// Validation for identical passwords
 		if (!signupDTO.getPassword1().equals(signupDTO.getPassword2())) {
 			bindingResult.addError(new FieldError("signup", "password2", "Passwörter stimmen nicht überein"));
 		}
+		// Validaiton for all errors in Form
 		if (bindingResult.hasErrors()) {
 			return "signup";
 		}
+		// Happy Path. New User is created
 		userRepository.save(new User(signupDTO.getUsername(), signupDTO.getPassword2()));
 		return "redirect:/login";
 	}
