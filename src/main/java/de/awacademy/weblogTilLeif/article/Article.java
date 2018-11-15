@@ -1,5 +1,6 @@
 package de.awacademy.weblogTilLeif.article;
 
+import de.awacademy.weblogTilLeif.comment.Comment;
 import de.awacademy.weblogTilLeif.user.User;
 
 import javax.persistence.*;
@@ -7,6 +8,8 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 
@@ -23,6 +26,10 @@ public class Article {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn
 	private User user;
+
+	@OneToMany(fetch = FetchType.EAGER)
+	@JoinColumn
+	private List<Comment> comments = new ArrayList<>();
 
 	private LocalDateTime creationDateTime;
 
@@ -60,5 +67,13 @@ public class Article {
 
 	public LocalDateTime getCreationDateTime() {
 		return creationDateTime;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void addComment(Comment comment) {
+		comments.add(comment);
 	}
 }

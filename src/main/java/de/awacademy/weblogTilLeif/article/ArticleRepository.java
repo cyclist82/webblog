@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface ArticleRepository extends JpaRepository<Article, Long> {
 
-	public List<Article> findAllByOrderByCreationDateTimeDesc();
+	List<Article> findAllByOrderByCreationDateTimeDesc();
 }

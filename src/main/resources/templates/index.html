@@ -32,6 +32,7 @@
                         <small class="col-md-6 text-right"
                                th:text="${#temporals.format(article.creationDateTime,#locale.GERMANY)}">Zeit
                         </small>
+                        <a th:href="@{{id}/comment/new(id=${article.getId()})}" class="btn btn-default">Neuer Kommentar</a>
                     </div>
                 </div>
             </div>

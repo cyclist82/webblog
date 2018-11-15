@@ -1,11 +1,16 @@
-<html xmlns:th="http://www.thymeleaf.org"
-      th:replace="~{fragments/layout :: layout (~{::body},'owners')}">
-
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Webblog</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="shortcut icon" type="image/x-icon" th:href="@{/resources/images/favicon.png}">
+    <link rel="stylesheet" href="/resources/css/style.css"/>
+</head>
 <body>
-
 <h2>
     <th:block th:if="${comment['new']}">New </th:block>
-    Comment
+    Pet
 </h2>
 <form th:object="${comment}" class="form-horizontal" method="post">
     <input type="hidden" name="id" th:value="*{id}" />
@@ -13,16 +18,20 @@
         <div class="form-group">
             <label class="col-sm-2 control-label">Owner</label>
             <div class="col-sm-10">
-                <span th:text="${currentUser.username}" />
+                <span th:text="${comment.article?.username}" />
             </div>
         </div>
         <input
-                th:replace="~{fragments/inputField :: input ('Kommentar', 'name', 'text')}" />
+                th:replace="~{fragments/inputField :: input ('Text', 'text', 'text')}" />
+        <!--<input-->
+                <!--th:replace="~{fragments/inputField :: input ('Birth Date', 'birthDate', 'date')}" />-->
+        <!--<input-->
+                <!--th:replace="~{fragments/selectField :: select ('Type', 'type', ${types})}" />-->
     </div>
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
             <button
-                    th:with="text=${pet['new']} ? 'Add Pet' : 'Update Pet'"
+                    th:with="text=${comment['new']} ? 'Kommentar hinzufügen' : 'Kommentar bearbeiten'"
                     class="btn btn-default" type="submit" th:text="${text}">Add
                 Pet</button>
         </div>
@@ -30,5 +39,4 @@
 </form>
 
 </body>
-
 </html>
