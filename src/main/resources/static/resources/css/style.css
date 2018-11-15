@@ -1,0 +1,139 @@
+* {
+    font-family: "Helvetica Neue", sans-serif;
+}
+
+#banner {
+    background-image: url("/resources/images/banner.jpg");
+    background-repeat: no-repeat;
+    background-position: right center;
+    background-size: cover;
+    border-radius: 10px 10px 0px 0px;
+    height: 200px;
+    max-width: 1200px;
+}
+
+figcaption.figure-caption {
+    color: ghostwhite;
+}
+
+#content {
+
+}
+
+#navigation {
+    background-color: rgba(0, 0, 0, 0.7) !important;
+}
+
+#dropdown-menu {
+    background-color: rgba(0, 0, 0, 0.7) !important;
+}
+
+#dropdown-menu a:hover {
+    background-color: grey;
+}
+
+nav.navbar-toggler.h1.border-0 {
+    color: white;
+}
+
+span.navbar-toggler-icon {
+    color: white;
+}
+
+#navigation a.nav-link {
+    color: white;
+    padding-left: 10px;
+}
+
+#navigation span.nav-link.dropdown-toggle {
+    color: white;
+    padding-left: 10px;
+}
+
+#navigation span.nav-link.dropdown-toggle.active {
+    color: darkred;
+}
+
+#navigation li.nav-item.active > a.nav-link {
+    color: darkred;
+    padding-left: 10px;
+}
+
+#navigation a.dropdown-item {
+    color: white;
+    padding-left: 10px;
+}
+
+.navbar-nav > li > a:hover {
+    background-color: grey;
+    border-radius: 10px;
+}
+
+.navbar-nav > li > span:hover {
+    background-color: grey;
+    border-radius: 10px;
+}
+
+body {
+    background-color: black;
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+#platzhalter {
+    height: 190px;
+}
+
+div.sticky-top.sticky-offet {
+    top: 56px;
+}
+
+p {
+    text-align: justify;
+}
+
+.container {
+    background-color: transparent;
+}
+
+#image {
+    max-width: 600px;
+    float: left;
+    margin-right: 10px;
+    margin-bottom: 5px;
+}
+
+div.container.gesamt.my-md-3 {
+    background-color: white;
+    max-width: 1200px;
+    border-radius: 10px;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("/resources/images/evGlasgow.JPG");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    -moz-background-size: cover;
+    -webkite-background-size: cover;
+    -o-background-size: cover;
+    color: white;
+    padding: 0px;
+}
+
+#sponsoren {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: flex-start;
+}
+
+.sponsor {
+    margin-top: 0px;
+    padding-top: 0px;
+    min-width: 150px;
+    max-width: 200px;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin: 20px;
+}
