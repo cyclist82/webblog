@@ -1,15 +1,17 @@
 package de.awacademy.weblogTilLeif.comment;
 
 import de.awacademy.weblogTilLeif.article.Article;
-import de.awacademy.weblogTilLeif.model.BaseEntity;
 import de.awacademy.weblogTilLeif.user.User;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity
-public class Comment extends BaseEntity {
+public class Comment {
 
+	@Id
+	private String id;
 	@Lob
 	private String text;
 	private LocalDateTime createdDateTime;
@@ -23,13 +25,16 @@ public class Comment extends BaseEntity {
 	private Article article;
 
 	public Comment() {
+		this.id = UUID.randomUUID().toString();
 		createdDateTime = LocalDateTime.now();
 	}
 
-	public Comment(String text, User user,Article article) {
+	public Comment(String text, User user, Article article) {
 		this.text = text;
 		this.user = user;
-		this.article=article;
+		this.article = article;
+		this.id = UUID.randomUUID().toString();
+		createdDateTime = LocalDateTime.now();
 	}
 
 	public String getText() {
@@ -54,6 +59,14 @@ public class Comment extends BaseEntity {
 
 	public void setArticle(Article article) {
 		this.article = article;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public LocalDateTime getCreatedDateTime() {
