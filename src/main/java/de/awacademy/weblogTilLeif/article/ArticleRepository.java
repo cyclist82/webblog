@@ -1,4 +1,4 @@
-package de.awacademy.weblogTilLeif.beitrag;
+package de.awacademy.weblogTilLeif.article;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

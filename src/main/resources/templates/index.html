@@ -27,7 +27,9 @@
                 <div class="container p-0">
                     <div class="row">
                         <small class="col-md-6" th:text="'Erstellt von '+${article.getUser().username}"></small>
-                        <small class="col-md-6 text-right" th:text="${article.getCreationDateTime()}">Zeit</small>
+                        <small class="col-md-6 text-right"
+                               th:text="${#temporals.format(article.creationDateTime,#locale.GERMANY)}">Zeit
+                        </small>
                     </div>
                 </div>
             </div>

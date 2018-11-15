@@ -20,6 +20,8 @@ public class SessionControllerAdvice {
 		this.sessionRepository = sessionRepository;
 	}
 
+	// runs on every request, no whatter which it is
+	// This way it is possible to use it everywhere in the template
 	@ModelAttribute("currentUser")
 	public User currentUser(@CookieValue(value = "sessionId", defaultValue = "") String sessionId) {
 		Optional<Session> session = sessionRepository.findById(sessionId);

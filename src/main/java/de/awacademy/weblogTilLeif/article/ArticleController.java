@@ -1,4 +1,4 @@
-package de.awacademy.weblogTilLeif.beitrag;
+package de.awacademy.weblogTilLeif.article;
 
 import de.awacademy.weblogTilLeif.user.User;
 import org.springframework.stereotype.Controller;

@@ -1,4 +1,4 @@
-package de.awacademy.weblogTilLeif.beitrag;
+package de.awacademy.weblogTilLeif.article;
 
 
 import javax.validation.constraints.Size;

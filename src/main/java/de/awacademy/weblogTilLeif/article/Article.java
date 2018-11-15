@@ -1,10 +1,8 @@
-package de.awacademy.weblogTilLeif.beitrag;
+package de.awacademy.weblogTilLeif.article;
 
 import de.awacademy.weblogTilLeif.user.User;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -56,7 +54,11 @@ public class Article {
 	}
 
 	// Should this be Part of the Article...or Article Service???
-	public String getCreationDateTime() {
+	public String getFormattedCreationDateTime() {
 		return DateTimeFormatter.ofLocalizedDateTime(FormatStyle.LONG, FormatStyle.LONG).withLocale(Locale.GERMANY).withZone(ZoneId.of("Europe/Berlin")).format(creationDateTime);
+	}
+
+	public LocalDateTime getCreationDateTime() {
+		return creationDateTime;
 	}
 }
