@@ -1,6 +1,7 @@
 package de.awacademy.weblogTilLeif.article;
 
 import de.awacademy.weblogTilLeif.comment.Comment;
+import de.awacademy.weblogTilLeif.model.BaseEntity;
 import de.awacademy.weblogTilLeif.user.User;
 
 import javax.persistence.*;
@@ -14,10 +15,7 @@ import java.util.Locale;
 import java.util.UUID;
 
 @Entity
-public class Article {
-
-	@Id
-	private String id;
+public class Article extends BaseEntity {
 
 	private String title;
 	@Lob
@@ -41,7 +39,6 @@ public class Article {
 		this.text = text;
 		this.user = user;
 		this.creationDateTime = LocalDateTime.now();
-		this.id = UUID.randomUUID().toString();
 	}
 
 	public Article(String title) {
@@ -69,9 +66,6 @@ public class Article {
 		return creationDateTime;
 	}
 
-	public String getId() {
-		return id;
-	}
 
 	public void addComment(Comment comment) {
 		comments.add(comment);
