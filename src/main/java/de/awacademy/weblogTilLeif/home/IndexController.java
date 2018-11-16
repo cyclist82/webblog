@@ -25,9 +25,6 @@ public class IndexController {
 	@GetMapping("/")
 	public String home(Model model) {
 		model.addAttribute("articles", articleRepository.findAllByOrderByCreationDateTimeDesc());
-//		if(currentUser==null){
-			model.addAttribute("login", new LoginDTO());
-//		}
 		return "index";
 	}
 }
