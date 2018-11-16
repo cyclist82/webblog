@@ -27,7 +27,7 @@ public class Article {
 	@JoinColumn
 	private User user;
 
-	@OneToMany(fetch = FetchType.EAGER)
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "article")
 	@OrderBy(value = "createdDateTime ASC")
 	private List<Comment> comments = new ArrayList<>();
 

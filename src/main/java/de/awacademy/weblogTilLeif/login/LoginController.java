@@ -29,7 +29,7 @@ public class LoginController {
 	@GetMapping(value = "/login")
 	public String login() {
 //		model.addAttribute("login", new LoginDTO());
-		return "login";
+		return "redirect:/";
 	}
 
 	@PostMapping("/login")
