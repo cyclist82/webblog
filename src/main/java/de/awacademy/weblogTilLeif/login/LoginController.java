@@ -26,11 +26,12 @@ public class LoginController {
 		this.sessionRepository = sessionRepository;
 	}
 
-	@GetMapping(value = "/login")
-	public String login(Model model) {
-		model.addAttribute("login", new LoginDTO());
-		return "login";
-	}
+	// GET for "/login" not necessary, as Login form is running on "/" now
+//	@GetMapping(value = "/login")
+//	public String login(Model model) {
+//		model.addAttribute("login", new LoginDTO());
+//		return "login";
+//	}
 
 	@PostMapping("/login")
 	public String loginSubmit(Model model, @ModelAttribute("login") LoginDTO loginDTO, HttpServletResponse response) {
@@ -38,7 +39,7 @@ public class LoginController {
 		if (optionalUser.isPresent()) {
 			Session session = new Session(optionalUser.get());
 			sessionRepository.save(session);
-			response.addCookie(new Cookie("sessionId",session.getId()));
+			response.addCookie(new Cookie("sessionId", session.getId()));
 			return "redirect:/";
 		}
 		model.addAttribute("login", loginDTO);

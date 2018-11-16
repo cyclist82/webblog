@@ -8,8 +8,8 @@
 <h1>Create Article</h1>
 <form th:action="@{/article}" method="post" th:object="${article}">
     Titel: <input type="text" th:field="*{title}"><br/>
-    Text: <input type="text" th:field="*{text}"><br/>
+    Text: <textarea type="text" th:field="*{text}"></textarea><br/>
     <button type="submit">Abschicken</button>
 </form>
 </body>
-</html>
+</html>+

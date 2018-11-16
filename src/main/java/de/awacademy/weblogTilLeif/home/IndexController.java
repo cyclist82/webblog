@@ -1,6 +1,7 @@
 package de.awacademy.weblogTilLeif.home;
 
 import de.awacademy.weblogTilLeif.article.ArticleRepository;
+import de.awacademy.weblogTilLeif.login.LoginDTO;
 import de.awacademy.weblogTilLeif.session.SessionRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +23,7 @@ public class IndexController {
 	@GetMapping("/")
 	public String home(Model model) {
 		model.addAttribute("articles", articleRepository.findAllByOrderByCreationDateTimeDesc());
+		model.addAttribute("login", new LoginDTO());
 		return "index";
 	}
 }
