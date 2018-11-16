@@ -28,7 +28,7 @@ public class ArticleController {
 
 	@PostMapping("/article")
 	public String create(@ModelAttribute("article") @Valid ArticleDTO articleDTO, BindingResult bindingResult, @ModelAttribute("currentUser") User currentUser) {
-		if (currentUser == null) {
+		if (currentUser == null || (!currentUser.isAdmin())) {
 			return "redirect:/";
 		}
 		if (bindingResult.hasErrors()) {

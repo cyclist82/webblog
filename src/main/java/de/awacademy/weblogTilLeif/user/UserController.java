@@ -20,14 +20,20 @@ public class UserController {
 	}
 
 	@GetMapping
-	private String findUsers(Model model) {
+	private String findUsers(Model model, @ModelAttribute("currentUser") User currentUser) {
+		if (!currentUser.isAdmin()) {
+			return "redirect:/";
+		}
 		model.addAttribute("users", userRepository.findAll());
 		return "users/users";
 	}
 
 	@PostMapping("/{id}/toAdmin")
-	private String makeAdmin(@PathVariable("id") String userId) {
-		User user=userRepository.findById(userId).get();
+	private String makeAdmin(@PathVariable("id") String userId, @ModelAttribute("currentUser") User currentUser) {
+		if (!currentUser.isAdmin()) {
+			return "redirect:/";
+		}
+		User user = userRepository.findById(userId).get();
 		user.setAdmin(true);
 		this.userRepository.save(user);
 		return "redirect:/";

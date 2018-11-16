@@ -11,8 +11,10 @@
             <li class="nav-item active">
                 <a class="nav-link" href="../index.html">News<span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item">
+            <li th:if="${currentUser!=null}" class="nav-item">
+            <span th:if="${currentUser.admin}">
                 <a class="nav-link" href="/users">Users</a>
+            </span>
             </li>
             <li class="nav-item dropdown">
                         <span class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
