@@ -46,8 +46,10 @@
                             <!-- Logik einbauen -->
                             <a th:if="${currentUser!=null}" th:href="@{{id}/comment/new(id=${article.getId()})}"
                                class="btn btn-primary">Beitrag bearbeiten</a>
-                            <a th:if="${currentUser!=null}" th:href="@{{id}/comment/new(id=${article.getId()})}"
-                               class="btn btn-primary">Beitrag löschen</a>
+                            <form th:action="@{{articleId}/delete(articleId=${article.id})}"
+                                  method="post">
+                                <button class="btn btn-primary" type="submit">Beitrag löschen</button>
+                            </form>
                         </div>
                     </div>
                 </div>
