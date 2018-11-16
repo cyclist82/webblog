@@ -52,6 +52,7 @@
                     <small class="col-md-6 text-right"
                            th:text="${#temporals.format(comment.createdDateTime,#locale.GERMANY)}">Zeit
                     </small>
+
                 </div>
 
             </div>
@@ -61,8 +62,10 @@
         <div class="row">
             <div class="col p-3">
                 <!--Write Article Button just available if User Logged in-->
-                <a th:if="${currentUser != null}" class="btn btn-primary" href="/article">Beitrag schreiben</a>
-
+                <div th:if="${currentUser != null}">
+                    <a th:if="${currentUser.admin}" class="btn btn-primary" href="/article">Beitrag
+                        schreiben</a>
+                </div>
                 <!--If not logged in Button SignUp is available-->
                 <a th:if="${currentUser == null}" class="btn btn-primary" href="/login">Login</a>
                 <a th:if="${currentUser == null}" class="btn btn-primary" href="/signup">Signup</a>
