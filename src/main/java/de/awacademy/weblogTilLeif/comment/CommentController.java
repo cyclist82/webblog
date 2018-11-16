@@ -32,6 +32,11 @@ public class CommentController {
 		model.addAttribute("comment", new CommentDTO());
 		return "createComment";
 	}
+    // Delete Comment
+//	@GetMapping("/comment/delete")
+//	public void deleteComment (Model model){
+//		model.
+//	}
 
 	@ModelAttribute("article")
 	public Article findArticle(@PathVariable("articleId") String articleId) {
@@ -61,4 +66,10 @@ public class CommentController {
 			return "redirect:/";
 		}
 	}
+
+    @PostMapping("/deleteComment/{id}")
+    public String deleteComment(@PathVariable String id){
+        commentRepository.deleteById(id);
+        return "redirect:/";
+    }
 }
