@@ -63,9 +63,11 @@ public class CommentController {
 	}
 
 	@PostMapping("/comments/{commentId}/delete")
-	private String deleteComment(@PathVariable("commentId") String commentId) {
+	private String deleteComment(@PathVariable("commentId") String commentId, @ModelAttribute("currentUser") User currentUser) {
 		Comment comment = commentRepository.findById(commentId).get();
-		this.commentRepository.delete(comment);
+		if (currentUser.isAdmin() || currentUser.getId() == comment.getUser().getId()) {
+			this.commentRepository.delete(comment);
+		}
 		return "redirect:/";
 	}
 }
