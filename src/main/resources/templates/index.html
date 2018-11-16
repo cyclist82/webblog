@@ -17,7 +17,7 @@
     <div class="container">
         <div class="row">
             <div class="col text-center">
-                <h1 th:text="${currentUser != null ? 'Hallo '+currentUser.username : 'Willkommen zu unserem Blog'}"></h1>
+                <h1 th:text="${currentUser != null ? 'Hallo '+currentUser.username+' Willkommen zurück' : 'Willkommen zu unserem Blog'}"></h1>
             </div>
         </div>
     </div>
@@ -40,7 +40,8 @@
                             </small>
                         </div>
                         <div class="row">
-                            <a th:href="@{{id}/comment/new(id=${article.getId()})}" class="btn btn-primary">Neuer
+                            <a th:if="${currentUser!=null}" th:href="@{{id}/comment/new(id=${article.getId()})}"
+                               class="btn btn-primary">Neuer
                                 Kommentar</a>
                         </div>
                     </div>
@@ -61,6 +62,7 @@
             <div class="col p-3">
                 <!--Write Article Button just available if User Logged in-->
                 <a th:if="${currentUser != null}" class="btn btn-primary" href="/article">Beitrag schreiben</a>
+
                 <!--If not logged in Button SignUp is available-->
                 <a th:if="${currentUser == null}" class="btn btn-primary" href="/login">Login</a>
                 <a th:if="${currentUser == null}" class="btn btn-primary" href="/signup">Signup</a>

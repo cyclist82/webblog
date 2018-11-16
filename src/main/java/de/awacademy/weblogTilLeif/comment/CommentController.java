@@ -7,6 +7,7 @@ import de.awacademy.weblogTilLeif.user.UserRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -27,9 +28,9 @@ public class CommentController {
 	}
 
 	@GetMapping("/comment/new")
-	public String commentCreationForm(Model model) {
+	public String createComment(Model model) {
 		model.addAttribute("comment", new CommentDTO());
-		return "createOrUpdateComment";
+		return "createComment";
 	}
 
 	@ModelAttribute("article")
@@ -42,15 +43,19 @@ public class CommentController {
 	}
 
 	@PostMapping("/comment/new")
-	public String commentCreationForm(@ModelAttribute("article") Article article, @Valid CommentDTO commentDTO, BindingResult result, Model model, @ModelAttribute("currentUser") User currentUser) {
+	public String createComment(@ModelAttribute("article") Article article, @Valid CommentDTO commentDTO, BindingResult bindingResult, Model model, @ModelAttribute("currentUser") User currentUser) {
 //		if (StringUtils.hasLength(pet.getName()) && pet.isNew() && owner.getPet(pet.getName(), true) != null){
 //			result.rejectValue("name", "duplicate", "already exists");
 //		}
+		if (currentUser == null) {
+			return "redirect:/";
+		}
 		Comment comment = new Comment(commentDTO.getText(), currentUser, article);
 		article.addComment(comment);
-		if (result.hasErrors()) {
+		if (bindingResult.hasErrors()) {
 			model.addAttribute("comment", commentDTO);
-			return "createOrUpdateComment";
+			bindingResult.addError(new FieldError("comment", "text", "Fehler bei der Eingabe"));
+			return "createComment";
 		} else {
 			this.commentRepository.save(comment);
 			return "redirect:/";
