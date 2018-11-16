@@ -1,11 +1,13 @@
 package de.awacademy.weblogTilLeif.session;
 
+import de.awacademy.weblogTilLeif.article.ArticleRepository;
 import de.awacademy.weblogTilLeif.login.LoginDTO;
 import de.awacademy.weblogTilLeif.user.User;
 import de.awacademy.weblogTilLeif.user.UserRepository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.CookieValue;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 import javax.servlet.http.Cookie;
@@ -15,9 +17,13 @@ import java.util.Optional;
 public class SessionControllerAdvice {
 
 	private SessionRepository sessionRepository;
+	private UserRepository userRepository;
+	private ArticleRepository articleRepository;
 
-	public SessionControllerAdvice(UserRepository userRepository, SessionRepository sessionRepository) {
+	public SessionControllerAdvice(UserRepository userRepository, SessionRepository sessionRepository, ArticleRepository articleRepository) {
 		this.sessionRepository = sessionRepository;
+		this.userRepository = userRepository;
+		this.articleRepository = articleRepository;
 	}
 
 	// runs on every request, no whatter which it is
@@ -31,10 +37,13 @@ public class SessionControllerAdvice {
 		return null;
 	}
 
-	@ModelAttribute("login")
-	public LoginDTO loginDTO(){
-		return new LoginDTO();
+	@GetMapping("/")
+	public String home(Model model) {
+		model.addAttribute("articles", articleRepository.findAllByOrderByCreationDateTimeDesc());
+		//		if(currentUser==null){
+		model.addAttribute("login", new LoginDTO());
+		//		}
+		return "index";
 	}
-
 
 }

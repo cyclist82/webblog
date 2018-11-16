@@ -44,6 +44,6 @@ public class SignupController {
 		}
 		// Happy Path. New User is created
 		userRepository.save(new User(signupDTO.getUsername(), signupDTO.getPassword2()));
-		return "redirect:/login";
+		return "redirect:/";
 	}
 }

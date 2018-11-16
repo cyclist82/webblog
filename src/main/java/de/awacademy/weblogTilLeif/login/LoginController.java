@@ -26,12 +26,11 @@ public class LoginController {
 		this.sessionRepository = sessionRepository;
 	}
 
-	// GET for "/login" not necessary, as Login form is running on "/" now
-//	@GetMapping(value = "/login")
-//	public String login(Model model) {
+	@GetMapping(value = "/login")
+	public String login() {
 //		model.addAttribute("login", new LoginDTO());
-//		return "login";
-//	}
+		return "login";
+	}
 
 	@PostMapping("/login")
 	public String loginSubmit(Model model, @ModelAttribute("login") LoginDTO loginDTO, HttpServletResponse response) {
