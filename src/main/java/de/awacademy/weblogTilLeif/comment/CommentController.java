@@ -61,4 +61,11 @@ public class CommentController {
 			return "redirect:/";
 		}
 	}
+
+	@PostMapping("/comments/{commentId}/delete")
+	private String deleteComment(@PathVariable("commentId") String commentId) {
+		Comment comment = commentRepository.findById(commentId).get();
+		this.commentRepository.delete(comment);
+		return "redirect:/";
+	}
 }

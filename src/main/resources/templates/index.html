@@ -52,7 +52,15 @@
                     <small class="col-md-6 text-right"
                            th:text="${#temporals.format(comment.createdDateTime,#locale.GERMANY)}">Zeit
                     </small>
-
+                    <!--Delete comment button just shown if User is Admin or his own comment-->
+                    <div th:if="${currentUser != null}">
+                        <div th:if="${currentUser.admin OR currentUser.id == comment.user.id}">
+                            <form th:action="@{{articleId}/comments/{commentId}/delete(commentId=${comment.id}, articleId=${article.id})}"
+                                  method="post">
+                                <button class="btn btn-primary" type="submit">Kommentar löschen</button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
 
             </div>
