@@ -1,6 +1,5 @@
 package de.awacademy.weblogTilLeif.user;
 
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.UUID;
@@ -14,6 +13,7 @@ public class User {
 	@Column(unique = true)
 	private String username;
 	private String password;
+	private boolean isAdmin = false;
 
 	public User() {
 	}
@@ -25,7 +25,21 @@ public class User {
 		this.id = UUID.randomUUID().toString();
 	}
 
+	public void setAdmin(boolean admin) {
+		isAdmin = admin;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public boolean isAdmin() {
+		return isAdmin;
+	}
+
 	public String getUsername() {
 		return username;
 	}
 }
+
+
