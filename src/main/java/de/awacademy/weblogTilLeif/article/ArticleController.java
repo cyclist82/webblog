@@ -1,5 +1,7 @@
 package de.awacademy.weblogTilLeif.article;
 
+import de.awacademy.weblogTilLeif.comment.Comment;
+import de.awacademy.weblogTilLeif.comment.CommentRepository;
 import de.awacademy.weblogTilLeif.user.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
@@ -15,8 +18,10 @@ import javax.validation.Valid;
 public class ArticleController {
 
 	private ArticleRepository articleRepository;
+	private CommentRepository commentRepository;
 
-	public ArticleController(ArticleRepository articleRepository) {
+	public ArticleController(ArticleRepository articleRepository, CommentRepository commentRepository) {
+		this.commentRepository = commentRepository;
 		this.articleRepository = articleRepository;
 	}
 
@@ -40,5 +45,15 @@ public class ArticleController {
 		return "redirect:/";
 	}
 
-
+	@PostMapping("/{articleId}/delete")
+	private String deleteArticle(@PathVariable("articleId") String articleId, @ModelAttribute("currentUser") User currentUser) {
+		Article article = articleRepository.findById(articleId).get();
+		if (currentUser.isAdmin()) {
+			for (Comment comment : article.getComments()) {
+				commentRepository.delete(comment);
+			}
+			articleRepository.delete(article);
+		}
+		return "redirect:/";
+	}
 }
