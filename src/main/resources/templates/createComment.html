@@ -29,10 +29,6 @@
                     th:with="text=${comment} ? 'Kommentar hinzufügen' : 'Kommentar bearbeiten' "
                     class="btn btn-default" type="submit" th:text="${text}">Add Comment
             </button>
-            <!--<div th:action="@{/deleteComment/{id}(id=${comment.commentId})}" th:object="${comment}" method="post">-->
-                <!--<input type="hidden" th:field="${comment}">Delete</input>-->
-                <!--<button type="submit" onClick="return confirm('sure?')"/>-->
-            <!--</div>-->
         </div>
     </div>
 </form>

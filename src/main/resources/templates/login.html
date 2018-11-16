@@ -1,11 +1,11 @@
-<!--<!DOCTYPE html>-->
-<!--<html lang="de" xmlns:th="http://www.thymeleaf.org">-->
-<!--<head>-->
-<!--<meta charset="UTF-8">-->
-<!--<title>Login</title>-->
-<!--</head>-->
-<!--<body>-->
-<!--<h1>Login</h1>-->
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+<h1>Login</h1>
 <form th:fragment="login" th:action="@{/login}" method="post" th:object="${login}">
     <!--Username: <input type="text" th:field="*{username}"><br/>-->
     <!--Passwort: <input type="password" th:field="*{password}"><br/>-->
@@ -16,5 +16,5 @@
     </form>
     <!--<button class="btn btn-primary" type="submit">Login</button>-->
 </form>
-<!--</body>-->
-<!--</html>-->
+</body>
+</html>

@@ -41,8 +41,12 @@
                         </div>
                         <div class="row">
                             <a th:if="${currentUser!=null}" th:href="@{{id}/comment/new(id=${article.getId()})}"
-                               class="btn btn-primary">Neuer
-                                Kommentar</a>
+                               class="btn btn-primary">Neuer Kommentar</a>
+                            <!-- Logik einbauen -->
+                            <a th:if="${currentUser!=null}" th:href="@{{id}/comment/new(id=${article.getId()})}"
+                               class="btn btn-primary">Beitrag bearbeiten</a>
+                            <a th:if="${currentUser!=null}" th:href="@{{id}/comment/new(id=${article.getId()})}"
+                               class="btn btn-primary">Beitrag löschen</a>
                         </div>
                     </div>
                 </div>
