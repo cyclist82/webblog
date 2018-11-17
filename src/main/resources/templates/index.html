@@ -1,102 +1,63 @@
 <!DOCTYPE html>
-<html lang="de" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta charset="UTF-8">
-    <title>Webblog</title>
-    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.1.3/css/bootstrap.min.css}">
-    <link rel="shortcut icon" type="image/x-icon" th:href="@{/resources/images/favicon.png}">
-    <link rel="stylesheet" th:href="@{/resources/css/style.css}"/>
-</head>
-<body>
-<div class="container gesamt my-md-3">
-    <div th:replace="fragments/header::header">
-    </div>
-    <div th:replace="fragments/navigation::navigation">
-    </div>
-    <div class="container">
-        <div class="row">
-            <div class="col text-center">
-                <h1 th:text="${currentUser != null ? 'Hallo '+currentUser.username+' Willkommen zurück' : 'Willkommen zu unserem Blog'}"></h1>
-            </div>
-        </div>
-    </div>
-    <div class="container">
-        <div class="row">
-            <!--The articles are starting here-->
-            <div class="col-md-6 px-2 py-2" th:each="article: ${articles}">
-                <div class="col border rounded p-2">
-                    <div>
-                        <h1 th:text="${article.title}">Titel</h1>
 
-                    </div>
-                    <div>
-                        <p th:text="${article.text}">Text</p>
-                    </div>
-                    <div class="container p-0">
-                        <div class="row">
-                            <small class="col-md-6" th:text="'Erstellt von '+${article.getUser().username}"></small>
-                            <small class="col-md-6 text-right"
-                                   th:text="${#temporals.format(article.creationDateTime,#locale.GERMANY)}">Zeit
-                            </small>
-                        </div>
-                        <div th:if="${currentUser!=null}" class="row">
-                            <a th:href="@{{id}/comment/new(id=${article.getId()})}"
-                               class="btn btn-primary">Neuer Kommentar</a>
-                            <!-- Logik einbauen -->
-                            <div th:if="${currentUser.admin}">
-                                <a th:href="@{{id}/comment/new(id=${article.getId()})}"
-                                   class="btn btn-primary">Beitrag bearbeiten</a>
-                                <form th:action="@{{articleId}/delete(articleId=${article.id})}"
-                                      method="post">
-                                    <button class="btn btn-primary" type="submit">Beitrag löschen</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'home')}">
+
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <!--The articles are starting here-->
+        <div class="col-md-6 px-2 py-2" th:each="article: ${articles}">
+            <div class="col border rounded p-2">
+                <div>
+                    <h1 th:text="${article.title}">Titel</h1>
+
                 </div>
-                <!--The comments to the Article are Starting here-->
-                <div class="row" th:each="comment:${article.comments}">
-                    <div th:text="${comment.text}"></div>
-                    <small class="col-md-6" th:text="'Erstellt von '+${comment.getUser().username}"></small>
-                    <small class="col-md-6 text-right"
-                           th:text="${#temporals.format(comment.createdDateTime,#locale.GERMANY)}">Zeit
-                    </small>
-                    <!--Delete comment button just shown if User is Admin or his own comment-->
-                    <div th:if="${currentUser != null}">
-                        <div th:if="${currentUser.admin OR currentUser.id == comment.user.id}">
-                            <form th:action="@{{articleId}/comments/{commentId}/delete(commentId=${comment.id}, articleId=${article.id})}"
+                <div>
+                    <p th:text="${article.text}">Text</p>
+                </div>
+                <div class="container p-0">
+                    <div class="row">
+                        <small class="col-md-6" th:text="'Erstellt von '+${article.getUser().username}"></small>
+                        <small class="col-md-6 text-right"
+                               th:text="${#temporals.format(article.creationDateTime,#locale.GERMANY)}">Zeit
+                        </small>
+                    </div>
+                    <div th:if="${currentUser!=null}" class="row">
+                        <a th:href="@{{id}/comment/new(id=${article.getId()})}"
+                           class="btn btn-primary">Neuer Kommentar</a>
+                        <!-- Logik einbauen -->
+                        <div th:if="${currentUser.admin}">
+                            <a th:href="@{{id}/comment/new(id=${article.getId()})}"
+                               class="btn btn-primary">Beitrag bearbeiten</a>
+                            <form th:action="@{{articleId}/delete(articleId=${article.id})}"
                                   method="post">
-                                <button class="btn btn-primary" type="submit">Kommentar löschen</button>
+                                <button class="btn btn-primary" type="submit">Beitrag löschen</button>
                             </form>
                         </div>
                     </div>
                 </div>
-
             </div>
-        </div>
-    </div>
-    <div class="container">
-        <div class="row">
-            <div class="col p-3">
-                <!--Write Article Button just available if User Logged in-->
+            <!--The comments to the Article are Starting here-->
+            <div class="row" th:each="comment:${article.comments}">
+                <div th:text="${comment.text}"></div>
+                <small class="col-md-6" th:text="'Erstellt von '+${comment.getUser().username}"></small>
+                <small class="col-md-6 text-right"
+                       th:text="${#temporals.format(comment.createdDateTime,#locale.GERMANY)}">Zeit
+                </small>
+                <!--Delete comment button just shown if User is Admin or his own comment-->
                 <div th:if="${currentUser != null}">
-                    <a th:if="${currentUser.admin}" class="btn btn-primary" href="/article">Beitrag
-                        schreiben</a>
+                    <div th:if="${currentUser.admin OR currentUser.id == comment.user.id}">
+                        <form th:action="@{{articleId}/comments/{commentId}/delete(commentId=${comment.id}, articleId=${article.id})}"
+                              method="post">
+                            <button class="btn btn-primary" type="submit">Kommentar löschen</button>
+                        </form>
+                    </div>
                 </div>
-                <!--If not logged in Button SignUp is available-->
-                <a th:if="${currentUser == null}" class="btn btn-primary" href="/login">Login</a>
-                <a th:if="${currentUser == null}" class="btn btn-primary" href="/signup">Signup</a>
-
-                <!--Logout button is available if Logged in-->
-                <form th:if="${currentUser != null}" th:action="@{/logout}" method="post">
-                    <button class="btn btn-primary" type="submit">Logout</button>
-                </form>
             </div>
+
         </div>
     </div>
 </div>
-<script th:src="@{/webjars/jquery/3.3.1-1/jquery.min.js}"></script>
-<script th:src="@{/webjars/bootstrap/4.1.3/js/bootstrap.min.js}"></script>
+
 </body>
 </html>

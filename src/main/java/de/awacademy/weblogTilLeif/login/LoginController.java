@@ -32,6 +32,13 @@ public class LoginController {
 		return "redirect:/";
 	}
 
+//	Necessary for Impressum to work inside the layout
+	@GetMapping("/impressum")
+	public String impressum(Model model) {
+		model.addAttribute("login", new LoginDTO());
+		return "content/impressum";
+	}
+
 	@PostMapping("/login")
 	public String loginSubmit(Model model, @ModelAttribute("login") LoginDTO loginDTO, HttpServletResponse response) {
 		Optional<User> optionalUser = userRepository.findFirstByUsernameAndPassword(loginDTO.getUsername(), loginDTO.getPassword());
@@ -42,7 +49,7 @@ public class LoginController {
 			return "redirect:/";
 		}
 		model.addAttribute("login", loginDTO);
-		return "login";
+		return "redirect:/";
 	}
 
 	@PostMapping("/logout")

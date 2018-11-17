@@ -1,11 +1,7 @@
 <!DOCTYPE html>
-<html lang="de" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Create Article</title>
-</head>
+<html lang="de" xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'newarticle')}">
 <body>
-<h1>Create Article</h1>
+<h1>Beitrag erstellen</h1>
 <form th:action="@{/article}" method="post" th:object="${article}">
     Titel: <input type="text" th:field="*{title}"><br/>
     Text: <textarea type="text" th:field="*{text}"></textarea><br/>

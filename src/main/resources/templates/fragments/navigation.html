@@ -8,14 +8,24 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="../index.html">News<span class="sr-only">(current)</span></a>
+            <li th:fragment="menuItem (path,active,title,glyph)" class="nav-item"
+                th:class="${active==menu ? 'nav-item active' : 'nav-item'}">
+                <a th:href="@{__${path}__}" class="nav-link" th:text="${title}"><span class="sr-only">(current)</span>
+                </a>
             </li>
-            <li th:if="${currentUser!=null}" class="nav-item">
-            <span th:if="${currentUser.admin}">
-                <a class="nav-link" href="/users">Users</a>
+            <li th:replace="::menuItem ('/','home','Artikel','home')">
+            </li>
+            <span th:if="${currentUser!=null}" class="nav-item">
+                <span th:if="${currentUser.admin}">
+                    <li th:replace="::menuItem ('/users','users','Benutzer','users')"></li>
+                </span>
             </span>
-            </li>
+            <span th:if="${currentUser!=null}" class="nav-item">
+                <span th:if="${currentUser.admin}">
+                    <li th:replace="::menuItem ('/article','newarticle','Neuer Beitrag','articles')"></li>
+                </span>
+            </span>
+
             <li>
                 <form th:if="${currentUser != null}" th:action="@{/logout}" method="post">
                     <button class="btn btn-primary" type="submit">Logout</button>
@@ -31,13 +41,14 @@
                         <div>
                             <div th:replace="login::login">Login</div>
                         </div>
-                        <!--<a th:if="${currentUser == null}" class="btn btn-primary" href="/login">Login</a>-->
-                        <a th:if="${currentUser == null}" class="btn btn-primary" href="/signup">Signup</a>
                     </div>
                 </div>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="impressum.html">Impressum</a>
+            <span th:if="${currentUser==null}" class="nav-item">
+                    <li th:replace="::menuItem ('/signup','signup','Signup','signup')"></li>
+
+            </span>
+            <li th:replace="::menuItem ('/impressum','impressum','Impressum','impressum')">
             </li>
         </ul>
     </div>

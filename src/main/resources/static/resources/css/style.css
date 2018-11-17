@@ -16,7 +16,7 @@ body {
     background-size: cover;
     border-radius: 10px 10px 0px 0px;
     height: 200px;
-    max-width: 1200px;
+    max-width: 1600px;
 }
 
 figcaption.figure-caption {
@@ -81,8 +81,6 @@ span.navbar-toggler-icon {
     border-radius: 10px;
 }
 
-
-
 #platzhalter {
     height: 190px;
 }
@@ -106,9 +104,9 @@ p {
     margin-bottom: 5px;
 }
 
-div.container.gesamt.my-md-3 {
+div.container-fluid.gesamt.my-md-3 {
     background-color: white;
-    max-width: 1200px;
+    max-width: 1600px;
     border-radius: 10px;
     background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("/resources/images/evGlasgow.JPG");
     background-size: cover;

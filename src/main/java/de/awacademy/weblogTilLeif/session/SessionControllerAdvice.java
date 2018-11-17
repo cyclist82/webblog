@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
-import javax.servlet.http.Cookie;
 import java.util.Optional;
 
 @ControllerAdvice
@@ -45,5 +44,4 @@ public class SessionControllerAdvice {
 		//		}
 		return "index";
 	}
-
 }

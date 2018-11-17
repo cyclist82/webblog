@@ -1,9 +1,6 @@
 <!DOCTYPE html>
-<html lang="de" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Signup</title>
-</head>
+<html lang="de" xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'signup')}">
+
 <body>
 <h1>Signup</h1>
 <form th:action="@{/signup}" th:object="${signup}" method="post">
@@ -23,4 +20,3 @@
     <button type="submit">Singup</button>
 </form>
 </body>
-</html>
