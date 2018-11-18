@@ -17,9 +17,6 @@ public class Category {
 	private String name;
 	private boolean active = true;
 
-	@ManyToMany
-	private Set<Article> articles = new HashSet<>();
-
 
 	public Category() {
 		this.id = UUID.randomUUID().toString();
@@ -46,11 +43,5 @@ public class Category {
 		return id;
 	}
 
-	public Set<Article> getArticles() {
-		return articles;
-	}
 
-	public void setArticles(Set<Article> articles) {
-		this.articles = articles;
-	}
 }

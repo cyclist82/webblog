@@ -9,10 +9,11 @@
     Text: <textarea type="text" th:field="*{text}"></textarea><br/>
     <button type="submit" name="addarticle">Speichern</button>
 </form>
-<form th:action="@{/login}" method="post" th:object="${category}">
-    <input th:replace="~{fragments/inputField :: input ('Kategorie', 'name', 'text')}"/>
-    <button type="submit" name="addcategory">Kategorie speichern</button>
-</form>
+<!--<form th:action="@{/createCategory}" method="post" th:object="${category}">-->
+    <!--<input th:replace="~{fragments/inputField :: input ('Kategorie', 'name', 'text')}"/>-->
+    <!--<button type="submit" name="addcategory">Kategorie speichern</button>-->
+<!--</form>-->
+<div th:replace="~{category/createCategory :: input}"></div>
 <br>
 Kategorien des Artikels
 <div class="row" th:each="categoryArticle:${article.getCategories()}">

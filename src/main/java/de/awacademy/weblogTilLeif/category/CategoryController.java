@@ -51,17 +51,25 @@ public class CategoryController {
 //	public Set<Category> findArticle() {
 //		return categoryRepository.findByActive(true);
 //	}
+	@PostMapping("createCategory")
+	public String createCategory(@ModelAttribute("article") Article article, @ModelAttribute("category") CategoryDTO categoryDTO,@ModelAttribute("currentUser") User currentUser, BindingResult bindingResult){
+		if (currentUser == null || (!currentUser.isAdmin())) {
+			return "redirect:/";
+		}
+		Category category =new Category(categoryDTO.getName());
+		article.getCategories().add(category);
+		articleRepository.save(article);
+		return "redirect:/" + article.getId() + "/edit";
+	}
 
 	@PostMapping("/addCategory/{categoryId}/add")
-	public String addCategory(@ModelAttribute("article") Article article, Model model, @ModelAttribute("currentUser") User currentUser, @PathVariable String categoryId, BindingResult bindingResult) {
+	public String addCategory(@ModelAttribute("article") Article article, @ModelAttribute("currentUser") User currentUser, @PathVariable String categoryId, BindingResult bindingResult) {
 		if (currentUser == null || (!currentUser.isAdmin())) {
 			return "redirect:/";
 		}
 		Category category = categoryRepository.findById(categoryId).get();
-		category.getArticles().add(article);
 		article.getCategories().add(category);
 		articleRepository.save(article);
-		categoryRepository.save(category);
 		return "redirect:/" + article.getId() + "/edit";
 	}
 
@@ -72,9 +80,7 @@ public class CategoryController {
 		}
 		Category category = categoryRepository.findById(categoryId).get();
 		article.getCategories().remove(category);
-		category.getArticles().remove(article);
 		articleRepository.save(article);
-		categoryRepository.save(category);
 //		model.addAttribute("category", new CategoryDTO());
 		return "redirect:/" + article.getId() + "/edit";
 	}
