@@ -2,10 +2,11 @@
 <html>
 <body>
 <th:block th:fragment="categories">
-    <div class="row" th:each="categoryArticle:${article.getCategories()}">
+    <h3 th:if="${!article.getCategories().isEmpty()}">Kategorien</h3>
+    <p th:each="categoryArticle:${article.getCategories()}">
         <a type="submit" th:text="${categoryArticle.getName()}">Kategorie
         </a>
-    </div>
+    </p>
 </th:block>
 </body>
 </html>

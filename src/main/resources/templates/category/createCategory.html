@@ -3,7 +3,7 @@
 <html lang="de" xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'newarticle')}">
 <body>
 <h1>Kategorie erstellen</h1>
-<form th:fragment="input" th:object="${category}" class="form-horizontal" method="post">
+<form th:fragment="input"  th:object="${category}" class="form-horizontal" method="post">
     <input
             th:replace="~{fragments/inputField :: input ('Kategorie', 'name', 'text')}"/>
     <button class="btn btn-primary" type="submit">Speichern</button>
