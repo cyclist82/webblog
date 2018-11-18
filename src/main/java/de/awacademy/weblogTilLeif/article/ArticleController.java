@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -33,9 +34,11 @@ public class ArticleController {
 	}
 
 	@GetMapping("/article")
-	public String create(Model model) {
+	public String create(Model model, @ModelAttribute("article") ArticleDTO articleDTO) {
 		if (!model.containsAttribute("article")) {
 			model.addAttribute("article", new ArticleDTO());
+		} else {
+			model.addAttribute("article", articleDTO);
 		}
 		model.addAttribute("category", new CategoryDTO());
 		return "createArticle";
@@ -48,10 +51,10 @@ public class ArticleController {
 			return "redirect:/";
 		}
 		Category category = new Category(categoryDTO.getName());
-		categoryRepository.save(category);
-		articleDTO.getCategories().add(category);
+		Category category1 = categoryRepository.save(category);
+		articleDTO.getCategories().add(category1);
 		model.addAttribute("article", articleDTO);
-		return "createArticle";
+		return "redirect:/article";
 	}
 
 	// Mapping for Button create new article
@@ -90,12 +93,24 @@ public class ArticleController {
 		articleDTO.setId(articleId);
 		model.addAttribute("article", articleDTO);
 		model.addAttribute("category", new CategoryDTO());
+		model.addAttribute("categories", categoryRepository.findByActive(true));
 		return "articles/editarticle";
 	}
 
+//	@GetMapping("/{articleId}/edit")
+//	public ModelAndView initEditArticle(@PathVariable("articleId") String articleId) {
+//		ModelAndView mav=new ModelAndView("articles/editarticle");
+//		Article article = this.articleRepository.findById(articleId).get();
+//		ArticleDTO articleDTO = new ArticleDTO(article.getTitle(), article.getText(), article.getCategories());
+//		articleDTO.setId(articleId);
+//		mav.addObject("article", articleDTO);
+//		mav.addObject("category", new CategoryDTO());
+//		return mav;
+//	}
+
 
 	@PostMapping("/{articleId}/edit")
-	private String editArticle(@PathVariable("articleId") String articleId, @ModelAttribute("currentUser") User currentUser, BindingResult bindingResult, @ModelAttribute("article") ArticleDTO articleDTO) {
+	private String editArticle(@PathVariable("articleId") String articleId, @ModelAttribute("currentUser") User currentUser, BindingResult bindingResult, @ModelAttribute("article") ArticleDTO articleDTO, @ModelAttribute("category") CategoryDTO categoryDTO) {
 		if (!currentUser.isAdmin()) {
 			return "redirect:/";
 		}

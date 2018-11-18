@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'newarticle')}">
+<body>
+<h1>Beitrag erstellen</h1>
+<form th:object="${category}" class="form-horizontal" method="post">
+    <input
+            th:replace="~{fragments/inputField :: input ('Kategorie', 'name', 'text')}"/>
+    <button class="btn btn-primary" type="submit">Speichern</button>
+</form>
+</body>
+</html>

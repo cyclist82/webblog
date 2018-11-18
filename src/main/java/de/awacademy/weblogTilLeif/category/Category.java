@@ -10,7 +10,7 @@ public class Category {
 	@Id
 	private String id;
 	private String name;
-
+	private boolean active = true;
 
 
 	public Category() {
@@ -24,5 +24,17 @@ public class Category {
 
 	public String getName() {
 		return name;
+	}
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		active = active;
+	}
+
+	public String getId() {
+		return id;
 	}
 }
