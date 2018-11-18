@@ -27,7 +27,7 @@
                            class="btn btn-primary">Neuer Kommentar</a>
                         <!-- Logik einbauen -->
                         <div th:if="${currentUser.admin}">
-                            <a th:href="@{{id}/comment/new(id=${article.getId()})}"
+                            <a th:href="@{{id}/edit(id=${article.getId()})}"
                                class="btn btn-primary">Beitrag bearbeiten</a>
                             <form th:action="@{{articleId}/delete(articleId=${article.id})}"
                                   method="post">
@@ -35,6 +35,12 @@
                             </form>
                         </div>
                     </div>
+
+
+                    <!--TODO add Categories to Articles-->
+                    <div></div>
+
+
                 </div>
             </div>
             <!--The comments to the Article are Starting here-->

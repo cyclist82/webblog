@@ -7,14 +7,9 @@
 <body>
 <h1>Login</h1>
 <form th:fragment="login" th:action="@{/login}" method="post" th:object="${login}">
-    <!--Username: <input type="text" th:field="*{username}"><br/>-->
-    <!--Passwort: <input type="password" th:field="*{password}"><br/>-->
     <input th:replace="~{fragments/inputField :: input ('Username', 'username', 'text')}"/>
     <input th:replace="~{fragments/inputField :: input ('Password', 'password', 'password')}"/>
-    <form th:action="@{/login}" method="post">
-        <button class="btn btn-primary" type="submit">Login</button>
-    </form>
-    <!--<button class="btn btn-primary" type="submit">Login</button>-->
+    <button class="btn btn-primary" type="submit">Login</button>
 </form>
 </body>
 </html>

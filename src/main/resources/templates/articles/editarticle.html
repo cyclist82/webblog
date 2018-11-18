@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'newarticle')}">
+<body>
+<h1>Beitrag erstellen</h1>
+
+
+<form method="post" th:object="${article}">
+    <input th:replace="~{fragments/inputField :: input ('Titel', 'title', 'text')}"/>
+    Text: <textarea type="text" th:field="*{text}"></textarea><br/>
+    <button type="submit" name="addarticle">Speichern</button>
+</form>
+<form th:action="@{/login}" method="post" th:object="${category}">
+    <input th:replace="~{fragments/inputField :: input ('Kategorie', 'name', 'text')}"/>
+    <button type="submit" name="addcategory">Kategorie speichern</button>
+</form>
+</body>
+</html>

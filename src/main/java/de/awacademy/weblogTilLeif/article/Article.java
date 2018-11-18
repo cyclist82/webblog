@@ -1,5 +1,6 @@
 package de.awacademy.weblogTilLeif.article;
 
+import de.awacademy.weblogTilLeif.category.Category;
 import de.awacademy.weblogTilLeif.comment.Comment;
 import de.awacademy.weblogTilLeif.user.User;
 
@@ -8,10 +9,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.UUID;
+import java.util.*;
 
 @Entity
 public class Article {
@@ -31,6 +29,11 @@ public class Article {
 	@OrderBy(value = "createdDateTime ASC")
 	private List<Comment> comments = new ArrayList<>();
 
+	@ManyToMany(fetch = FetchType.EAGER)
+	@OrderBy(value = "name DESC")
+	private Set<Category> categories = new HashSet<>();
+
+
 	private LocalDateTime creationDateTime;
 
 	public Article() {
@@ -42,6 +45,7 @@ public class Article {
 		this.user = user;
 		this.creationDateTime = LocalDateTime.now();
 		this.id = UUID.randomUUID().toString();
+		this.categories = categories;
 	}
 
 	public Article(String title) {
@@ -79,5 +83,22 @@ public class Article {
 
 	public List<Comment> getComments() {
 		return comments;
+	}
+
+	public Set<Category> getCategories() {
+		return categories;
+	}
+
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public void setText(String text) {
+		this.text = text;
+	}
+
+	public void setCategories(Set<Category> categories) {
+		this.categories = categories;
 	}
 }
