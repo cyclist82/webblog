@@ -42,28 +42,15 @@ public class ArticleController {
 		return "articles/createArticle";
 	}
 
-	// Mapping for Button create new Category
-	@PostMapping(value = "/article", params = "addcategory")
-	public String createCategory(@ModelAttribute("article") @Valid ArticleDTO articleDTO, BindingResult bindingResult, @ModelAttribute("currentUser") User currentUser, @ModelAttribute("category") CategoryDTO categoryDTO, Model model) {
-		if (currentUser == null || (!currentUser.isAdmin())) {
-			return "redirect:/";
-		}
-		Category category = new Category(categoryDTO.getName());
-		Category category1 = categoryRepository.save(category);
-		articleDTO.getCategories().add(category1);
-		model.addAttribute("article", articleDTO);
-		return "redirect:/article";
-	}
-
 	// Mapping for Button create new article
-	@PostMapping(value = "/article", params = "addarticle")
+	@PostMapping(value = "/article")
 	public String create(@ModelAttribute("article") @Valid ArticleDTO articleDTO, BindingResult bindingResult, @ModelAttribute("currentUser") User currentUser) {
 		if (currentUser == null || (!currentUser.isAdmin())) {
 			return "redirect:/";
 		}
 		if (bindingResult.hasErrors()) {
 			bindingResult.addError(new FieldError("article", "text", "Fehler bei der Eingabe"));
-			return "createArticle";
+			return "articles/createArticle";
 		}
 		Article article = new Article(articleDTO.getTitle(), articleDTO.getText(), currentUser);
 		articleRepository.save(article);

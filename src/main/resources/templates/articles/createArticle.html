@@ -2,12 +2,13 @@
 <html lang="de" xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'newarticle')}">
 <body>
 <h1>Beitrag erstellen</h1>
-<form method="post">
-    Titel: <input type="text" th:field="${article.title}"><br/>
-    Text: <textarea type="text" th:field="${article.text}"></textarea><br/>
-    <button type="submit" name="addarticle">Abschicken</button>
-    Titel: <input type="text" th:field="${category.name}"><br/>
-    <button type="submit" name="addcategory">Kategorie speichern</button>
+<form th:action="@{/article}" method="post" th:object="${article}">
+    <input th:replace="~{fragments/inputField :: input ('Titel', 'title', 'text')}"/>
+    <input th:replace="~{fragments/inputField :: input ('Text', 'text', 'textarea')}"/>
+    <!--Titel: <input type="text" th:field="*{title}"><br/>-->
+    <!--Text: <textarea type="text" th:field="*{text}"></textarea><br/>-->
+    <button type="submit">Abschicken</button>
 </form>
+
 </body>
 </html>

@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html>
+<body>
+<th:block th:fragment="categories">
+    <div class="row" th:each="categoryArticle:${article.getCategories()}">
+        <a type="submit" th:text="${categoryArticle.getName()}">Kategorie
+        </a>
+    </div>
+</th:block>
+</body>
+</html>
