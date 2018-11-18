@@ -25,7 +25,11 @@
                     <li th:replace="::menuItem ('/article','newarticle','Neuer Beitrag','articles')"></li>
                 </span>
             </span>
-
+            <span th:if="${currentUser!=null}" class="nav-item">
+                <span th:if="${currentUser.admin}">
+                    <li th:replace="::menuItem ('/1/createCategory','newCategory','Neue Kategorie','categories')"></li>
+                </span>
+            </span>
             <li>
                 <form th:if="${currentUser != null}" th:action="@{/logout}" method="post">
                     <button class="btn btn-primary" type="submit">Logout</button>

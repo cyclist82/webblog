@@ -6,7 +6,7 @@
 
 <form method="post" th:object="${article}">
     <input th:replace="~{fragments/inputField :: input ('Titel', 'title', 'text')}"/>
-    Text: <textarea type="text" th:field="*{text}"></textarea><br/>
+    <input th:replace="~{fragments/inputField :: input ('Text', 'text', 'textarea')}"/>
     <button type="submit" name="addarticle">Speichern</button>
 </form>
 <!--<div th:replace="~{category/createCategory :: input}"></div>-->

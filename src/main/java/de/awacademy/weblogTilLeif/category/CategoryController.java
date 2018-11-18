@@ -37,6 +37,22 @@ public class CategoryController {
 		return null;
 	}
 
+	@GetMapping("createCategory")
+	public String createCategoryInit(Model model) {
+		model.addAttribute("category", new CategoryDTO());
+		return "category/createCategory";
+	}
+
+	@PostMapping("createCategory")
+	public String createCategory(@ModelAttribute("category") @Valid CategoryDTO categoryDTO, BindingResult bindingResult) {
+		if(bindingResult.hasErrors()){
+			return "category/createCategory";
+		}
+		Category category=new Category(categoryDTO.getName());
+		categoryRepository.save(category);
+		return "redirect:/";
+	}
+
 	//	@GetMapping("/addCategory/{categoryId}")
 //	public String addCategory(@ModelAttribute("article") Article article, Model model, @ModelAttribute("currentUser") User currentUser, @PathVariable String categoryId) {
 //		if (currentUser == null || (!currentUser.isAdmin())) {
@@ -51,16 +67,16 @@ public class CategoryController {
 //	public Set<Category> findArticle() {
 //		return categoryRepository.findByActive(true);
 //	}
-	@PostMapping("createCategory")
-	public String createCategory(@ModelAttribute("article") Article article, @ModelAttribute("category") CategoryDTO categoryDTO,@ModelAttribute("currentUser") User currentUser, BindingResult bindingResult){
-		if (currentUser == null || (!currentUser.isAdmin())) {
-			return "redirect:/";
-		}
-		Category category =new Category(categoryDTO.getName());
-		article.getCategories().add(category);
-		articleRepository.save(article);
-		return "redirect:/" + article.getId() + "/edit";
-	}
+//	@PostMapping("createCategory")
+//	public String createCategory(@ModelAttribute("article") Article article, @ModelAttribute("category") CategoryDTO categoryDTO, @ModelAttribute("currentUser") User currentUser, BindingResult bindingResult) {
+//		if (currentUser == null || (!currentUser.isAdmin())) {
+//			return "redirect:/";
+//		}
+//		Category category = new Category(categoryDTO.getName());
+//		article.getCategories().add(category);
+//		articleRepository.save(article);
+//		return "redirect:/" + article.getId() + "/edit";
+//	}
 
 	@PostMapping("/addCategory/{categoryId}/add")
 	public String addCategory(@ModelAttribute("article") Article article, @ModelAttribute("currentUser") User currentUser, @PathVariable String categoryId, BindingResult bindingResult) {

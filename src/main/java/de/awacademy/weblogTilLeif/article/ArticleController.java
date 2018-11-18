@@ -49,7 +49,6 @@ public class ArticleController {
 			return "redirect:/";
 		}
 		if (bindingResult.hasErrors()) {
-			bindingResult.addError(new FieldError("article", "text", "Fehler bei der Eingabe"));
 			return "articles/createArticle";
 		}
 		Article article = new Article(articleDTO.getTitle(), articleDTO.getText(), currentUser);
@@ -77,12 +76,12 @@ public class ArticleController {
 		ArticleDTO articleDTO = new ArticleDTO(article.getTitle(), article.getText(), article.getCategories());
 		articleDTO.setId(articleId);
 		model.addAttribute("article", articleDTO);
-		model.addAttribute("category", new CategoryDTO());
 		Set<Category> categories = categoryRepository.findByActive(true);
 		for (Category category : article.getCategories()) {
 			categories.remove(category);
 		}
 		model.addAttribute("categories", categories);
+		model.addAttribute("category", new CategoryDTO());
 		return "articles/editarticle";
 	}
 
@@ -99,7 +98,10 @@ public class ArticleController {
 
 
 	@PostMapping("/{articleId}/edit")
-	private String editArticle(@PathVariable("articleId") String articleId, @ModelAttribute("currentUser") User currentUser, BindingResult bindingResult, @ModelAttribute("article") ArticleDTO articleDTO, @ModelAttribute("category") CategoryDTO categoryDTO) {
+	private String editArticle(@ModelAttribute("article") @Valid ArticleDTO articleDTO, BindingResult bindingResult, @PathVariable("articleId") String articleId, @ModelAttribute("currentUser") User currentUser) {
+		if (bindingResult.hasErrors()) {
+			return "articles/editarticle";
+		}
 		if (!currentUser.isAdmin()) {
 			return "redirect:/";
 		}
