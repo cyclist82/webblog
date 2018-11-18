@@ -19,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.validation.Valid;
+import java.util.Set;
 
 @Controller
 public class ArticleController {
@@ -93,7 +94,11 @@ public class ArticleController {
 		articleDTO.setId(articleId);
 		model.addAttribute("article", articleDTO);
 		model.addAttribute("category", new CategoryDTO());
-		model.addAttribute("categories", categoryRepository.findByActive(true));
+		Set<Category> categories = categoryRepository.findByActive(true);
+		for (Category category : article.getCategories()) {
+			categories.remove(category);
+		}
+		model.addAttribute("categories", categories);
 		return "articles/editarticle";
 	}
 

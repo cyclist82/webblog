@@ -57,9 +57,11 @@ public class CategoryController {
 		if (currentUser == null || (!currentUser.isAdmin())) {
 			return "redirect:/";
 		}
-		Optional<Category> category = categoryRepository.findById(categoryId);
-		article.getCategories().add(category.get());
+		Category category = categoryRepository.findById(categoryId).get();
+		category.getArticles().add(article);
+		article.getCategories().add(category);
 		articleRepository.save(article);
+		categoryRepository.save(category);
 		return "redirect:/" + article.getId() + "/edit";
 	}
 
@@ -68,9 +70,11 @@ public class CategoryController {
 		if (currentUser == null || (!currentUser.isAdmin())) {
 			return "redirect:/";
 		}
-		Optional<Category> category = categoryRepository.findById(categoryId);
-		article.getCategories().remove(category.get());
+		Category category = categoryRepository.findById(categoryId).get();
+		article.getCategories().remove(category);
+		category.getArticles().remove(article);
 		articleRepository.save(article);
+		categoryRepository.save(category);
 //		model.addAttribute("category", new CategoryDTO());
 		return "redirect:/" + article.getId() + "/edit";
 	}

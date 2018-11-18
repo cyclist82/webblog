@@ -1,7 +1,12 @@
 package de.awacademy.weblogTilLeif.category;
 
+import de.awacademy.weblogTilLeif.article.Article;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -11,6 +16,9 @@ public class Category {
 	private String id;
 	private String name;
 	private boolean active = true;
+
+	@ManyToMany
+	private Set<Article> articles = new HashSet<>();
 
 
 	public Category() {
@@ -36,5 +44,13 @@ public class Category {
 
 	public String getId() {
 		return id;
+	}
+
+	public Set<Article> getArticles() {
+		return articles;
+	}
+
+	public void setArticles(Set<Article> articles) {
+		this.articles = articles;
 	}
 }
