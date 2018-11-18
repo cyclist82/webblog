@@ -8,6 +8,7 @@ import de.awacademy.weblogTilLeif.user.UserRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -45,10 +46,14 @@ public class CategoryController {
 
 	@PostMapping("createCategory")
 	public String createCategory(@ModelAttribute("category") @Valid CategoryDTO categoryDTO, BindingResult bindingResult) {
-		if(bindingResult.hasErrors()){
+		if (bindingResult.hasErrors()) {
 			return "category/createCategory";
 		}
-		Category category=new Category(categoryDTO.getName());
+		if (categoryRepository.existsByName(categoryDTO.getName())) {
+			bindingResult.addError(new FieldError("category", "name", "Kategorie bereits vorhanden"));
+			return "category/createCategory";
+		}
+		Category category = new Category(categoryDTO.getName());
 		categoryRepository.save(category);
 		return "redirect:/";
 	}

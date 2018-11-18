@@ -12,4 +12,5 @@ public interface CategoryRepository extends JpaRepository<Category, String> {
 
 	Set<Category> findByActive(boolean active);
 
+
 }

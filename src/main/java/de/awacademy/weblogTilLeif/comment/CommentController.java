@@ -50,11 +50,11 @@ public class CommentController {
 		if (currentUser == null) {
 			return "redirect:/";
 		}
-		Comment comment = new Comment(commentDTO.getText(), currentUser, article);
+		Comment comment = new Comment(commentDTO.getCommenttext(), currentUser, article);
 		article.addComment(comment);
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("comment", commentDTO);
-			bindingResult.addError(new FieldError("comment", "text", "Fehler bei der Eingabe"));
+			bindingResult.addError(new FieldError("comment", "commenttext", "Fehler bei der Eingabe"));
 			return "createComment";
 		} else {
 			this.commentRepository.save(comment);
