@@ -14,9 +14,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.servlet.view.RedirectView;
 
 import javax.validation.Valid;
 import java.util.Set;
@@ -42,7 +39,7 @@ public class ArticleController {
 			model.addAttribute("article", articleDTO);
 		}
 		model.addAttribute("category", new CategoryDTO());
-		return "createArticle";
+		return "articles/createArticle";
 	}
 
 	// Mapping for Button create new Category

@@ -74,7 +74,7 @@ public class CategoryController {
 	}
 
 	@PostMapping("/deleteCategory/{categoryId}")
-	public String deleteCategory(@ModelAttribute("article") Article article, Model model, @ModelAttribute("currentUser") User currentUser, @PathVariable String categoryId, BindingResult bindingResult) {
+	public String deleteCategory(@ModelAttribute("article") Article article, @ModelAttribute("currentUser") User currentUser, @PathVariable String categoryId, BindingResult bindingResult) {
 		if (currentUser == null || (!currentUser.isAdmin())) {
 			return "redirect:/";
 		}
