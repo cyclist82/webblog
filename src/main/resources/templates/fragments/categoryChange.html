@@ -1,0 +1,37 @@
+<div th:fragment="categoryChange">
+    Kategorien des Artikels
+    <div class="row" th:each="categoryArticle:${article.getCategories()}">
+        <!--Add category button just shown if User is Admin or his own comment-->
+        <div th:if="${currentUser != null}">
+            <div th:if="${currentUser.admin OR currentUser.id == comment.user.id}">
+                <form th:action="@{deleteCategory/{categoryId}(categoryId=${categoryArticle.getId()})}"
+                      method="post">
+                    <button class="btn btn-primary" type="submit">
+                <span th:text="${categoryArticle.name+'  '}">Kategorie
+                </span>
+                        <i class="fas fa-times-circle"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <br>
+    Alle Kategorien
+    <div class="row" th:each="category1:${categories}">
+        <!--Add category button just shown if User is Admin or his own comment-->
+        <div th:if="${currentUser != null}">
+            <div th:if="${currentUser.admin OR currentUser.id == comment.user.id}">
+                <form th:action="@{addCategory/{categoryId}/add(categoryId=${category1.id})}"
+                      method="post">
+                    <button class="btn btn-primary" type="submit">
+                    <span th:text="${category1.name}+'  '">Kategorie
+                    </span>
+                        <i class="fas fa-plus-circle"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+</div>

@@ -11,33 +11,7 @@
 </form>
 <!--<div th:replace="~{category/createCategory :: input}"></div>-->
 <br>
-Kategorien des Artikels
-<div class="row" th:each="categoryArticle:${article.getCategories()}">
-    <!--Add category button just shown if User is Admin or his own comment-->
-    <div th:if="${currentUser != null}">
-        <div th:if="${currentUser.admin OR currentUser.id == comment.user.id}">
-            <form th:action="@{deleteCategory/{categoryId}(categoryId=${categoryArticle.getId()})}"
-                  method="post">
-                <button class="btn btn-primary" type="submit" th:text="${categoryArticle.getName()+'x'}">Kategorie
-                </button>
-            </form>
-        </div>
-    </div>
-</div>
-<br>
-Alle Kategorien
-<div class="row" th:each="category1:${categories}">
-    <!--Add category button just shown if User is Admin or his own comment-->
-    <div th:if="${currentUser != null}">
-        <div th:if="${currentUser.admin OR currentUser.id == comment.user.id}">
-            <form th:action="@{addCategory/{categoryId}/add(categoryId=${category1.id})}"
-                  method="post">
-                <button class="btn btn-primary" type="submit" th:text="${category1.name}">Kategorie
-                </button>
-                <i class="far fa-times-circle"></i>
-            </form>
-        </div>
-    </div>
+<div th:replace="~{fragments/categoryChange :: categoryChange}">
 </div>
 </body>
 </html>
