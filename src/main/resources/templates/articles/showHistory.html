@@ -4,6 +4,9 @@
 <h1>History</h1>
 <div th:replace="fragments/showArticle :: showArticle">
 </div>
-
+<div class="border" th:each="oldArticle:${oldArticles}">
+    <h3 th:text="${oldArticle.title}"></h3>
+    <div th:text="${oldArticle.text}"></div>
+</div>
 </body>
 </html>

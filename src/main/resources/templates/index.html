@@ -72,7 +72,8 @@
                     <div th:if="${currentUser.admin OR currentUser.id == comment.user.id}">
                         <form th:action="@{{articleId}/comments/{commentId}/delete(commentId=${comment.id}, articleId=${article.id})}"
                               method="post">
-                            <button class="btn btn-primary" type="submit">Kommentar löschen</button>
+                            <button class="btn btn-primary" type="submit"><i
+                                    class="fas fa-trash-alt"></i></button>
                         </form>
                     </div>
                 </div>
