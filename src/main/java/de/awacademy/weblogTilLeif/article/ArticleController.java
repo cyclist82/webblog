@@ -1,5 +1,7 @@
 package de.awacademy.weblogTilLeif.article;
 
+import de.awacademy.weblogTilLeif.articleOLD.ArticleOLD;
+import de.awacademy.weblogTilLeif.articleOLD.ArticleOLDRepository;
 import de.awacademy.weblogTilLeif.category.Category;
 import de.awacademy.weblogTilLeif.category.CategoryDTO;
 import de.awacademy.weblogTilLeif.category.CategoryRepository;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Controller
@@ -24,11 +27,13 @@ public class ArticleController {
 	private ArticleRepository articleRepository;
 	private CommentRepository commentRepository;
 	private CategoryRepository categoryRepository;
+	private ArticleOLDRepository articleOLDRepository;
 
-	public ArticleController(ArticleRepository articleRepository, CommentRepository commentRepository, CategoryRepository categoryRepository) {
+	public ArticleController(ArticleRepository articleRepository, CommentRepository commentRepository, CategoryRepository categoryRepository, ArticleOLDRepository articleOLDRepository) {
 		this.commentRepository = commentRepository;
 		this.articleRepository = articleRepository;
 		this.categoryRepository = categoryRepository;
+		this.articleOLDRepository = articleOLDRepository;
 	}
 
 	@GetMapping("/article")
@@ -106,8 +111,17 @@ public class ArticleController {
 			return "redirect:/";
 		}
 		Article article = articleRepository.findById(articleId).get();
+		String title = article.getTitle();
+		String text = article.getText();
 		article.setTitle(articleDTO.getTitle());
 		article.setText(articleDTO.getText());
+		Article articleOld = new Article(articleRepository.findById(articleId).get().getId(), title, text);
+		if (article.equals(articleOld)) {
+			return "redirect:/";
+		}
+		articleOLDRepository.save(new ArticleOLD(articleOld.getTitle(), articleOld.getText(), currentUser, article.getUser(), article));
+		article.setLastEditedDateTime(LocalDateTime.now());
+		article.setLastEditUser(currentUser);
 		articleRepository.save(article);
 		return "redirect:/";
 	}
