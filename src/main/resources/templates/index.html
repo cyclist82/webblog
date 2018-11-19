@@ -27,11 +27,23 @@
                 </div>
                 <div class="container p-0">
                     <div class="row">
-                        <small class="col-md-6" th:text="'Erstellt von '+${article.getUser().username}"></small>
-                        <small class="col-md-6 text-right"
-                               th:text="${#temporals.format(article.creationDateTime,'EEEE dd. MMMM yyyy, HH:mm:ss',#locale.GERMANY)}">
-                            Zeit
-                        </small>
+                        <!--Text created by User and Creation DateTime-->
+                        <div>
+                            <small class="col-md-6" th:text="'Erstellt von '+${article.getUser().username}"></small>
+                            <small class="col-md-6 text-right"
+                                   th:text="${#temporals.format(article.creationDateTime,'EEEE dd. MMMM yyyy, HH:mm:ss',#locale.GERMANY)}">
+                                Zeit
+                            </small>
+                        </div>
+                        <!--If text was edited later lastEditUser and lastEditTime-->
+                        <div th:if="${article.lastEditUser!=null}">
+                            <small class="col-md-6"
+                                   th:text="'Zuletz bearbeitet von '+${article.getLastEditUser().getUsername()}"></small>
+                            <small class="col-md-6 text-right"
+                                   th:text="${#temporals.format(article.lastEditedDateTime,'EEEE dd. MMMM yyyy, HH:mm:ss',#locale.GERMANY)}">
+                                Zeit
+                            </small>
+                        </div>
                     </div>
                     <div th:if="${currentUser!=null}" class="row">
                         <a th:href="@{{id}/comment/new(id=${article.getId()})}"
@@ -51,7 +63,8 @@
                 <div th:text="${comment.text}"></div>
                 <small class="col-md-6" th:text="'Erstellt von '+${comment.getUser().username}"></small>
                 <small class="col-md-6 text-right"
-                       th:text="${#temporals.format(article.creationDateTime,'EEEE dd. MMMM yyyy, HH:mm:ss',#locale.GERMANY)}">Zeit
+                       th:text="${#temporals.format(article.creationDateTime,'EEEE dd. MMMM yyyy, HH:mm:ss',#locale.GERMANY)}">
+                    Zeit
                 </small>
                 <!--Delete comment button just shown if User is Admin or his own comment-->
                 <div th:if="${currentUser != null}">

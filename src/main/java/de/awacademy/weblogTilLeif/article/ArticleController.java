@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 @Controller
@@ -57,8 +58,8 @@ public class ArticleController {
 			return "articles/createArticle";
 		}
 		Article article = new Article(articleDTO.getTitle(), articleDTO.getText(), currentUser);
-		articleRepository.save(article);
-		return "redirect:/";
+		Article article1 = articleRepository.save(article);
+		return "redirect:/" + article.getId() + "/edit";
 	}
 
 	@PostMapping("/{articleId}/delete")
@@ -90,18 +91,6 @@ public class ArticleController {
 		return "articles/editarticle";
 	}
 
-//	@GetMapping("/{articleId}/edit")
-//	public ModelAndView initEditArticle(@PathVariable("articleId") String articleId) {
-//		ModelAndView mav=new ModelAndView("articles/editarticle");
-//		Article article = this.articleRepository.findById(articleId).get();
-//		ArticleDTO articleDTO = new ArticleDTO(article.getTitle(), article.getText(), article.getCategories());
-//		articleDTO.setId(articleId);
-//		mav.addObject("article", articleDTO);
-//		mav.addObject("category", new CategoryDTO());
-//		return mav;
-//	}
-
-
 	@PostMapping("/{articleId}/edit")
 	private String editArticle(@ModelAttribute("article") @Valid ArticleDTO articleDTO, BindingResult bindingResult, @PathVariable("articleId") String articleId, @ModelAttribute("currentUser") User currentUser) {
 		if (bindingResult.hasErrors()) {
@@ -124,6 +113,15 @@ public class ArticleController {
 		article.setLastEditUser(currentUser);
 		articleRepository.save(article);
 		return "redirect:/";
+	}
+
+	@GetMapping("/{articleId}/showHistory")
+	public String showHistory(@PathVariable("articleId") String articleId, Model model) {
+		Article article = this.articleRepository.findById(articleId).get();
+		List<ArticleOLD> oldArticles = this.articleOLDRepository.findByParentArticleIdOrderBySavedDateTimeDesc(articleId);
+		model.addAttribute("article", article);
+		model.addAttribute("oldArticles", oldArticles);
+		return "articles/showhistory";
 	}
 
 }
