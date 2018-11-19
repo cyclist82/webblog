@@ -1,0 +1,6 @@
+<div th:fragment="newCommentButton">
+    <div th:if="${currentUser!=null}" class="row">
+        <a th:href="@{{id}/comment/new(id=${article.getId()})}"
+           class="btn btn-primary">Neuer Kommentar</a>
+    </div>
+</div>
