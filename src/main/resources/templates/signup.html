@@ -4,6 +4,7 @@
 <body>
 <h1>Signup</h1>
 <form th:action="@{/signup}" th:object="${signup}" method="post">
+    <div class="resizeInputField">
     <input th:replace="~{fragments/inputField :: input ('Benutzername', 'username', 'text')}"/>
     <!--<input th:replace="~{fragments/inputField :: input ('Vorname', 'firstname', 'text')}"/>-->
     <!--<input th:replace="~{fragments/inputField :: input ('Nachname', 'surname', 'text')}"/>-->
@@ -18,5 +19,6 @@
     <!--Password repeat: <input type="password" th:field="*{password2}"><br/>-->
     <!--<div th:if="${#fields.hasErrors('password2')}" th:errors="*{password2}"></div>-->
     <button type="submit">Singup</button>
+    </div>
 </form>
 </body>

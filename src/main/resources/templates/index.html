@@ -61,12 +61,14 @@
             </div>
             <!--The comments to the Article are Starting here-->
             <div class="row" th:each="comment:${article.comments}">
+                <div class="marginComment">
                 <div th:text="${comment.text}"></div>
                 <small class="col-md-6" th:text="'Erstellt von '+${comment.getUser().username}"></small>
                 <small class="col-md-6 text-right"
                        th:text="${#temporals.format(article.creationDateTime,'EEEE dd. MMMM yyyy, HH:mm:ss',#locale.GERMANY)}">
                     Zeit
                 </small>
+                </div>
                 <!--Delete comment button just shown if User is Admin or his own comment-->
                 <div th:if="${currentUser != null}">
                     <div th:if="${currentUser.admin OR currentUser.id == comment.user.id}">
