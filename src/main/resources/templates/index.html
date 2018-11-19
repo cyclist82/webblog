@@ -10,8 +10,7 @@
             <div class="col border rounded p-2">
                 <div class="d-flex">
                     <form class="ml-auto" th:action="@{{articleId}/delete(articleId=${article.id})}" method="post">
-
-                        <div class="btn-group" role="group" aria-label="Basic example">
+                        <div class="btn-group" role="group" aria-label="Article Control">
                             <a th:href="@{{id}/showHistory(id=${article.getId()})}"
                                class="btn btn-primary"><i class="fas fa-history"></i></a>
                             <th:block th:if="${currentUser!=null}">
@@ -70,7 +69,7 @@
                 </p>
                 <div class="collapse" th:attr="id='collapseComment'+${article.id}">
                     <div th:each="comment:${article.comments}">
-                        <div th:text="${comment.text}"></div>
+                        <p th:text="${comment.text}">Kommentar Text</p>
                         <small class="col-md-6" th:text="'Erstellt von '+${comment.getUser().username}"></small>
                         <small class="col-md-6 text-right"
                                th:text="${#temporals.format(comment.createdDateTime,'EEEE dd. MMMM yyyy, HH:mm:ss',#locale.GERMANY)}">

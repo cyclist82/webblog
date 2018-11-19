@@ -44,22 +44,17 @@ public class CommentController {
 
 	@PostMapping("/comment/new")
 	public String createComment(@ModelAttribute("article") Article article, @Valid CommentDTO commentDTO, BindingResult bindingResult, Model model, @ModelAttribute("currentUser") User currentUser) {
-//		if (StringUtils.hasLength(pet.getName()) && pet.isNew() && owner.getPet(pet.getName(), true) != null){
-//			result.rejectValue("name", "duplicate", "already exists");
-//		}
+		if (bindingResult.hasErrors()) {
+			bindingResult.addError(new FieldError("comment", "commenttext", "Fehler bei der Eingabe"));
+			return "redirect:/";
+		}
 		if (currentUser == null) {
 			return "redirect:/";
 		}
 		Comment comment = new Comment(commentDTO.getCommenttext(), currentUser, article);
 		article.addComment(comment);
-		if (bindingResult.hasErrors()) {
-			model.addAttribute("comment", commentDTO);
-			bindingResult.addError(new FieldError("comment", "commenttext", "Fehler bei der Eingabe"));
-			return "createComment";
-		} else {
-			this.commentRepository.save(comment);
-			return "redirect:/";
-		}
+		this.commentRepository.save(comment);
+		return "redirect:/";
 	}
 
 	@PostMapping("/comments/{commentId}/delete")

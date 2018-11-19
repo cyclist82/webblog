@@ -15,16 +15,18 @@ public class Category {
 	@Id
 	private String id;
 	private String name;
-	private boolean active = true;
+	private boolean active;
 
 
 	public Category() {
 		this.id = UUID.randomUUID().toString();
+		this.active = true;
 	}
 
 	public Category(String name) {
 		this.id = UUID.randomUUID().toString();
 		this.name = name;
+		this.active = true;
 	}
 
 	public String getName() {
@@ -36,7 +38,7 @@ public class Category {
 	}
 
 	public void setActive(boolean active) {
-		active = active;
+		this.active = active;
 	}
 
 	public String getId() {

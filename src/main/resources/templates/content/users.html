@@ -9,23 +9,18 @@
     <thead>
     <tr>
         <th>Username</th>
-        <th>Roles</th>
         <th>Promote to admin</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="user : ${users}">
         <td th:text="${user.username}"></td>
-        <td th:text="${user.username}"></td>
-        <td th:if="${user.Admin}" th:text="${'Admin'}">Admin</td>
-        <td th:if="${!user.Admin}">
+        <td th:if="${user.admin}" th:text="${'Admin'}">Admin</td>
+        <td th:if="${!user.admin}">
             <form th:action="@{users/{id}/toAdmin(id=${user.id})}" method="post">
                 <button class="btn btn-primary" type="submit">make Admin</button>
             </form>
         </td>
-        <!--<td><span th:each="specialty : ${vet.specialties}"-->
-        <!--th:text="${specialty.name + ' '}" /> <span-->
-        <!--th:if="${vet.nrOfSpecialties == 0}">none</span></td>-->
     </tr>
     </tbody>
 </table>

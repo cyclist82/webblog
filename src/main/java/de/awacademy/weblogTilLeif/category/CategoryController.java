@@ -5,6 +5,7 @@ import de.awacademy.weblogTilLeif.article.ArticleRepository;
 import de.awacademy.weblogTilLeif.comment.CommentDTO;
 import de.awacademy.weblogTilLeif.user.User;
 import de.awacademy.weblogTilLeif.user.UserRepository;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -41,6 +42,7 @@ public class CategoryController {
 	@GetMapping("createCategory")
 	public String createCategoryInit(Model model) {
 		model.addAttribute("category", new CategoryDTO());
+		model.addAttribute("categories", categoryRepository.findAllByOrderByNameAsc());
 		return "category/createCategory";
 	}
 
@@ -55,7 +57,7 @@ public class CategoryController {
 		}
 		Category category = new Category(categoryDTO.getName());
 		categoryRepository.save(category);
-		return "redirect:/";
+		return "redirect:/1/createCategory";
 	}
 
 	//	@GetMapping("/addCategory/{categoryId}")
@@ -104,5 +106,14 @@ public class CategoryController {
 		articleRepository.save(article);
 //		model.addAttribute("category", new CategoryDTO());
 		return "redirect:/" + article.getId() + "/edit";
+	}
+
+	@GetMapping("/setActive/{categoryId}")
+	public String setActive(@PathVariable("categoryId") String categoryId) {
+		Category category = categoryRepository.findById(categoryId).get();
+		category.setActive(!category.isActive());
+		System.out.println("Geht");
+		categoryRepository.save(category);
+		return "redirect:/1/createCategory";
 	}
 }
