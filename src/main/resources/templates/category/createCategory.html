@@ -25,11 +25,11 @@
                     <a th:href="@{setActive/{id}(id=${allCategory.getId()})}"
                        class="btn btn-primary">
                         <i th:if="${allCategory.isActive()}" class="fas fa-history"></i>
-                        <i th:if="${!allCategory.isActive()}" class="fas fa-youtube"></i>
+                        <i th:if="${!allCategory.isActive()}" class="fas fa-apple"></i>
                     </a>
                     <a th:href="@{delete/{id}(id=${allCategory.getId()})}"
                        class="btn btn-primary">
-                        <i th:if="${!allCategory.isActive()}" class="fas fa-facebook"></i>
+                        <i class="fas fa-trash-alt"></i>
                     </a>
 
 
