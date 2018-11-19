@@ -20,17 +20,17 @@
                           class="form-horizontal" method="post">
                         <!--<input type="hidden" name="id" th:value="*{id}" />-->
                         <input th:replace="~{fragments/inputField :: input ('Kommentar', 'commenttext', 'textarea')}"/>
-                        <button type="submit"
-                                class="btn btn-primary">Kommentar speichern
-                        </button>
+
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit"
+                                    class="btn btn-primary">Kommentar speichern
+                            </button>
+                        </div>
                     </form>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit"
-                            class="btn btn-primary">Kommentar speichern
-                    </button>
-                </div>
+
             </div>
         </div>
     </div>
