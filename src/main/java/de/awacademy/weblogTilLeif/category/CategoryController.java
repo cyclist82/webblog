@@ -112,8 +112,20 @@ public class CategoryController {
 	public String setActive(@PathVariable("categoryId") String categoryId) {
 		Category category = categoryRepository.findById(categoryId).get();
 		category.setActive(!category.isActive());
-		System.out.println("Geht");
 		categoryRepository.save(category);
 		return "redirect:/1/createCategory";
 	}
+
+	@GetMapping("/delete/{categoryId}")
+	public String delete(@PathVariable("categoryId") String categoryId) {
+		Category category = categoryRepository.findById(categoryId).get();
+		for (Article article : articleRepository.findAll()) {
+			if (article.getCategories().contains(category)) {
+				article.getCategories().remove(category);
+			}
+		}
+		categoryRepository.delete(category);
+		return "redirect:/1/createCategory";
+	}
+
 }

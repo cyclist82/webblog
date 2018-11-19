@@ -27,6 +27,10 @@
                         <i th:if="${allCategory.isActive()}" class="fas fa-history"></i>
                         <i th:if="${!allCategory.isActive()}" class="fas fa-youtube"></i>
                     </a>
+                    <a th:href="@{delete/{id}(id=${allCategory.getId()})}"
+                       class="btn btn-primary">
+                        <i th:if="${!allCategory.isActive()}" class="fas fa-facebook"></i>
+                    </a>
 
 
                     <!--<th:block th:if="${currentUser!=null}">-->
