@@ -40,14 +40,20 @@ public class CategoryController {
 	}
 
 	@GetMapping("createCategory")
-	public String createCategoryInit(Model model) {
+	public String createCategoryInit(Model model, @ModelAttribute("currentUser") User currentUser) {
+		if (!(currentUser == null || currentUser.isAdmin())) {
+			return "redirect:/";
+		}
 		model.addAttribute("category", new CategoryDTO());
 		model.addAttribute("categories", categoryRepository.findAllByOrderByNameAsc());
 		return "category/createCategory";
 	}
 
 	@PostMapping("createCategory")
-	public String createCategory(@ModelAttribute("category") @Valid CategoryDTO categoryDTO, BindingResult bindingResult) {
+	public String createCategory(@ModelAttribute("category") @Valid CategoryDTO categoryDTO, BindingResult bindingResult, @ModelAttribute("currentUser") User currentUser) {
+		if (!currentUser.isAdmin()) {
+			return "redirect:/";
+		}
 		if (bindingResult.hasErrors()) {
 			return "category/createCategory";
 		}
@@ -109,7 +115,10 @@ public class CategoryController {
 	}
 
 	@GetMapping("/setActive/{categoryId}")
-	public String setActive(@PathVariable("categoryId") String categoryId) {
+	public String setActive(@PathVariable("categoryId") String categoryId, @ModelAttribute("currentUser") User currentUser) {
+		if (!currentUser.isAdmin()) {
+			return "redirect:/";
+		}
 		Category category = categoryRepository.findById(categoryId).get();
 		category.setActive(!category.isActive());
 		categoryRepository.save(category);
@@ -117,15 +126,15 @@ public class CategoryController {
 	}
 
 	@GetMapping("/delete/{categoryId}")
-	public String delete(@PathVariable("categoryId") String categoryId) {
+	public String delete(@PathVariable("categoryId") String categoryId, @ModelAttribute("currentUser") User currentUser) {
+		if (!currentUser.isAdmin()) {
+			return "redirect:/";
+		}
 		Category category = categoryRepository.findById(categoryId).get();
-		for (Article article : articleRepository.findAll()) {
-			if (article.getCategories().contains(category)) {
-				article.getCategories().remove(category);
-			}
+		for (Article article : articleRepository.findByCategoriesContainsOrderByCreationDateTimeAsc(category)) {
+			article.getCategories().remove(category);
 		}
 		categoryRepository.delete(category);
 		return "redirect:/1/createCategory";
 	}
-
 }

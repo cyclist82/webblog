@@ -129,5 +129,14 @@ public class ArticleController {
 		return "articles/showhistory";
 	}
 
+	@GetMapping("/{categoryId}/showArticles")
+	public String showArticlesByCategory(@PathVariable("categoryId") String categoryId, Model model) {
+		Category category = this.categoryRepository.findById(categoryId).get();
+		List<Article> articles = this.articleRepository.findByCategoriesContainsOrderByCreationDateTimeAsc(category);
+		model.addAttribute("articles", articles);
+		model.addAttribute("category", category);
+		return "articles/findArticlesByCategory";
+	}
+
 }
 

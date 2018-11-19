@@ -17,7 +17,7 @@
                 </div>
                 <!--If text was edited later lastEditUser and lastEditTime-->
                 <div class="col-md-6" th:if="${article.lastEditUser!=null}">
-                    <small th:text="'Zuletz bearbeitet von '+${article.getLastEditUser().getUsername()}"></small>
+                    <small th:text="'Zuletz bearbeitet von '+${article.getLastEditUser().getUsername()}">Username</small>
                     <small th:text="${#temporals.format(article.lastEditedDateTime,'EEEE dd. MMMM yyyy, HH:mm:ss',#locale.GERMANY)}">
                         Zeit
                     </small>

@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'newarticle')}">
+<body>
+<h1></h1>
+<th:block th:each="article:${articles}">
+    <div th:replace="fragments/showArticle :: showArticle">
+</th:block>
+</div>
+</body>
+</html>

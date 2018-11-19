@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.w3.org/1999/html">
+<html xmlns:th="http://www.thymeleaf.org">
 <body>
 <th:block th:fragment="categories">
-    <h3 th:if="${!article.getCategories().isEmpty()}">Kategorien</h3>
-    <th:block th:each="categoryArticle:${article.getCategories()}">
-        <a class="btn btn-secondary" type="submit" th:text="${categoryArticle.getName()}">Kategorie
-        </a>
-    </th:block>
+<h3 th:if="${!article.getCategories().isEmpty()}">Kategorien</h3>
+<th:block th:each="categoryArticle:${article.getCategories()}">
+    <a th:href="@{{id}/showArticles(id=${categoryArticle.getId()})}" class="btn btn-secondary" type="submit"
+       th:text="${categoryArticle.getName()}">Kategorie
+    </a>
+</th:block>
 </th:block>
 </body>
 </html>
