@@ -62,12 +62,13 @@
             <div th:if="${article.comments.size()>0}" class="dropdown">
                 <p>
                     <button th:text="${article.comments.size()>1} ? ${article.comments.size()}+' Kommentare':${article.comments.size()}+' Kommentar'"
-                            class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseComments"
-                            aria-expanded="false" aria-controls="collapseComments">
+                            class="btn btn-primary" type="button" data-toggle="collapse"
+                            th:attr="data-target='#collapseComment'+${article.id}, aria-controls='collapseComment'+${article.id}"
+                            aria-expanded="false">
                         Button with data-target
                     </button>
                 </p>
-                <div class="collapse" id="collapseComments">
+                <div class="collapse" th:attr="id='collapseComment'+${article.id}">
                     <div th:each="comment:${article.comments}">
                         <div th:text="${comment.text}"></div>
                         <small class="col-md-6" th:text="'Erstellt von '+${comment.getUser().username}"></small>
@@ -80,7 +81,7 @@
                             <div th:if="${currentUser.admin OR currentUser.id == comment.user.id}">
                                 <form th:action="@{{articleId}/comments/{commentId}/delete(commentId=${comment.id}, articleId=${article.id})}"
                                       method="post">
-                                    <button class="btn btn-primary" type="submit"><i
+                                    <button title="Abschicken" class="btn btn-primary" type="submit"><i
                                             class="fas fa-trash-alt"></i></button>
                                 </form>
                             </div>
