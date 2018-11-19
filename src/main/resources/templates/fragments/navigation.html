@@ -15,28 +15,28 @@
             </li>
             <li th:replace="::menuItem ('/','home','Artikel','home')">
             </li>
-            <span th:if="${currentUser!=null}" class="nav-item">
-                <span th:if="${currentUser.admin}">
+            <th:block th:if="${currentUser!=null}">
+                <th:block th:if="${currentUser.admin}">
                     <li th:replace="::menuItem ('/users','users','Benutzer','users')"></li>
-                </span>
-            </span>
-            <span th:if="${currentUser!=null}" class="nav-item">
-                <span th:if="${currentUser.admin}">
+                </th:block>
+            </th:block>
+            <th:block th:if="${currentUser!=null}" class="nav-item">
+                <th:block th:if="${currentUser.admin}">
                     <li th:replace="::menuItem ('/article','newarticle','Neuer Beitrag','articles')"></li>
-                </span>
-            </span>
-            <span th:if="${currentUser!=null}" class="nav-item">
-                <span th:if="${currentUser.admin}">
+                </th:block>
+            </th:block>
+            <th:block th:if="${currentUser!=null}" class="nav-item">
+                <th:block th:if="${currentUser.admin}">
                     <li th:replace="::menuItem ('/1/createCategory','newCategory','Neue Kategorie','categories')"></li>
-                </span>
-            </span>
+                </th:block>
+            </th:block>
             <li>
                 <form th:if="${currentUser != null}" th:action="@{/logout}" method="post">
                     <button class="btn btn-primary" type="submit">Logout</button>
                 </form>
             </li>
             <li class="nav-item dropdown">
-                <div th:if="${currentUser == null}">
+                <th:block th:if="${currentUser == null}">
                         <span class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Login
@@ -46,12 +46,12 @@
                             <div th:replace="login::login">Login</div>
                         </div>
                     </div>
-                </div>
+                </th:block>
             </li>
-            <span th:if="${currentUser==null}" class="nav-item">
-                    <li th:replace="::menuItem ('/signup','signup','Signup','signup')"></li>
+            <th:block th:if="${currentUser==null}">
+                <li th:replace="::menuItem ('/signup','signup','Signup','signup')"></li>
 
-            </span>
+            </th:block>
             <li th:replace="::menuItem ('/impressum','impressum','Impressum','impressum')">
             </li>
         </ul>

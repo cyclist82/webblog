@@ -1,6 +1,7 @@
 package de.awacademy.weblogTilLeif.session;
 
 import de.awacademy.weblogTilLeif.article.ArticleRepository;
+import de.awacademy.weblogTilLeif.comment.CommentDTO;
 import de.awacademy.weblogTilLeif.login.LoginDTO;
 import de.awacademy.weblogTilLeif.user.User;
 import de.awacademy.weblogTilLeif.user.UserRepository;
@@ -39,9 +40,8 @@ public class SessionControllerAdvice {
 	@GetMapping("/")
 	public String home(Model model) {
 		model.addAttribute("articles", articleRepository.findAllByOrderByCreationDateTimeDesc());
-		//		if(currentUser==null){
 		model.addAttribute("login", new LoginDTO());
-		//		}
+		model.addAttribute("newcomment", new CommentDTO());
 		return "index";
 	}
 }

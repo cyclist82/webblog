@@ -1,29 +1,24 @@
 <!DOCTYPE html>
 <html lang="de" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Webblog</title>
-    <link rel="stylesheet" href="/webjars/bootstrap/4.1.3/css/bootstrap.min.css">
-    <link rel="shortcut icon" type="image/x-icon" th:href="@{/resources/images/favicon.png}">
-    <link rel="stylesheet" href="/resources/css/style.css"/>
-</head>
 <body>
 <h2>
     <!--<th:block th:if="${comment['new']}">New </th:block>-->
     Neuer Kommentar
 </h2>
-<form th:object="${comment}" class="form-horizontal" method="post">
-    <!--<input type="hidden" name="id" th:value="*{id}" />-->
-    <input th:replace="~{fragments/inputField :: input ('Kommentar', 'commenttext', 'textarea')}"/>
+<th:block th:fragment="createComment">
+    <form th:object="${newcomment}" class="form-horizontal" method="post">
+        <!--<input type="hidden" name="id" th:value="*{id}" />-->
+        <input th:replace="~{fragments/inputField :: input ('Kommentar', 'commenttext', 'textarea')}"/>
 
-    <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-10">
-            <button
-                                        class="btn btn-default" type="submit" th:text="${'Kommentar senden'}">Add Comment
-            </button>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button
+                        class="btn btn-default" type="submit" th:text="${'Kommentar senden'}">Add Comment
+                </button>
+            </div>
         </div>
-    </div>
-</form>
+    </form>
+</th:block>
 
 </body>
 </html>

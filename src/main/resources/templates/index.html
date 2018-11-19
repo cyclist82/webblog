@@ -8,14 +8,18 @@
         <!--The articles are starting here-->
         <div class="col-md-6 px-2 py-2" th:each="article: ${articles}">
             <div class="col border rounded p-2">
-                <div th:if="${currentUser!=null}">
-                    <div th:if="${currentUser.admin}">
-                        <a th:href="@{{id}/edit(id=${article.getId()})}"
-                           class="btn btn-primary">Beitrag bearbeiten</a>
-                        <form th:action="@{{articleId}/delete(articleId=${article.id})}"
-                              method="post">
-                            <button class="btn btn-primary" type="submit">Beitrag löschen</button>
-                        </form>
+                <div>
+                    <a th:href="@{{id}/showHistory(id=${article.getId()})}"
+                       class="btn btn-primary">History</a>
+                    <div th:if="${currentUser!=null}">
+                        <div th:if="${currentUser.admin}">
+                            <a th:href="@{{id}/edit(id=${article.getId()})}"
+                               class="btn btn-primary">Beitrag bearbeiten</a>
+                            <form th:action="@{{articleId}/delete(articleId=${article.id})}"
+                                  method="post">
+                                <button class="btn btn-primary" type="submit">Beitrag löschen</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
                 <div>
@@ -45,8 +49,9 @@
                             </small>
                         </div>
                     </div>
-                    <div th:replace="~{fragments/newCommentButton :: newCommentButton}"></div>
-
+                    <div th:if="${currentUser != null}">
+                        <div th:replace="~{fragments/newCommentButton :: newCommentButton}"></div>
+                    </div>
 
                     <!--Fragment to show the Categories associated with the article-->
                     <div th:replace="~{category/showCategories :: categories}"></div>
@@ -72,10 +77,8 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
-
 </body>
 </html>
