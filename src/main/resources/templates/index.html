@@ -8,23 +8,25 @@
         <!--The articles are starting here-->
         <div class="col-md-6 px-2 py-2" th:each="article: ${articles}">
             <div class="col border rounded p-2">
-                <div>
-                    <a th:href="@{{id}/showHistory(id=${article.getId()})}"
-                       class="btn btn-primary">History</a>
-                    <div th:if="${currentUser!=null}">
-                        <div th:if="${currentUser.admin}">
-                            <a th:href="@{{id}/edit(id=${article.getId()})}"
-                               class="btn btn-primary">Beitrag bearbeiten</a>
-                            <form th:action="@{{articleId}/delete(articleId=${article.id})}"
-                                  method="post">
-                                <button class="btn btn-primary" type="submit">Beitrag löschen</button>
-                            </form>
+                <div class="d-flex">
+                    <form class="ml-auto" th:action="@{{articleId}/delete(articleId=${article.id})}" method="post">
+
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                            <a th:href="@{{id}/showHistory(id=${article.getId()})}"
+                               class="btn btn-primary"><i class="fas fa-history"></i></a>
+                            <th:block th:if="${currentUser!=null}">
+                                <th:block th:if="${currentUser.admin}">
+                                    <a th:href="@{{id}/edit(id=${article.getId()})}"
+                                       class="btn btn-primary"><i class="fas fa-edit"></i></a>
+                                    <button class="btn btn-primary" type="submit"><i class="fas fa-trash-alt"></i>
+                                    </button>
+                                </th:block>
+                            </th:block>
                         </div>
-                    </div>
+                    </form>
                 </div>
                 <div>
                     <h1 th:text="${article.title}">Titel</h1>
-
                 </div>
                 <div>
                     <p th:text="${article.text}">Text</p>
@@ -52,32 +54,41 @@
                     <div th:if="${currentUser != null}">
                         <div th:replace="~{fragments/newCommentButton :: newCommentButton}"></div>
                     </div>
-
                     <!--Fragment to show the Categories associated with the article-->
                     <div th:replace="~{category/showCategories :: categories}"></div>
-
-
                 </div>
             </div>
             <!--The comments to the Article are Starting here-->
-            <div class="row" th:each="comment:${article.comments}">
-                <div th:text="${comment.text}"></div>
-                <small class="col-md-6" th:text="'Erstellt von '+${comment.getUser().username}"></small>
-                <small class="col-md-6 text-right"
-                       th:text="${#temporals.format(article.creationDateTime,'EEEE dd. MMMM yyyy, HH:mm:ss',#locale.GERMANY)}">
-                    Zeit
-                </small>
-                <!--Delete comment button just shown if User is Admin or his own comment-->
-                <div th:if="${currentUser != null}">
-                    <div th:if="${currentUser.admin OR currentUser.id == comment.user.id}">
-                        <form th:action="@{{articleId}/comments/{commentId}/delete(commentId=${comment.id}, articleId=${article.id})}"
-                              method="post">
-                            <button class="btn btn-primary" type="submit"><i
-                                    class="fas fa-trash-alt"></i></button>
-                        </form>
+            <div th:if="${article.comments.size()>0}" class="dropdown">
+
+                <button th:text="${article.comments.size()>1} ? ${article.comments.size()}+' Kommentare':${article.comments.size()}+' Kommentar'"
+                        class="btn btn-secondary dropdown-toggle" type="button"
+                        id="commentsDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Kommentare
+                </button>
+                <div class="dropdown-menu" aria-labelledby="commentsDropdown">
+                    <div th:each="comment:${article.comments}">
+                        <div th:text="${comment.text}"></div>
+                        <small class="col-md-6" th:text="'Erstellt von '+${comment.getUser().username}"></small>
+                        <small class="col-md-6 text-right"
+                               th:text="${#temporals.format(article.creationDateTime,'EEEE dd. MMMM yyyy, HH:mm:ss',#locale.GERMANY)}">
+                            Zeit
+                        </small>
+                        <!--Delete comment button just shown if User is Admin or his own comment-->
+                        <div th:if="${currentUser != null}">
+                            <div th:if="${currentUser.admin OR currentUser.id == comment.user.id}">
+                                <form th:action="@{{articleId}/comments/{commentId}/delete(commentId=${comment.id}, articleId=${article.id})}"
+                                      method="post">
+                                    <button class="btn btn-primary" type="submit"><i
+                                            class="fas fa-trash-alt"></i></button>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+
+
         </div>
     </div>
 </div>

@@ -10,7 +10,7 @@
                 <div th:switch="${type}">
                     <input th:case="'text'" class="form-control" type="text" th:field="*{__${name}__}"/>
                     <input th:case="'password'" class="form-control" type="password" th:field="*{__${name}__}"/>
-                    <textarea th:case="'textarea'" class="form-control" type="text" th:field="*{__${name}__}"/>
+                    <textarea th:case="'textarea'" rows="6" class="form-control" type="text" th:field="*{__${name}__}"/>
 
                     <input th:case="'date'" class="form-control" type="text" th:field="*{__${name}__}"
                            placeholder="YYYY-MM-DD" title="Enter a date in this format: YYYY-MM-DD"

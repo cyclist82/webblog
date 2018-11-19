@@ -2,6 +2,8 @@ package de.awacademy.weblogTilLeif.articleOLD;
 
 import de.awacademy.weblogTilLeif.article.Article;
 import de.awacademy.weblogTilLeif.user.User;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -27,6 +29,7 @@ public class ArticleOLD {
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Article parentArticle;
 
 	private LocalDateTime savedDateTime;

@@ -7,6 +7,13 @@
 <div class="border" th:each="oldArticle:${oldArticles}">
     <h3 th:text="${oldArticle.title}"></h3>
     <div th:text="${oldArticle.text}"></div>
+    <div class="d-flex">
+        <div class="ml-auto">
+            <small th:text="${'Bearbeitet von '+oldArticle.user.username}"></small>
+            <br/>
+            <small th:text="${#temporals.format(oldArticle.savedDateTime,'EEEE dd. MMMM yyyy, HH:mm:ss',#locale.GERMANY)}"></small>
+        </div>
+    </div>
 </div>
 </body>
 </html>

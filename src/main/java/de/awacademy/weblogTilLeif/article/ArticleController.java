@@ -71,6 +71,9 @@ public class ArticleController {
 		for (Comment comment : article.getComments()) {
 			commentRepository.delete(comment);
 		}
+		for (ArticleOLD articleOLD : articleOLDRepository.findByParentArticleIdOrderBySavedDateTimeDesc(articleId)) {
+			articleOLDRepository.delete(articleOLD);
+		}
 		articleRepository.delete(article);
 
 		return "redirect:/";
