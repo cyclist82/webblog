@@ -18,7 +18,8 @@ Kategorien des Artikels
         <div th:if="${currentUser.admin OR currentUser.id == comment.user.id}">
             <form th:action="@{deleteCategory/{categoryId}(categoryId=${categoryArticle.getId()})}"
                   method="post">
-                <button class="btn btn-primary" type="submit" th:text="${categoryArticle.getName()}">Kategorie</button>
+                <button class="btn btn-primary" type="submit" th:text="${categoryArticle.getName()+'x'}">Kategorie
+                </button>
             </form>
         </div>
     </div>
@@ -29,9 +30,11 @@ Alle Kategorien
     <!--Add category button just shown if User is Admin or his own comment-->
     <div th:if="${currentUser != null}">
         <div th:if="${currentUser.admin OR currentUser.id == comment.user.id}">
-            <form th:action="@{addCategory/{categoryId}/add(categoryId=${category1.getId()})}"
+            <form th:action="@{addCategory/{categoryId}/add(categoryId=${category1.id})}"
                   method="post">
-                <button class="btn btn-primary" type="submit" th:text="${category1.getName()}">Kategorie</button>
+                <button class="btn btn-primary" type="submit" th:text="${category1.name}">Kategorie
+                </button>
+                <i class="far fa-times-circle"></i>
             </form>
         </div>
     </div>
