@@ -43,11 +43,13 @@
                 </div>
             </div>
             <div class="row" th:each="comment:${article.comments}">
+                <div class="">
                 <div th:text="${comment.text}"></div>
                 <small class="col-md-6" th:text="'Erstellt von '+${article.getUser().username}"></small>
                 <small class="col-md-6 text-right"
                        th:text="${#temporals.format(comment.createdDateTime,#locale.GERMANY)}">Zeit
                 </small>
+                </div>
             </div>
 
         </div>
