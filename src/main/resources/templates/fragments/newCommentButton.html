@@ -1,11 +1,13 @@
 <div th:fragment="newCommentButton">
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+    <button type="button" class="btn btn-primary"
+            data-toggle="modal" data-target="#exampleModal" th:attr="data-target='#commentModal'+${article.id}">
         Neuer Kommentar
     </button>
 
     <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <div class="modal fade" th:attr="id='commentModal'+${article.id}" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalLabel"
          aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
