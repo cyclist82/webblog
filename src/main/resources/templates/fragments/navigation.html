@@ -8,26 +8,21 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li th:fragment="menuItem (path,active,title,glyph)" class="nav-item"
-                th:class="${active==menu ? 'nav-item active' : 'nav-item'}">
-                <a th:href="@{__${path}__}" class="nav-link" th:text="${title}"><span class="sr-only">(current)</span>
-                </a>
-            </li>
-            <li th:replace="::menuItem ('/','home','Artikel','home')">
+            <li th:replace="fragments/navigationButton :: menuItem ('/','home','Artikel','home')">
             </li>
             <th:block th:if="${currentUser!=null}">
                 <th:block th:if="${currentUser.admin}">
-                    <li th:replace="::menuItem ('/users','users','Benutzer','users')"></li>
+                    <li th:replace="fragments/navigationButton :: menuItem ('/users','users','Benutzer','users')"></li>
                 </th:block>
             </th:block>
             <th:block th:if="${currentUser!=null}" class="nav-item">
                 <th:block th:if="${currentUser.admin}">
-                    <li th:replace="::menuItem ('/article','newarticle','Neuer Beitrag','articles')"></li>
+                    <li th:replace="fragments/navigationButton :: menuItem ('/article','newarticle','Neuer Beitrag','articles')"></li>
                 </th:block>
             </th:block>
             <th:block th:if="${currentUser!=null}" class="nav-item">
                 <th:block th:if="${currentUser.admin}">
-                    <li th:replace="::menuItem ('/1/createCategory','newCategory','Kategorien','categories')"></li>
+                    <li th:replace="fragments/navigationButton ::menuItem ('/1/createCategory','newCategory','Kategorien','categories')"></li>
                 </th:block>
             </th:block>
             <li>
@@ -49,10 +44,10 @@
                 </th:block>
             </li>
             <th:block th:if="${currentUser==null}">
-                <li th:replace="::menuItem ('/signup','signup','Signup','signup')"></li>
+                <li th:replace="fragments/navigationButton :: menuItem ('/signup','signup','Signup','signup')"></li>
 
             </th:block>
-            <li th:replace="::menuItem ('/impressum','impressum','Impressum','impressum')">
+            <li th:replace="fragments/navigationButton :: menuItem ('/impressum','impressum','Impressum','impressum')">
             </li>
         </ul>
     </div>
