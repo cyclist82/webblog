@@ -60,13 +60,14 @@
             </div>
             <!--The comments to the Article are Starting here-->
             <div th:if="${article.comments.size()>0}" class="dropdown">
-
-                <button th:text="${article.comments.size()>1} ? ${article.comments.size()}+' Kommentare':${article.comments.size()}+' Kommentar'"
-                        class="btn btn-secondary dropdown-toggle" type="button"
-                        id="commentsDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Kommentare
-                </button>
-                <div class="dropdown-menu" aria-labelledby="commentsDropdown">
+                <p>
+                    <button th:text="${article.comments.size()>1} ? ${article.comments.size()}+' Kommentare':${article.comments.size()}+' Kommentar'"
+                            class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseComments"
+                            aria-expanded="false" aria-controls="collapseComments">
+                        Button with data-target
+                    </button>
+                </p>
+                <div class="collapse" id="collapseComments">
                     <div th:each="comment:${article.comments}">
                         <div th:text="${comment.text}"></div>
                         <small class="col-md-6" th:text="'Erstellt von '+${comment.getUser().username}"></small>
@@ -85,7 +86,10 @@
                             </div>
                         </div>
                     </div>
+
                 </div>
+
+
             </div>
 
 
