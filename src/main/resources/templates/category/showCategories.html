@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.w3.org/1999/html">
 <body>
 <th:block th:fragment="categories">
     <h3 th:if="${!article.getCategories().isEmpty()}">Kategorien</h3>
-    <p th:each="categoryArticle:${article.getCategories()}">
-        <a type="submit" th:text="${categoryArticle.getName()}">Kategorie
+    <th:block th:each="categoryArticle:${article.getCategories()}">
+        <a class="btn btn-secondary" type="submit" th:text="${categoryArticle.getName()}">Kategorie
         </a>
-    </p>
+    </th:bl>
 </th:block>
 </body>
 </html>
