@@ -9,6 +9,10 @@ body {
     height: 100%;
 }
 
+p {
+    white-space: pre;
+}
+
 #content {
     min-height: 60vh;
 }
@@ -142,12 +146,15 @@ div.container-fluid.gesamt.my-md-3 {
     padding-left: 15px;
     margin: 20px;
 }
+
 .white {
     color: white;
 }
+
 .resizeInputField {
     max-width: 250px;
 }
+
 .marginComment {
     margin-left: 20px;
 }
