@@ -7,6 +7,7 @@ import de.awacademy.weblogTilLeif.session.SessionRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class IndexController {
@@ -22,7 +23,7 @@ public class IndexController {
 
 	// Website is loaded
 	@GetMapping("/")
-	public String home(Model model) {
+	public String homeGet(Model model) {
 		return "index";
 	}
 }

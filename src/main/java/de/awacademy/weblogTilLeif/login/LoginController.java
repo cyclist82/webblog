@@ -47,8 +47,7 @@ public class LoginController {
 			response.addCookie(new Cookie("sessionId", session.getId()));
 			return "redirect:/";
 		}
-		model.addAttribute("login", loginDTO);
-		return "redirect:/";
+		return "login";
 	}
 
 	@PostMapping("/logout")

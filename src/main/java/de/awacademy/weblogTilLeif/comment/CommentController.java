@@ -46,7 +46,7 @@ public class CommentController {
 	public String createComment(@ModelAttribute("article") Article article, @Valid CommentDTO commentDTO, BindingResult bindingResult, Model model, @ModelAttribute("currentUser") User currentUser) {
 		if (bindingResult.hasErrors()) {
 			bindingResult.addError(new FieldError("comment", "commenttext", "Fehler bei der Eingabe"));
-			return "redirect:/";
+			return "comment/error";
 		}
 		if (currentUser == null) {
 			return "redirect:/";
