@@ -27,11 +27,11 @@ public class CommentController {
 		this.commentRepository = commentRepository;
 	}
 
-	@GetMapping("/comment/new")
-	public String createComment(Model model) {
-		model.addAttribute("comment", new CommentDTO());
-		return "createComment";
-	}
+//	@GetMapping("/comment/new")
+//	public String createComment(Model model) {
+//		model.addAttribute("comment", new CommentDTO());
+//		return "createComment";
+//	}
 
 	@ModelAttribute("article")
 	public Article findArticle(@PathVariable("articleId") String articleId) {
@@ -43,7 +43,7 @@ public class CommentController {
 	}
 
 	@PostMapping("/comment/new")
-	public String createComment(@ModelAttribute("article") Article article, @Valid CommentDTO commentDTO, BindingResult bindingResult, Model model, @ModelAttribute("currentUser") User currentUser) {
+	public String createComment(@ModelAttribute("article") Article article, @ModelAttribute("newcomment") @Valid CommentDTO commentDTO, BindingResult bindingResult, @ModelAttribute("currentUser") User currentUser) {
 		if (bindingResult.hasErrors()) {
 			bindingResult.addError(new FieldError("comment", "commenttext", "Fehler bei der Eingabe"));
 			return "comment/error";
@@ -53,7 +53,7 @@ public class CommentController {
 		}
 		Comment comment = new Comment(commentDTO.getCommenttext(), currentUser, article);
 		article.addComment(comment);
-		this.commentRepository.save(comment);
+		System.out.println("geht");
 		return "redirect:/";
 	}
 

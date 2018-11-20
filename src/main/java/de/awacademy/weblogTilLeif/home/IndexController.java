@@ -24,6 +24,7 @@ public class IndexController {
 	// Website is loaded
 	@GetMapping("/")
 	public String homeGet(Model model) {
+		model.addAttribute("newcomment", new CommentDTO());
 		return "index";
 	}
 }

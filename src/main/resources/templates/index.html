@@ -41,10 +41,10 @@
             </div>
 
 
-            <div class="py-2 col-12">
+            <div class="py-4 col-12">
                 <h1 th:text="${article.title}">Titel</h1>
             </div>
-            <div class="py-1 col-12" style="word-wrap: break-word">
+            <div class="py-2 col-12" style="word-wrap: break-word">
                 <p th:text="${article.text}">Text</p>
             </div>
             <div class="col-md-10">
@@ -57,7 +57,7 @@
                 </div>
             </div>
             <!--The comments to the Article are Starting here-->
-            <div class="col pt-4">
+            <div class="col-12 pt-4">
                 <div th:if="${article.comments.size()>0}" class="dropdown">
                     <button th:text="${article.comments.size()>1} ? ${article.comments.size()}+' Kommentare':${article.comments.size()}+' Kommentar'"
                             class="btn btn-outline-light" type="button" data-toggle="collapse"
@@ -67,21 +67,24 @@
                     </button>
                     <div class="collapse" th:attr="id='collapseComment'+${article.id}">
                         <div th:each="comment:${article.comments}">
-                            <p th:text="${comment.text}">Kommentar Text</p>
                             <small class="col-md-8" th:text="'Erstellt von '+${comment.getUser().username}"></small>
                             <small class="col-md-8 text-right"
                                    th:text="${#temporals.format(comment.createdDateTime,'EEEE dd. MMMM yyyy, HH:mm:ss',#locale.GERMANY)}">
                                 Zeit
                             </small>
+                            <div class="col-12">
+                                <p th:text="${comment.text}">Kommentar Text</p>
+                            </div>
                             <!--Delete comment button just shown if User is Admin or his own comment-->
                             <div th:if="${currentUser != null}">
-                                <div th:if="${currentUser.admin OR currentUser.id == comment.user.id}">
+                                <th:block th:if="${currentUser.admin OR currentUser.id == comment.user.id}">
                                     <form th:action="@{{articleId}/comments/{commentId}/delete(commentId=${comment.id}, articleId=${article.id})}"
                                           method="post">
-                                        <button title="Abschicken" class="btn btn-outline-light" type="submit"><i
+                                        <button id="commentdeletebutton" title="Löschen" class="btn btn-outline-light"
+                                                type="submit"><i
                                                 class="fas fa-trash-alt"></i></button>
                                     </form>
-                                </div>
+                                </th:block>
                             </div>
                         </div>
                     </div>

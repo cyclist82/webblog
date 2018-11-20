@@ -13,4 +13,8 @@ public class CommentDTO {
 	public String getCommenttext() {
 		return commenttext;
 	}
+
+	public void setCommenttext(String commenttext) {
+		this.commenttext = commenttext;
+	}
 }

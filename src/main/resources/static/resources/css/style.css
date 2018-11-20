@@ -140,6 +140,12 @@ div.container-fluid.gesamt.my-md-3 {
     right: 15px;
 }
 
+#commentdeletebutton {
+    position: absolute;
+    bottom: 0;
+    right: 15px;
+}
+
 .sponsor {
     margin-top: 0px;
     padding-top: 0px;
