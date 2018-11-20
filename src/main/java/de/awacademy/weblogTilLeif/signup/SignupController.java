@@ -54,6 +54,10 @@ public class SignupController {
 		}
 		// Happy Path. New User is created
 		User user = new User(signupDTO.getUsername(), signupDTO.getPassword2());
+		// Der erste neue Benutzer wird automatisch Admin
+		if (userRepository.count() == 0) {
+			user.setAdmin(true);
+		}
 		userRepository.save(user);
 		Session session = new Session(user);
 		sessionRepository.save(session);
