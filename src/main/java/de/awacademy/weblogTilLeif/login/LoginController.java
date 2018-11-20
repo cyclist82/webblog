@@ -47,7 +47,7 @@ public class LoginController {
 			response.addCookie(new Cookie("sessionId", session.getId()));
 			return "redirect:/";
 		}
-		return "login";
+		return "login/loginerror";
 	}
 
 	@PostMapping("/logout")
