@@ -51,11 +51,9 @@ public class CommentController {
 		if (currentUser == null) {
 			return "redirect:/";
 		}
-		System.out.println(commentDTO.getCommenttext());
 		Comment comment = new Comment(commentDTO.getCommenttext(), currentUser, article);
 		article.addComment(comment);
 		this.commentRepository.save(comment);
-		System.out.println("geht");
 		return "redirect:/";
 	}
 
