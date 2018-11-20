@@ -4,7 +4,7 @@ import javax.validation.constraints.Size;
 
 public class CommentDTO {
 
-	@Size(min = 2, message = "Bitte etwas länger")
+	@Size(min = 1, message = "Bitte etwas länger")
 	private String commenttext;
 
 	public CommentDTO() {
@@ -12,9 +12,5 @@ public class CommentDTO {
 
 	public String getCommenttext() {
 		return commenttext;
-	}
-
-	public void setCommenttext(String commenttext) {
-		this.commenttext = commenttext;
 	}
 }
