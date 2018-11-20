@@ -3,119 +3,90 @@
 <html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'home')}">
 
 <body>
-<div class="container-fluid">
-    <div class="row">
-        <!--The articles are starting here-->
-        <div class="col-md-8 px-2 py-2" th:each="article: ${articles}">
-            <div class="col border rounded p-2">
-                <div class="d-flex">
-                    <form class="ml-auto" th:action="@{{articleId}/delete(articleId=${article.id})}" method="post">
-                        <div class="btn-group" role="group" aria-label="Article Control">
-                            <a th:href="@{{id}/showHistory(id=${article.getId()})}"
-                               class="btn btn-primary"><i class="fas fa-history"></i></a>
-                            <th:block th:if="${currentUser!=null}">
-                                <th:block th:if="${currentUser.admin}">
-                                    <a th:href="@{{id}/edit(id=${article.getId()})}"
-                                       class="btn btn-primary"><i class="fas fa-edit"></i></a>
-                                    <button class="btn btn-primary" type="submit"><i class="fas fa-trash-alt"></i>
-                                    </button>
-                                </th:block>
-                            </th:block>
-                        </div>
-                    </form>
-                </div>
-                <div>
-                    <h1 th:text="${article.title}">Titel</h1>
-                </div>
-                <div style="word-wrap: break-word">
-                <p th:text="${article.text}">Text</p>
-                </div>
-                <div class="container p-0">
-                    <div class="row">
-                        <!--Text created by User and Creation DateTime-->
-                        <div>
-                            <small class="col-md-8" th:text="'Erstellt von '+${article.getUser().username}"></small>
-                            <small class="col-md-8 text-right"
-                                   th:text="${#temporals.format(article.creationDateTime,'EEEE dd. MMMM yyyy, HH:mm:ss',#locale.GERMANY)}">
-                                Zeit
-                            </small>
-                        </div>
-                        <!--If text was edited later lastEditUser and lastEditTime-->
-                        <div th:if="${article.lastEditUser!=null}">
-                            <small class="col-md-8"
-                                   th:text="'Zuletz bearbeitet von '+${article.getLastEditUser().getUsername()}"></small>
-                            <small class="col-md-8 text-right"
-                                   th:text="${#temporals.format(article.lastEditedDateTime,'EEEE dd. MMMM yyyy, HH:mm:ss',#locale.GERMANY)}">
-                                Zeit
-                            </small>
-                        </div>
-                    </div>
-                    <th:block th:if="${currentUser != null}">
-                        <div th:replace="~{fragments/newCommentButton :: newCommentButton}"></div>
+<!--The articles are starting here-->
+<div th:each="article: ${articles}">
+    <div class="col border rounded p-2">
+        <div class="d-flex">
+            <form class="ml-auto" th:action="@{{articleId}/delete(articleId=${article.id})}" method="post">
+                <div class="btn-group" role="group" aria-label="Article Control">
+                    <a th:href="@{{id}/showHistory(id=${article.getId()})}"
+                       class="btn btn-primary"><i class="fas fa-history"></i></a>
+                    <th:block th:if="${currentUser!=null}">
+                        <th:block th:if="${currentUser.admin}">
+                            <a th:href="@{{id}/edit(id=${article.getId()})}"
+                               class="btn btn-primary"><i class="fas fa-edit"></i></a>
+                            <button class="btn btn-primary" type="submit"><i class="fas fa-trash-alt"></i>
+                            </button>
+                        </th:block>
                     </th:block>
-                    <!--Fragment to show the Categories associated with the article-->
-                    <div th:replace="~{category/showCategories :: categories}"></div>
                 </div>
-            </div>
-            <!--The comments to the Article are Starting here-->
-            <div th:if="${article.comments.size()>0}" class="dropdown">
-                <p>
-                    <button th:text="${article.comments.size()>1} ? ${article.comments.size()}+' Kommentare':${article.comments.size()}+' Kommentar'"
-                            class="btn btn-primary" type="button" data-toggle="collapse"
-                            th:attr="data-target='#collapseComment'+${article.id}, aria-controls='collapseComment'+${article.id}"
-                            aria-expanded="false">
-                        Button with data-target
-                    </button>
-                </p>
-                <div class="collapse" th:attr="id='collapseComment'+${article.id}">
-                    <div th:each="comment:${article.comments}">
-                        <p th:text="${comment.text}">Kommentar Text</p>
-                        <small class="col-md-8" th:text="'Erstellt von '+${comment.getUser().username}"></small>
-                        <small class="col-md-8 text-right"
-                               th:text="${#temporals.format(comment.createdDateTime,'EEEE dd. MMMM yyyy, HH:mm:ss',#locale.GERMANY)}">
-                            Zeit
-                        </small>
-                        <!--Delete comment button just shown if User is Admin or his own comment-->
-                        <div th:if="${currentUser != null}">
-                            <div th:if="${currentUser.admin OR currentUser.id == comment.user.id}">
-                                <form th:action="@{{articleId}/comments/{commentId}/delete(commentId=${comment.id}, articleId=${article.id})}"
-                                      method="post">
-                                    <button title="Abschicken" class="btn btn-primary" type="submit"><i
-                                            class="fas fa-trash-alt"></i></button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-
-            </div>
-
-
+            </form>
         </div>
-
+        <div>
+            <h1 th:text="${article.title}">Titel</h1>
+        </div>
+        <div style="word-wrap: break-word">
+            <p th:text="${article.text}">Text</p>
+        </div>
+        <div class="container p-0">
+            <div class="row">
+                <!--Text created by User and Creation DateTime-->
+                <div>
+                    <small class="col-md-8" th:text="'Erstellt von '+${article.getUser().username}"></small>
+                    <small class="col-md-8 text-right"
+                           th:text="${#temporals.format(article.creationDateTime,'EEEE dd. MMMM yyyy, HH:mm:ss',#locale.GERMANY)}">
+                        Zeit
+                    </small>
+                </div>
+                <!--If text was edited later lastEditUser and lastEditTime-->
+                <div th:if="${article.lastEditUser!=null}">
+                    <small class="col-md-8"
+                           th:text="'Zuletz bearbeitet von '+${article.getLastEditUser().getUsername()}"></small>
+                    <small class="col-md-8 text-right"
+                           th:text="${#temporals.format(article.lastEditedDateTime,'EEEE dd. MMMM yyyy, HH:mm:ss',#locale.GERMANY)}">
+                        Zeit
+                    </small>
+                </div>
+            </div>
+            <th:block th:if="${currentUser != null}">
+                <div th:replace="~{fragments/newCommentButton :: newCommentButton}"></div>
+            </th:block>
+            <!--Fragment to show the Categories associated with the article-->
+            <div th:replace="~{category/showCategories :: categories}"></div>
+        </div>
     </div>
-    <!--<div class="col-md-3">-->
-        <!--<div id="sponsoren" class="sticky-top sticky-offet">-->
-            <!--<a href="http://www.bundeswehr.de" target="_blank"> <img-->
-                    <!--class="mx-auto sponsor"-->
-                    <!--src="bundeswehr.png"-->
-                    <!--alt="Bundeswehr"></a>-->
-            <!--<a href="http://www.maloja.de" target="_blank"> <img-->
-                    <!--class="mx-auto sponsor"-->
-                    <!--src="Maloja.png"-->
-                    <!--alt="Maloja"></a>-->
-            <!--<a href="http://pioneer-cyclesports.com/de/" target="_blank"> <img-->
-                    <!--class="mx-auto sponsor"-->
-                    <!--src="Pioneer_logo.png"-->
-                    <!--alt="Pioneer"></a>-->
-            <!--<a href="https://www.alpina-sports.com/de/" target="_blank"> <img-->
-                    <!--class="mx-auto sponsor"-->
-                    <!--src="Alpina%202016.png"-->
-                    <!--alt="Alpina"></a>-->
-        <!--</div>-->
-    <!--</div>-->
+    <!--The comments to the Article are Starting here-->
+    <div th:if="${article.comments.size()>0}" class="dropdown">
+        <p>
+            <button th:text="${article.comments.size()>1} ? ${article.comments.size()}+' Kommentare':${article.comments.size()}+' Kommentar'"
+                    class="btn btn-primary" type="button" data-toggle="collapse"
+                    th:attr="data-target='#collapseComment'+${article.id}, aria-controls='collapseComment'+${article.id}"
+                    aria-expanded="false">
+                Button with data-target
+            </button>
+        </p>
+        <div class="collapse" th:attr="id='collapseComment'+${article.id}">
+            <div th:each="comment:${article.comments}">
+                <p th:text="${comment.text}">Kommentar Text</p>
+                <small class="col-md-8" th:text="'Erstellt von '+${comment.getUser().username}"></small>
+                <small class="col-md-8 text-right"
+                       th:text="${#temporals.format(comment.createdDateTime,'EEEE dd. MMMM yyyy, HH:mm:ss',#locale.GERMANY)}">
+                    Zeit
+                </small>
+                <!--Delete comment button just shown if User is Admin or his own comment-->
+                <div th:if="${currentUser != null}">
+                    <div th:if="${currentUser.admin OR currentUser.id == comment.user.id}">
+                        <form th:action="@{{articleId}/comments/{commentId}/delete(commentId=${comment.id}, articleId=${article.id})}"
+                              method="post">
+                            <button title="Abschicken" class="btn btn-primary" type="submit"><i
+                                    class="fas fa-trash-alt"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
 </body>
 </html>
