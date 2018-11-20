@@ -49,10 +49,10 @@ public class SessionControllerAdvice {
 		return new LoginDTO();
 	}
 
-//	@ModelAttribute("newcomment")
-//	public CommentDTO commentDTO() {
-//		return new CommentDTO();
-//	}
+	@ModelAttribute("newcomment")
+	public CommentDTO commentDTO() {
+		return new CommentDTO();
+	}
 
 	@ModelAttribute("articles")
 	public List<Article> articles() {
