@@ -3,6 +3,7 @@ package de.awacademy.weblogTilLeif.article;
 import de.awacademy.weblogTilLeif.articleOLD.ArticleOLD;
 import de.awacademy.weblogTilLeif.category.Category;
 import de.awacademy.weblogTilLeif.comment.Comment;
+import de.awacademy.weblogTilLeif.image.Image;
 import de.awacademy.weblogTilLeif.user.User;
 
 import javax.persistence.*;
@@ -34,19 +35,14 @@ public class Article {
 	@OrderBy(value = "createdDateTime ASC")
 	private List<Comment> comments = new ArrayList<>();
 
-//	@OneToMany(fetch = FetchType.EAGER, mappedBy = "parentArticle")
-//	@OrderBy(value = "savedDateTime DESC")
-//	private List<ArticleOLD> oldArticles = new ArrayList<>();
-
-
 	@ManyToMany(fetch = FetchType.EAGER)
 	@OrderBy(value = "name DESC")
 	private Set<Category> categories = new HashSet<>();
 
-
 	private LocalDateTime creationDateTime;
-
 	private LocalDateTime lastEditedDateTime;
+	@OneToOne
+	private Image image;
 
 	public Article() {
 	}
@@ -153,5 +149,13 @@ public class Article {
 		result = 31 * result + title.hashCode();
 		result = 31 * result + text.hashCode();
 		return result;
+	}
+
+	public Image getImage() {
+		return image;
+	}
+
+	public void setImage(Image image) {
+		this.image = image;
 	}
 }

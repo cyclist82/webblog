@@ -7,6 +7,8 @@ import de.awacademy.weblogTilLeif.category.CategoryDTO;
 import de.awacademy.weblogTilLeif.category.CategoryRepository;
 import de.awacademy.weblogTilLeif.comment.Comment;
 import de.awacademy.weblogTilLeif.comment.CommentRepository;
+import de.awacademy.weblogTilLeif.image.Image;
+import de.awacademy.weblogTilLeif.image.ImageRepository;
 import de.awacademy.weblogTilLeif.login.LoginDTO;
 import de.awacademy.weblogTilLeif.user.User;
 import org.springframework.stereotype.Controller;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
@@ -30,12 +33,14 @@ public class ArticleController {
 	private CommentRepository commentRepository;
 	private CategoryRepository categoryRepository;
 	private ArticleOLDRepository articleOLDRepository;
+	private ImageRepository imageRepository;
 
-	public ArticleController(ArticleRepository articleRepository, CommentRepository commentRepository, CategoryRepository categoryRepository, ArticleOLDRepository articleOLDRepository) {
+	public ArticleController(ArticleRepository articleRepository, CommentRepository commentRepository, CategoryRepository categoryRepository, ArticleOLDRepository articleOLDRepository, ImageRepository imageRepository) {
 		this.commentRepository = commentRepository;
 		this.articleRepository = articleRepository;
 		this.categoryRepository = categoryRepository;
 		this.articleOLDRepository = articleOLDRepository;
+		this.imageRepository = imageRepository;
 	}
 
 	@GetMapping("/article")
@@ -51,7 +56,7 @@ public class ArticleController {
 
 	// Mapping for Button create new article
 	@PostMapping(value = "/article")
-	public String create(@ModelAttribute("article") @Valid ArticleDTO articleDTO, BindingResult bindingResult, @ModelAttribute("currentUser") User currentUser) {
+	public String create(@ModelAttribute("article") @Valid ArticleDTO articleDTO, BindingResult bindingResult, @ModelAttribute("currentUser") User currentUser) throws IOException {
 		if (currentUser == null || (!currentUser.isAdmin())) {
 			return "redirect:/";
 		}
@@ -59,8 +64,13 @@ public class ArticleController {
 			return "articles/createArticle";
 		}
 		Article article = new Article(articleDTO.getTitle(), articleDTO.getText(), currentUser);
+		if (!articleDTO.getFile().isEmpty()) {
+			Image image = new Image(articleDTO.getFile().getName(), articleDTO.getFile().getContentType(), articleDTO.getFile().getBytes());
+			imageRepository.save(image);
+			article.setImage(image);
+		}
 		Article article1 = articleRepository.save(article);
-		return "redirect:/" + article.getId() + "/edit";
+		return "redirect:/" + article1.getId() + "/edit";
 	}
 
 	@PostMapping("/{articleId}/delete")
@@ -76,7 +86,9 @@ public class ArticleController {
 			articleOLDRepository.delete(articleOLD);
 		}
 		articleRepository.delete(article);
-
+		if (article.getImage() != null) {
+			imageRepository.delete(article.getImage());
+		}
 		return "redirect:/";
 	}
 

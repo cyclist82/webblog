@@ -2,8 +2,17 @@
 <html lang="de" xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'newarticle')}">
 <body>
 <h1>Beitrag erstellen</h1>
-<form th:action="@{/article}" method="post" th:object="${article}">
-    <input th:replace="~{fragments/inputField :: input ('Titel', 'title', 'text')}"/>
+<form th:action="@{/article}" method="post" enctype="multipart/form-data" th:object="${article}">
+
+    <table>
+
+        <td>File to upload:</td>
+        <td><input type="file" name="file" th:value="${file}"/></td>
+
+    </table>
+
+
+    <input th:replace=" ~{fragments/inputField :: input ('Titel', 'title', 'text')}"/>
     <input th:replace="~{fragments/inputField :: input ('Text', 'text', 'textarea')}"/>
     <!--Titel: <input type="text" th:field="*{title}"><br/>-->
     <!--Text: <textarea type="text" th:field="*{text}"></textarea><br/>-->

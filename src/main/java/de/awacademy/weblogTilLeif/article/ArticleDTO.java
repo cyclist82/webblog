@@ -2,6 +2,7 @@ package de.awacademy.weblogTilLeif.article;
 
 
 import de.awacademy.weblogTilLeif.category.Category;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.Size;
 import java.util.HashSet;
@@ -16,6 +17,7 @@ public class ArticleDTO {
 	private String text;
 
 	private Set<Category> categories = new HashSet<>();
+	private MultipartFile file;
 
 	public ArticleDTO() {
 	}
@@ -56,5 +58,13 @@ public class ArticleDTO {
 
 	public void setCategories(Set<Category> categories) {
 		this.categories = categories;
+	}
+
+	public MultipartFile getFile() {
+		return file;
+	}
+
+	public void setFile(MultipartFile file) {
+		this.file = file;
 	}
 }
