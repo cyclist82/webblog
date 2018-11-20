@@ -4,9 +4,17 @@
 
 <body>
 <!--The articles are starting here-->
-<div th:each="article: ${articles}">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col text-center">
+            <h1 class="py-2"
+                th:text="${currentUser != null ? 'Hallo '+currentUser.username+' Willkommen zurück' : 'Willkommen zu unserem Blog'}"></h1>
+        </div>
+    </div>
+</div>
+<th:block th:each="article: ${articles}">
     <div class="col border rounded p-2">
-        <div class="d-flex">
+        <div class="float-right">
             <form class="ml-auto" th:action="@{{articleId}/delete(articleId=${article.id})}" method="post">
                 <div class="btn-group" role="group" aria-label="Article Control">
                     <a th:href="@{{id}/showHistory(id=${article.getId()})}"
@@ -23,33 +31,31 @@
             </form>
         </div>
         <div>
-            <h1 th:text="${article.title}">Titel</h1>
+            <!--Text created by User and Creation DateTime-->
+            <small th:text="'Erstellt von '+${article.getUser().username}"></small>
+            <small th:text="${#temporals.format(article.creationDateTime,'EEEE dd. MMMM yyyy, HH:mm:ss',#locale.GERMANY)}">
+                Zeit
+            </small>
+            <!--If text was edited later lastEditUser and lastEditTime-->
+            <div th:if="${article.lastEditUser!=null}">
+                <small th:text="'Zuletz bearbeitet von '+${article.getLastEditUser().getUsername()}"></small>
+                <small th:text="${#temporals.format(article.lastEditedDateTime,'EEEE dd. MMMM yyyy, HH:mm:ss',#locale.GERMANY)}">
+                    Zeit
+                </small>
+            </div>
+        </div>
+
+
+        <div>
+            <h1 class="py-2" th:text="${article.title}">Titel</h1>
         </div>
         <div style="word-wrap: break-word">
             <p th:text="${article.text}">Text</p>
         </div>
         <div class="container p-0">
-            <div class="row">
-                <!--Text created by User and Creation DateTime-->
-                <div>
-                    <small class="col-md-8" th:text="'Erstellt von '+${article.getUser().username}"></small>
-                    <small class="col-md-8 text-right"
-                           th:text="${#temporals.format(article.creationDateTime,'EEEE dd. MMMM yyyy, HH:mm:ss',#locale.GERMANY)}">
-                        Zeit
-                    </small>
-                </div>
-                <!--If text was edited later lastEditUser and lastEditTime-->
-                <div th:if="${article.lastEditUser!=null}">
-                    <small class="col-md-8"
-                           th:text="'Zuletz bearbeitet von '+${article.getLastEditUser().getUsername()}"></small>
-                    <small class="col-md-8 text-right"
-                           th:text="${#temporals.format(article.lastEditedDateTime,'EEEE dd. MMMM yyyy, HH:mm:ss',#locale.GERMANY)}">
-                        Zeit
-                    </small>
-                </div>
-            </div>
+
             <th:block th:if="${currentUser != null}">
-                <div th:replace="~{fragments/newCommentButton :: newCommentButton}"></div>
+                <th:block th:replace="~{fragments/newCommentButton :: newCommentButton}"></th:block>
             </th:block>
             <!--Fragment to show the Categories associated with the article-->
             <div th:replace="~{category/showCategories :: categories}"></div>
@@ -86,7 +92,7 @@
             </div>
         </div>
     </div>
-</div>
+</th:block>
 
 </body>
 </html>

@@ -16,14 +16,6 @@
     </div>
     <div th:replace="fragments/navigation::navigation">
     </div>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col text-center">
-                <h1 th:text="${currentUser != null ? 'Hallo '+currentUser.username+' Willkommen zurück' : 'Willkommen zu unserem Blog'}"></h1>
-            </div>
-        </div>
-    </div>
-
     <div id="content" class="row py-1 py-md-3 px-1 px-md-4">
         <div class="col-md-9">
             <th:block th:include="${template}"/>
