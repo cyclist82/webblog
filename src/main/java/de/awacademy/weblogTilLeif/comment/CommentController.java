@@ -27,11 +27,11 @@ public class CommentController {
 		this.commentRepository = commentRepository;
 	}
 
-//	@GetMapping("/comment/new")
-//	public String createComment(Model model) {
-//		model.addAttribute("comment", new CommentDTO());
-//		return "createComment";
-//	}
+	@GetMapping("/comment/new")
+	public String createComment(Model model) {
+		model.addAttribute("comment", new CommentDTO());
+		return "createComment";
+	}
 
 	@ModelAttribute("article")
 	public Article findArticle(@PathVariable("articleId") String articleId) {
@@ -51,8 +51,10 @@ public class CommentController {
 		if (currentUser == null) {
 			return "redirect:/";
 		}
+		System.out.println(commentDTO.getCommenttext());
 		Comment comment = new Comment(commentDTO.getCommenttext(), currentUser, article);
 		article.addComment(comment);
+		this.commentRepository.save(comment);
 		System.out.println("geht");
 		return "redirect:/";
 	}
