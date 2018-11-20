@@ -2,6 +2,8 @@ package de.awacademy.weblogTilLeif.session;
 
 import de.awacademy.weblogTilLeif.article.Article;
 import de.awacademy.weblogTilLeif.article.ArticleRepository;
+import de.awacademy.weblogTilLeif.category.Category;
+import de.awacademy.weblogTilLeif.category.CategoryRepository;
 import de.awacademy.weblogTilLeif.comment.CommentDTO;
 import de.awacademy.weblogTilLeif.login.LoginDTO;
 import de.awacademy.weblogTilLeif.user.User;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @ControllerAdvice
 public class SessionControllerAdvice {
@@ -21,11 +24,13 @@ public class SessionControllerAdvice {
 	private SessionRepository sessionRepository;
 	private UserRepository userRepository;
 	private ArticleRepository articleRepository;
+	private CategoryRepository categoryRepository;
 
-	public SessionControllerAdvice(UserRepository userRepository, SessionRepository sessionRepository, ArticleRepository articleRepository) {
+	public SessionControllerAdvice(CategoryRepository categoryRepository, UserRepository userRepository, SessionRepository sessionRepository, ArticleRepository articleRepository) {
 		this.sessionRepository = sessionRepository;
 		this.userRepository = userRepository;
 		this.articleRepository = articleRepository;
+		this.categoryRepository = categoryRepository;
 	}
 
 	// runs on every request, no whatter which it is
@@ -52,5 +57,10 @@ public class SessionControllerAdvice {
 	@ModelAttribute("articles")
 	public List<Article> articles() {
 		return articleRepository.findAllByOrderByCreationDateTimeDesc();
+	}
+
+	@ModelAttribute("activeCategories")
+	public Set<Category> activeCategories() {
+		return categoryRepository.findByActiveIs(true);
 	}
 }
