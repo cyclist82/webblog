@@ -4,7 +4,7 @@
     <li class="nav-item"
         th:class="${active==menu ? 'nav-item active' : 'nav-item'}">
         <a th:href="@{__${path}__}" class="nav-link" th:text="${title}">
-            <!--<span class="sr-only">(current)</span>-->
+            <span class="sr-only">(current)</span>
         </a>
     </li>
 </th:block>

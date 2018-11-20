@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="de" xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'newarticle')}">
+<html lang="de" xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'home')}">
 <body>
 <h1 th:text="'Es gibt '+${articles.size()}+' Artikel zum Thema '+${category.name}">Text</h1>
 <th:block th:each="article:${articles}">

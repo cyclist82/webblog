@@ -50,9 +50,9 @@
                             </small>
                         </div>
                     </div>
-                    <div th:if="${currentUser != null}">
+                    <th:block th:if="${currentUser != null}">
                         <div th:replace="~{fragments/newCommentButton :: newCommentButton}"></div>
-                    </div>
+                    </th:block>
                     <!--Fragment to show the Categories associated with the article-->
                     <div th:replace="~{category/showCategories :: categories}"></div>
                 </div>
