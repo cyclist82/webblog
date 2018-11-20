@@ -23,7 +23,7 @@ public class IndexController {
 
 	// Website is loaded
 	@GetMapping("/")
-	public String homeGet(Model model) {
+	public String homeGet() {
 		return "index";
 	}
 }
