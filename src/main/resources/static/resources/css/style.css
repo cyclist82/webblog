@@ -36,10 +36,6 @@ figcaption.figure-caption {
     color: ghostwhite;
 }
 
-#content {
-
-}
-
 #navigation {
     background-color: rgba(0, 0, 0, 0.7) !important;
 }
@@ -136,6 +132,12 @@ div.container-fluid.gesamt.my-md-3 {
     flex-direction: row;
     justify-content: space-evenly;
     align-items: flex-start;
+}
+
+#commentbutton {
+    position: absolute;
+    bottom: 0;
+    right: 15px;
 }
 
 .sponsor {

@@ -1,6 +1,6 @@
-<div th:fragment="newCommentButton">
+<th:block th:fragment="newCommentButton" xmlns:th="http://www.w3.org/1999/html">
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary"
+    <button type="button" class="btn btn-outline-light"
             data-toggle="modal" data-target="#exampleModal" th:attr="data-target='#commentModal'+${article.id}">
         Neuer Kommentar
     </button>
@@ -36,4 +36,4 @@
             </div>
         </div>
     </div>
-</div>
+</th:blo>
