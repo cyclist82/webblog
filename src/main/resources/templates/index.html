@@ -45,7 +45,8 @@
                 <h1 th:text="${article.title}">Titel</h1>
             </div>
             <div class="py-md-2 col-12" style="word-wrap: break-word">
-                <img th:src="@{'data:image/jpeg;base64,'+${article.image.getImageData()}}"/>
+                <img th:attr="id='image', class='rounded embed-responsive'"
+                     th:src="@{'data:image/jpeg;base64,'+${article.image.getImageData()}}"/>
                 <p th:text="${article.text}">Text</p>
             </div>
             <div class="col-md-10">
