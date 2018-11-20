@@ -3,20 +3,20 @@
         <div>
             <h1 th:text="${article.title}">Titel</h1>
         </div>
-        <div style="word-wrap: break-word; word-break: break-all;">
+        <div style="word-wrap: break-word">
             <p th:text="${article.text}">Text</p>
         </div>
         <div class="container-fluid p-0">
             <div class="row">
                 <!--Text created by User and Creation DateTime-->
-                <div class="col-md-6">
+                <div class="col-md-8">
                     <small th:text="'Erstellt von '+${article.getUser().username}"></small>
                     <small th:text="${#temporals.format(article.creationDateTime,'EEEE dd. MMMM yyyy, HH:mm:ss',#locale.GERMANY)}">
                         Zeit
                     </small>
                 </div>
                 <!--If text was edited later lastEditUser and lastEditTime-->
-                <div class="col-md-6" th:if="${article.lastEditUser!=null}">
+                <div class="col-md-8" th:if="${article.lastEditUser!=null}">
                     <small th:text="'Zuletz bearbeitet von '+${article.getLastEditUser().getUsername()}">Username</small>
                     <small th:text="${#temporals.format(article.lastEditedDateTime,'EEEE dd. MMMM yyyy, HH:mm:ss',#locale.GERMANY)}">
                         Zeit
