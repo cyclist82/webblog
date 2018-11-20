@@ -13,6 +13,11 @@ public class CategoryDTO {
 
 	}
 
+	public CategoryDTO(String id, @Size(min = 2, message = "Bitte etwas länger") String name) {
+		this.id = id;
+		this.name = name;
+	}
+
 	public String getName() {
 		return name;
 	}

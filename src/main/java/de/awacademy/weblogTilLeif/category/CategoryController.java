@@ -115,7 +115,7 @@ public class CategoryController {
 	}
 
 	@GetMapping("/setActive/{categoryId}")
-	public String setActive(@PathVariable("categoryId") String categoryId, @ModelAttribute("currentUser") User currentUser) {
+	public String setActiveCategory(@PathVariable("categoryId") String categoryId, @ModelAttribute("currentUser") User currentUser) {
 		if (!currentUser.isAdmin()) {
 			return "redirect:/";
 		}
@@ -126,7 +126,7 @@ public class CategoryController {
 	}
 
 	@GetMapping("/delete/{categoryId}")
-	public String delete(@PathVariable("categoryId") String categoryId, @ModelAttribute("currentUser") User currentUser) {
+	public String deleteCategory(@PathVariable("categoryId") String categoryId, @ModelAttribute("currentUser") User currentUser) {
 		if (!currentUser.isAdmin()) {
 			return "redirect:/";
 		}
@@ -137,4 +137,15 @@ public class CategoryController {
 		categoryRepository.delete(category);
 		return "redirect:/1/createCategory";
 	}
+
+//	@GetMapping("/edit/{categoryId}")
+//	public String editCategory(Model model, @PathVariable("categoryId") String categoryId, @ModelAttribute("currentUser") User currentUser) {
+//		if (!currentUser.isAdmin()) {
+//			return "redirect:/";
+//		}
+//		model.addAttribute("allCategory", categoryRepository.findById(categoryId).get());
+//		return "redirect:/1/createCategory";
+//	}
+
+
 }

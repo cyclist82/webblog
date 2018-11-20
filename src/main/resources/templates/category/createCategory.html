@@ -22,55 +22,53 @@
             <div class="col-md-6 offset-md-2" th:text="${allCategory.name}"></div>
             <div class="col-md-2">
                 <div class="btn-group" role="group" aria-label="Category Control">
-                    <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-primary"
-                            data-toggle="modal" data-target="#exampleModal"
-                            th:attr="data-target='#editCategory'+${allCategory.id}">
-                        Edit
-                    </button>
+                    <!--&lt;!&ndash; Button trigger modal &ndash;&gt;-->
+                    <!--<a th:href="@{edit/{id}(id=${allCategory.id})}" type="button" class="btn btn-primary"-->
+                    <!--data-toggle="modal" data-target="#exampleModal"-->
+                    <!--th:attr="data-target='#editCategory'+${allCategory.id}">-->
+                    <!--Edit-->
+                    <!--</a>-->
 
-                    <!-- Modal -->
-                    <div class="modal fade" th:attr="id='editCategory'+${allCategory.id}" tabindex="-1" role="dialog"
-                         aria-labelledby="exampleModalLabel"
-                         aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 style="color: black" class="modal-title" id="exampleModalLabel"
-                                        th:text="'Kategorie '+${allCategory.name}+' bearbeiten'">Kategorie
-                                        bearbeiten</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <!--<form th:action="@{{id}/comment/new(id=${allCategory.id})}"-->
-                                    <!--th:object="${newcategory}"-->
-                                    <!--class="form-horizontal" method="post">-->
-                                    <!--&lt;!&ndash;<input type="hidden" name="id" th:value="*{id}" />&ndash;&gt;-->
-                                    <!--<input th:replace="~{fragments/inputField :: input ('Kommentar', 'commenttext', 'textarea')}"/>-->
-
-
-                                    <!--<div class="modal-footer">-->
-                                    <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Close-->
-                                    <!--</button>-->
-                                    <!--<button type="submit"-->
-                                    <!--class="btn btn-primary">Kommentar speichern-->
-                                    <!--</button>-->
-                                    <!--</div>-->
-                                    <!--</form>-->
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
+                    <!--&lt;!&ndash; Modal &ndash;&gt;-->
+                    <!--<div class="modal fade" th:attr="id='editCategory'+${allCategory.id}" tabindex="-1" role="dialog"-->
+                    <!--aria-labelledby="exampleModalLabel"-->
+                    <!--aria-hidden="true">-->
+                    <!--<div class="modal-dialog" role="document">-->
+                    <!--<div class="modal-content">-->
+                    <!--<div class="modal-header">-->
+                    <!--<h5 style="color: black" class="modal-title" id="exampleModalLabel"-->
+                    <!--th:text="'Kategorie '+${allCategory.name}+' bearbeiten'">Kategorie-->
+                    <!--bearbeiten</h5>-->
+                    <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+                    <!--<span aria-hidden="true">&times;</span>-->
+                    <!--</button>-->
+                    <!--</div>-->
+                    <!--<div class="modal-body">-->
+                    <!--<form th:action="@{edit/{id}(id=${allCategory.id})}"-->
+                    <!--th:object="${'editCategory'+${allCategory.id}}"-->
+                    <!--class="form-horizontal" method="post">-->
+                    <!--<input th:replace="~{fragments/inputField :: input ('Kategorie', 'name', 'text')}"/>-->
 
 
-                    <a th:href="@{setActive/{id}(id=${allCategory.id})}"
-                       class="btn btn-primary">
-                        <i th:if="${allCategory.isActive()}" class="fas fa-history"></i>
-                        <i th:if="${!allCategory.isActive()}" class="fas fa-apple"></i>
-                    </a>
+                    <!--<div class="modal-footer">-->
+                    <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Close-->
+                    <!--</button>-->
+                    <!--<button type="submit"-->
+                    <!--class="btn btn-primary">Kommentar speichern-->
+                    <!--</button>-->
+                    <!--</div>-->
+                    <!--</form>-->
+                    <!--</div>-->
+
+                    <!--</div>-->
+                    <!--</div>-->
+                    <!--</div>-->
+
+
+                    <a th:if="${allCategory.isActive()}" th:href="@{setActive/{id}(id=${allCategory.id})}"
+                       class="btn btn-primary">Aktiv</a>
+                    <a th:if="${!allCategory.isActive()}" th:href="@{setActive/{id}(id=${allCategory.id})}"
+                       class="btn btn-primary">Deaktiviert</a>
                     <a th:href="@{delete/{id}(id=${allCategory.id})}"
                        class="btn btn-primary">
                         <i class="fas fa-trash-alt"></i>

@@ -31,7 +31,7 @@ public class LoginController {
 		return "redirect:/";
 	}
 
-//	Necessary for Impressum to work inside the layout
+	//	Necessary for Impressum to work inside the layout
 	@GetMapping("/impressum")
 	public String impressum(Model model) {
 		model.addAttribute("login", new LoginDTO());
