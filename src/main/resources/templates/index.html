@@ -66,25 +66,28 @@
                         Button with data-target
                     </button>
                     <div class="collapse" th:attr="id='collapseComment'+${article.id}">
-                        <div th:each="comment:${article.comments}">
-                            <small class="col-md-8" th:text="'Erstellt von '+${comment.getUser().username}"></small>
-                            <small class="col-md-8 text-right"
-                                   th:text="${#temporals.format(comment.createdDateTime,'EEEE dd. MMMM yyyy, HH:mm:ss',#locale.GERMANY)}">
-                                Zeit
-                            </small>
-                            <div class="col-12">
-                                <p th:text="${comment.text}">Kommentar Text</p>
-                            </div>
-                            <!--Delete comment button just shown if User is Admin or his own comment-->
-                            <div th:if="${currentUser != null}">
-                                <th:block th:if="${currentUser.admin OR currentUser.id == comment.user.id}">
-                                    <form th:action="@{{articleId}/comments/{commentId}/delete(commentId=${comment.id}, articleId=${article.id})}"
-                                          method="post">
-                                        <button id="commentdeletebutton" title="Löschen" class="btn btn-outline-light"
-                                                type="submit"><i
-                                                class="fas fa-trash-alt"></i></button>
-                                    </form>
-                                </th:block>
+                        <div class="col-12 py-3">
+                            <div th:each="comment:${article.comments}">
+                                <form th:action="@{{articleId}/comments/{commentId}/delete(commentId=${comment.id}, articleId=${article.id})}"
+                                      method="post">
+                                    <small class="col-md-8"
+                                           th:text="'Erstellt von '+${comment.getUser().username+' am '+{#temporals.format(comment.createdDateTime,'EEEE dd. MMMM yyyy, HH:mm:ss',#locale.GERMANY)}}"></small>
+                                    <div class="col-12">
+                                        <p th:text="${comment.text}">Kommentar Text</p>
+                                    </div>
+                                    <!--Delete comment button just shown if User is Admin or his own comment-->
+                                    <div th:if="${currentUser != null}">
+                                        <th:block th:if="${currentUser.admin OR currentUser.id == comment.user.id}">
+
+
+                                            <button title="Löschen"
+                                                    class="btn btn-outline-light"
+                                                    type="submit"><i
+                                                    class="fas fa-trash-alt"></i></button>
+
+                                        </th:block>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
