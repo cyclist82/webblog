@@ -7,13 +7,13 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col text-center">
-            <h1 class="py-2"
+            <h1 class="py-md-2"
                 th:text="${currentUser != null ? 'Hallo '+currentUser.username+' Willkommen zurück' : 'Willkommen zu unserem Blog'}"></h1>
         </div>
     </div>
 </div>
 <th:block th:each="article: ${articles}">
-    <div class="container border rounded p-2">
+    <div class="container backgrounddarker px-md-4 mx-md-4 py-3 my-3">
         <div class="row">
             <div class="col-md-9">
                 <!--Text created by User and Creation DateTime-->
@@ -41,10 +41,10 @@
             </div>
 
 
-            <div class="py-4 col-12">
+            <div class="py-md-4 col-12">
                 <h1 th:text="${article.title}">Titel</h1>
             </div>
-            <div class="py-2 col-12" style="word-wrap: break-word">
+            <div class="py-md-2 col-12" style="word-wrap: break-word">
                 <p th:text="${article.text}">Text</p>
             </div>
             <div class="col-md-10">
@@ -60,36 +60,42 @@
             <div class="col-12 pt-4">
                 <div th:if="${article.comments.size()>0}" class="dropdown">
                     <button th:text="${article.comments.size()>1} ? ${article.comments.size()}+' Kommentare':${article.comments.size()}+' Kommentar'"
-                            class="btn btn-outline-light" type="button" data-toggle="collapse"
+                            class="btn btn-outline-light ml-3 mb-3" type="button" data-toggle="collapse"
                             th:attr="data-target='#collapseComment'+${article.id}, aria-controls='collapseComment'+${article.id}"
                             aria-expanded="false">
                         Button with data-target
                     </button>
                     <div class="collapse" th:attr="id='collapseComment'+${article.id}">
-                        <div class="col-12 py-3">
-                            <div th:each="comment:${article.comments}">
-                                <form th:action="@{{articleId}/comments/{commentId}/delete(commentId=${comment.id}, articleId=${article.id})}"
+                        <th:block th:each="comment:${article.comments}">
+                            <div class="col-12 backgrounddarker my-3 pt-3 mx-auto">
+
+                                <form class="row"
+                                      th:action="@{{articleId}/comments/{commentId}/delete(commentId=${comment.id}, articleId=${article.id})}"
                                       method="post">
-                                    <small class="col-md-8"
-                                           th:text="'Erstellt von '+${comment.getUser().username+' am '+{#temporals.format(comment.createdDateTime,'EEEE dd. MMMM yyyy, HH:mm:ss',#locale.GERMANY)}}"></small>
-                                    <div class="col-12">
-                                        <p th:text="${comment.text}">Kommentar Text</p>
+
+                                    <div class="col-10">
+                                        <div class="col-12">
+                                            <small th:text="'Erstellt von '+${comment.getUser().username+' am '+{#temporals.format(comment.createdDateTime,'EEEE dd. MMMM yyyy, HH:mm:ss',#locale.GERMANY)}}"></small>
+                                        </div>
+                                        <div class="col-12 pt-2">
+                                            <p th:text="${comment.text}">Kommentar Text</p>
+                                        </div>
                                     </div>
-                                    <!--Delete comment button just shown if User is Admin or his own comment-->
-                                    <div th:if="${currentUser != null}">
-                                        <th:block th:if="${currentUser.admin OR currentUser.id == comment.user.id}">
+                                    <div class="col-2 text-right p-md-4">
+                                        <!--Delete comment button just shown if User is Admin or his own comment-->
+                                        <th:block th:if="${currentUser != null}">
+                                            <th:block th:if="${currentUser.admin OR currentUser.id == comment.user.id}">
+                                                <button title="Löschen"
+                                                        class="btn btn-outline-light deleteButton mr-3"
+                                                        type="submit"><i
+                                                        class="fas fa-trash-alt"></i></button>
 
-
-                                            <button title="Löschen"
-                                                    class="btn btn-outline-light"
-                                                    type="submit"><i
-                                                    class="fas fa-trash-alt"></i></button>
-
+                                            </th:block>
                                         </th:block>
                                     </div>
                                 </form>
                             </div>
-                        </div>
+                        </th:block>
                     </div>
                 </div>
             </div>

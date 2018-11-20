@@ -6,6 +6,8 @@ import de.awacademy.weblogTilLeif.user.User;
 import de.awacademy.weblogTilLeif.user.UserRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -39,7 +41,7 @@ public class LoginController {
 	}
 
 	@PostMapping("/login")
-	public String loginSubmit(Model model, @ModelAttribute("login") LoginDTO loginDTO, HttpServletResponse response) {
+	public String loginSubmit(Model model, @ModelAttribute("login") LoginDTO loginDTO, HttpServletResponse response, BindingResult bindingResult) {
 		Optional<User> optionalUser = userRepository.findFirstByUsernameAndPassword(loginDTO.getUsername(), loginDTO.getPassword());
 		if (optionalUser.isPresent()) {
 			Session session = new Session(optionalUser.get());
@@ -47,6 +49,7 @@ public class LoginController {
 			response.addCookie(new Cookie("sessionId", session.getId()));
 			return "redirect:/";
 		}
+		bindingResult.addError(new FieldError("login", "password", "Benutzer oder Passwort ungültig"));
 		return "login/loginerror";
 	}
 

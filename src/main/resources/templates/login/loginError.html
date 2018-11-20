@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="de" xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'login')}">
 <body>
-<h1>Login nicht erfolgreich</h1>
-<form th:fragment="login" th:action="@{/login}" method="post" th:object="${login}">
-    <div class="white">
-        <input th:replace="~{fragments/inputField :: input ('Username', 'username', 'text')}"/>
-        <input th:replace="~{fragments/inputField :: input ('Password', 'password', 'password')}"/>
-    </div>
-    <button class="btn btn-primary" type="submit">Login</button>
-</form>
+<div class="container">
+    <h1>Login nicht erfolgreich</h1>
+    <form th:fragment="login" th:action="@{/login}" method="post" th:object="${login}">
+        <div class="white">
+            <input th:replace="~{fragments/inputField :: input ('Benutzername', 'username', 'text')}"/>
+            <input th:replace="~{fragments/inputField :: input ('Passwort', 'password', 'password')}"/>
+        </div>
+        <button class="btn btn-primary" type="submit">Login</button>
+    </form>
+</div>
 </body>
 </html>

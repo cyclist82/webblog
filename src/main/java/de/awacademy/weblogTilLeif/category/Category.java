@@ -18,6 +18,7 @@ public class Category {
 	private boolean active;
 
 
+
 	public Category() {
 		this.id = UUID.randomUUID().toString();
 		this.active = true;
