@@ -6,7 +6,7 @@
 <div class="container-fluid">
     <div class="row">
         <!--The articles are starting here-->
-        <div class="col-md-6 px-2 py-2" th:each="article: ${articles}">
+        <div class="col-md-8 px-2 py-2" th:each="article: ${articles}">
             <div class="col border rounded p-2">
                 <div class="d-flex">
                     <form class="ml-auto" th:action="@{{articleId}/delete(articleId=${article.id})}" method="post">
@@ -34,17 +34,17 @@
                     <div class="row">
                         <!--Text created by User and Creation DateTime-->
                         <div>
-                            <small class="col-md-6" th:text="'Erstellt von '+${article.getUser().username}"></small>
-                            <small class="col-md-6 text-right"
+                            <small class="col-md-8" th:text="'Erstellt von '+${article.getUser().username}"></small>
+                            <small class="col-md-8 text-right"
                                    th:text="${#temporals.format(article.creationDateTime,'EEEE dd. MMMM yyyy, HH:mm:ss',#locale.GERMANY)}">
                                 Zeit
                             </small>
                         </div>
                         <!--If text was edited later lastEditUser and lastEditTime-->
                         <div th:if="${article.lastEditUser!=null}">
-                            <small class="col-md-6"
+                            <small class="col-md-8"
                                    th:text="'Zuletz bearbeitet von '+${article.getLastEditUser().getUsername()}"></small>
-                            <small class="col-md-6 text-right"
+                            <small class="col-md-8 text-right"
                                    th:text="${#temporals.format(article.lastEditedDateTime,'EEEE dd. MMMM yyyy, HH:mm:ss',#locale.GERMANY)}">
                                 Zeit
                             </small>
@@ -70,8 +70,8 @@
                 <div class="collapse" th:attr="id='collapseComment'+${article.id}">
                     <div th:each="comment:${article.comments}">
                         <p th:text="${comment.text}">Kommentar Text</p>
-                        <small class="col-md-6" th:text="'Erstellt von '+${comment.getUser().username}"></small>
-                        <small class="col-md-6 text-right"
+                        <small class="col-md-8" th:text="'Erstellt von '+${comment.getUser().username}"></small>
+                        <small class="col-md-8 text-right"
                                th:text="${#temporals.format(comment.createdDateTime,'EEEE dd. MMMM yyyy, HH:mm:ss',#locale.GERMANY)}">
                             Zeit
                         </small>
