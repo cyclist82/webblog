@@ -1,5 +1,7 @@
 package de.awacademy.weblogTilLeif.image;
 
+import org.apache.tomcat.util.codec.binary.Base64;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Lob;
@@ -53,5 +55,9 @@ public class Image {
 
 	public void setPicture(byte[] picture) {
 		this.picture = picture;
+	}
+
+	public String getImageData() {
+		return Base64.encodeBase64String(picture);
 	}
 }

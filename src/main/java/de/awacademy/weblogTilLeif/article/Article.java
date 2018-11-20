@@ -5,6 +5,7 @@ import de.awacademy.weblogTilLeif.category.Category;
 import de.awacademy.weblogTilLeif.comment.Comment;
 import de.awacademy.weblogTilLeif.image.Image;
 import de.awacademy.weblogTilLeif.user.User;
+import org.apache.tomcat.util.codec.binary.Base64;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
