@@ -17,16 +17,10 @@
         <div class="row">
             <div class="col-md-9">
                 <!--Text created by User and Creation DateTime-->
-                <small th:text="'Erstellt von '+${article.getUser().username}"></small>
-                <small th:text="${#temporals.format(article.creationDateTime,'EEEE dd. MMMM yyyy, HH:mm:ss',#locale.GERMANY)}">
-                    Zeit
-                </small>
+                <small th:text="'Erstellt von '+${article.getUser().username+' am '+{#temporals.format(article.creationDateTime,'EEEE dd. MMMM yyyy, HH:mm:ss',#locale.GERMANY)}}"></small>
                 <!--If text was edited later lastEditUser and lastEditTime-->
                 <div th:if="${article.lastEditUser!=null}">
-                    <small th:text="'Zuletz bearbeitet von '+${article.getLastEditUser().getUsername()}"></small>
-                    <small th:text="${#temporals.format(article.lastEditedDateTime,'EEEE dd. MMMM yyyy, HH:mm:ss',#locale.GERMANY)}">
-                        Zeit
-                    </small>
+                    <small th:text="'Zuletzt bearbeitet von '+${article.getLastEditUser().username+' am '+{#temporals.format(article.lastEditedDateTime,'EEEE dd. MMMM yyyy, HH:mm:ss',#locale.GERMANY)}}"></small>
                 </div>
             </div>
             <div class="col-md-3 text-right">
@@ -47,10 +41,10 @@
             </div>
 
 
-            <div class="py-2 col">
+            <div class="py-2 col-12">
                 <h1 th:text="${article.title}">Titel</h1>
             </div>
-            <div class="py-1 col" style="word-wrap: break-word">
+            <div class="py-1 col-12" style="word-wrap: break-word">
                 <p th:text="${article.text}">Text</p>
             </div>
             <div class="col-md-10">
