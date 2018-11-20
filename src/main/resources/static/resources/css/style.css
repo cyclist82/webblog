@@ -123,6 +123,11 @@ div.backgrounddarker {
     background-color: rgba(0, 0, 0, 0.7);
     border-radius: 10px;
 }
+span.backgrounddarker {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+}
+
 
 div.container-fluid.gesamt.my-md-3 {
     background-color: white;

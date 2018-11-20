@@ -8,8 +8,11 @@
             <div class="col-md-10 offset-md-1 backgrounddarker my-2 py-3 px-md-2">
                 <div class="col-12"><h1>Beitrag erstellen</h1></div>
                 <div class="col-12">
-                    Bild Auswählen
-                    <input type="file" name="file" th:value="${file}"/>
+                    <label for="PictureUpload">Bild Auswählen</label>
+                </div>
+                <div class="col-12 pb-2">
+                    <input class="btn btn-file btn-light" type="file" name="file" id="PictureUpload"
+                           th:value="${file}"/>
                 </div>
                 <input th:replace=" ~{fragments/inputField :: input ('Titel', 'title', 'text')}"/>
                 <input th:replace="~{fragments/inputField :: input ('Text', 'text', 'textarea')}"/>

@@ -4,13 +4,10 @@
 
 <body>
 <!--The articles are starting here-->
-<div class="container-fluid">
-    <div class="row">
-        <div class="col text-center">
-            <h1 class="py-md-2"
-                th:text="${currentUser != null ? 'Hallo '+currentUser.username+' Willkommen zurück' : 'Willkommen zu unserem Blog'}"></h1>
-        </div>
-    </div>
+<div class="text-center mt-3" style="margin-bottom: 2rem">
+    <h1><span class="backgrounddarker p-2"
+              th:text="${currentUser != null ? 'Hallo '+currentUser.username+' Willkommen zurück' : 'Willkommen zu unserem Blog'}">Text</span>
+    </h1>
 </div>
 <th:block th:each="article: ${articles}">
     <div class="container backgrounddarker px-md-4 mx-md-4 py-3 my-3">
