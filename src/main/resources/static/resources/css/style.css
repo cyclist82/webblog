@@ -10,6 +10,7 @@ body {
 }
 
 p {
+    text-align: justify;
     white-space: pre-wrap;
 }
 
@@ -95,10 +96,6 @@ span.navbar-toggler-icon {
 
 div.sticky-top.sticky-offet {
     top: 56px;
-}
-
-p {
-    text-align: justify;
 }
 
 .container {
