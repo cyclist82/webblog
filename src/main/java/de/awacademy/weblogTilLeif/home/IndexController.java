@@ -23,10 +23,6 @@ public class IndexController {
 	// Website is loaded
 	@GetMapping("/")
 	public String home(Model model) {
-		model.addAttribute("articles", articleRepository.findAllByOrderByCreationDateTimeDesc());
-		model.addAttribute("newcomment", new CommentDTO());
-		model.addAttribute("login", new LoginDTO());
-
 		return "index";
 	}
 }

@@ -1,5 +1,6 @@
 package de.awacademy.weblogTilLeif.session;
 
+import de.awacademy.weblogTilLeif.article.Article;
 import de.awacademy.weblogTilLeif.article.ArticleRepository;
 import de.awacademy.weblogTilLeif.comment.CommentDTO;
 import de.awacademy.weblogTilLeif.login.LoginDTO;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
+import java.util.List;
 import java.util.Optional;
 
 @ControllerAdvice
@@ -37,11 +39,18 @@ public class SessionControllerAdvice {
 		return null;
 	}
 
-	@GetMapping("/")
-	public String home(Model model) {
-		model.addAttribute("articles", articleRepository.findAllByOrderByCreationDateTimeDesc());
-		model.addAttribute("login", new LoginDTO());
-		model.addAttribute("newcomment", new CommentDTO());
-		return "index";
+	@ModelAttribute("login")
+	public LoginDTO loginDTO() {
+		return new LoginDTO();
+	}
+
+	@ModelAttribute("newcomment")
+	public CommentDTO commentDTO() {
+		return new CommentDTO();
+	}
+
+	@ModelAttribute("articles")
+	public List<Article> articles() {
+		return articleRepository.findAllByOrderByCreationDateTimeDesc();
 	}
 }
