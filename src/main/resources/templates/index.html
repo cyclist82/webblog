@@ -53,13 +53,13 @@
                 <!--Fragment to show the Categories associated with the article-->
                 <div th:replace="~{category/showCategories :: categories}"></div>
             </div>
-            <div class="col-md-2" th:if="${currentUser != null}">
+            <div class="col-md-2 py-2" th:if="${currentUser != null}">
                 <div id="commentbutton">
                     <div th:replace="~{fragments/newCommentButton :: newCommentButton}"></div>
                 </div>
             </div>
             <!--The comments to the Article are Starting here-->
-            <div class="col-12 pt-4">
+            <div class="col-12">
                 <div th:if="${article.comments.size()>0}" class="dropdown">
                     <button th:text="${article.comments.size()>1} ? ${article.comments.size()}+' Kommentare':${article.comments.size()}+' Kommentar'"
                             class="btn btn-outline-light ml-3 mb-3" type="button" data-toggle="collapse"
