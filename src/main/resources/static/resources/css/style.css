@@ -2,6 +2,10 @@
     font-family: "Helvetica Neue", sans-serif;
 }
 
+div.articleDiv {
+    overflow: auto;
+}
+
 div.imagediv {
     overflow: auto;
 }
@@ -170,11 +174,11 @@ div.container-fluid.gesamt.my-md-3 {
     align-items: flex-start;
 }
 
-#commentbutton {
-    position: absolute;
-    bottom: 0;
-    right: 15px;
-}
+/*#commentbutton {*/
+    /*position: absolute;*/
+    /*bottom: 0;*/
+    /*right: 15px;*/
+/*}*/
 
 #commentdeletebutton {
     position: absolute;

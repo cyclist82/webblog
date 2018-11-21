@@ -2,7 +2,7 @@
 <html lang="de" xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'login')}">
 <body>
 <div class="container">
-    <h1>Login nicht erfolgreich</h1>
+    <h1 class="px-3">Login nicht erfolgreich</h1>
     <form th:fragment="login" th:action="@{/login}" method="post" th:object="${login}">
         <div class="white">
             <input th:replace="~{fragments/inputField :: input ('Benutzername', 'username', 'text')}"/>
