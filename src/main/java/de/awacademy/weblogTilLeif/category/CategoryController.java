@@ -105,13 +105,16 @@ public class CategoryController {
 		return "redirect:/" + article.getId() + "/edit";
 	}
 
+	//	This deletes one Category just from the associated article
 	@PostMapping("/deleteCategory/{categoryId}")
 	public String deleteCategory(@ModelAttribute("article") Article article, @ModelAttribute("currentUser") User currentUser, @PathVariable String categoryId, BindingResult bindingResult) {
 		if (currentUser == null || (!currentUser.isAdmin())) {
 			return "redirect:/";
 		}
 		Category category = categoryRepository.findById(categoryId).get();
+		category.getArticles().remove(article);
 		article.getCategories().remove(category);
+		categoryRepository.save(category);
 		articleRepository.save(article);
 //		model.addAttribute("category", new CategoryDTO());
 		return "redirect:/" + article.getId() + "/edit";
@@ -135,9 +138,9 @@ public class CategoryController {
 //		}
 //	}
 
-
+	//This DELETES the WHOLE CATEGORY
 	@GetMapping("/delete/{categoryId}")
-	public String deleteCategory(@PathVariable("categoryId") String categoryId, @ModelAttribute("currentUser") User currentUser) {
+	public String deleteWholeCategory(@PathVariable("categoryId") String categoryId, @ModelAttribute("currentUser") User currentUser) {
 		if (!currentUser.isAdmin()) {
 			return "redirect:/";
 		}
@@ -148,8 +151,6 @@ public class CategoryController {
 		categoryRepository.delete(category);
 		return "redirect:/1/createCategory";
 	}
-
-
 
 
 //	@GetMapping("/edit/{categoryId}")
