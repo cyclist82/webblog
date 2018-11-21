@@ -2,7 +2,8 @@
 <html lang="de" xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'home')}">
 <body>
 <div class="row backgrounddarker px-md-4 mx-md-0 py-3 mt-md-3 mb-md-5 justify-content-center">
-    <h1><span th:text="'Es gibt '+${articles.size()}+' Artikel zum Thema '+${category.name}">Text</span></h1>
+    <h4><span class="mx-2" th:text="'Es gibt '+${articles.size()}+' Artikel zum Thema '+${category.name}">Text</span>
+    </h4>
 </div>
 <th:block th:each="article:${articles}">
     <div th:replace="fragments/showArticle :: showArticle"></div>
