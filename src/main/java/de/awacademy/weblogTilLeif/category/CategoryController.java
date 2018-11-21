@@ -126,6 +126,14 @@ public class CategoryController {
 		return "redirect:/1/createCategory";
 	}
 
+//	@GetMapping("/showAll/(categoryId)")
+//	public String showCategoryUsage(@PathVariable("categoryId") String categoryId{
+//		for (Category category : categoryRepository.findAllById(categoryId){
+//
+//		}
+//	}
+
+
 	@GetMapping("/delete/{categoryId}")
 	public String deleteCategory(@PathVariable("categoryId") String categoryId, @ModelAttribute("currentUser") User currentUser) {
 		if (!currentUser.isAdmin()) {
@@ -138,6 +146,9 @@ public class CategoryController {
 		categoryRepository.delete(category);
 		return "redirect:/1/createCategory";
 	}
+
+
+
 
 //	@GetMapping("/edit/{categoryId}")
 //	public String editCategory(Model model, @PathVariable("categoryId") String categoryId, @ModelAttribute("currentUser") User currentUser) {

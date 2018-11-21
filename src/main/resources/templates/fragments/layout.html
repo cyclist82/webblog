@@ -31,14 +31,14 @@
                                 <!--Hier Logik aus FindByCategory und show categories-->
 
 
-                                <!--<p th:text="${activeCategory.name}"></p>-->
-                            <!--</th:block>-->
-                            <!--<th:block th:each="categoryArticle:${article.getCategories()}">-->
                                 <div class="col-sm-6 col-md-12 text-center">
-                                <a th:href="@{{id}/showArticles(id=${activeCategory.getId()})}" class="btn btn-secondary" type="submit"
-                                   th:text="${activeCategory.getName()}">Kategorie
-                                </a>
-                                    </div>
+                                    <th:block th:if="${activeCategory.articles.size()>0}">
+                                        <a th:href="@{{id}/showArticles(id=${activeCategory.getId()})}"
+                                           class="btn btn-secondary" type="submit"
+                                           th:text="${activeCategory.getName()} + ' (' +  ${activeCategory.articles.size()} + ')'">Kategorie
+                                        </a>
+                                    </th:block>
+                                </div>
                             </th:block>
                         </div>
                         <div class="col-12 text-center pt-3"><h4>Partner</h4></div>
