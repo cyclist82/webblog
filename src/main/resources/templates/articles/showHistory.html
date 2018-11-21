@@ -8,9 +8,7 @@
 </div>
 <div th:replace="fragments/showArticle :: showArticle">
 </div>
-
-
-<div class="backgrounddarker pt-3" th:each="oldArticle:${oldArticles}">
+<div class="backgrounddarker mt-3" th:each="oldArticle:${oldArticles}">
     <!--Text created by User and Creation DateTime-->
     <div class="col-md-12 pt-2">
         <small th:text="'Bearbeitet von '+${oldArticle.user.username}+ ' am '+${#temporals.format(oldArticle.savedDateTime,'EEEE dd. MMMM yyyy, HH:mm:ss',#locale.GERMANY)}"></small>
@@ -19,19 +17,8 @@
         <h1 th:text="${oldArticle.title}">Titel</h1>
     </div>
     <div style="word-wrap: break-word" class="col-12 py-2">
-        <th:block th:if="${article.image!=null}">
-            <img th:attr="id='image', class='rounded embed-responsive'"
-                 th:src="@{'data:image/jpeg;base64,'+${article.image.getImageData()}}"/>
-        </th:block>
-        <p th:text="${article.text}">Text</p>
+        <p th:text="${oldArticle.text}">Text</p>
     </div>
-</div>
-
-
-<div class="border">
-    <h3 th:text="${oldArticle.title}">Titel</h3>
-    <p th:text="${oldArticle.text}">Text</p>
-
 </div>
 </body>
 </html>
