@@ -16,10 +16,10 @@
                 </div>
                 <input th:replace=" ~{fragments/inputField :: input ('Titel', 'title', 'text')}"/>
                 <input th:replace="~{fragments/inputField :: input ('Text', 'text', 'textarea')}"/>
-                <div class="col-12">
+                <div class="col-12 text-right">
                     <!--Titel: <input type="text" th:field="*{title}"><br/>-->
                     <!--Text: <textarea type="text" th:field="*{text}"></textarea><br/>-->
-                    <button class="btn btn-primary" type="submit">Abschicken</button>
+                    <button class="btn btn-outline-light" type="submit">Abschicken</button>
                 </div>
             </div>
         </div>
