@@ -2,6 +2,10 @@
     font-family: "Helvetica Neue", sans-serif;
 }
 
+div.imagediv {
+    overflow: auto;
+}
+
 body {
     background-color: white;
     position: relative;
@@ -104,7 +108,6 @@ div.sticky-top.sticky-offet {
 
 #image {
     max-width: 600px;
-    float: left;
     margin-right: 10px;
     margin-bottom: 5px;
 }

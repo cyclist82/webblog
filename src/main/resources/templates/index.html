@@ -42,7 +42,7 @@
         </div>
         <div class="py-md-2 col-12" style="word-wrap: break-word">
             <th:block th:if="${article.image!=null}">
-                <img th:attr="id='image', class='rounded embed-responsive'"
+                <img th:attr="id='image', class='rounded float-left embed-responsive'"
                      th:src="@{'data:image/jpeg;base64,'+${article.image.getImageData()}}"/></th:block>
             <p th:text="${article.text}">Text</p>
         </div>
