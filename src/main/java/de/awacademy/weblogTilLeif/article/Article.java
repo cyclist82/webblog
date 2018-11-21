@@ -54,7 +54,6 @@ public class Article {
 		this.user = user;
 		this.creationDateTime = LocalDateTime.now();
 		this.id = UUID.randomUUID().toString();
-		this.categories = categories;
 	}
 
 	public Article(String id, String title, String text) {

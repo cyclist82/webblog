@@ -48,6 +48,7 @@ public class Category {
 		return articles;
 	}
 
+
 	public void setArticles(List<Article> articles) {
 		this.articles = articles;
 	}

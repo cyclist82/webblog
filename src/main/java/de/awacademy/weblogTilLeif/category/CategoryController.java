@@ -51,14 +51,16 @@ public class CategoryController {
 	}
 
 	@PostMapping("createCategory")
-	public String createCategory(@ModelAttribute("category") @Valid CategoryDTO categoryDTO, BindingResult bindingResult, @ModelAttribute("currentUser") User currentUser) {
+	public String createCategory(Model model,@ModelAttribute("category") @Valid CategoryDTO categoryDTO, BindingResult bindingResult, @ModelAttribute("currentUser") User currentUser) {
 		if (!currentUser.isAdmin()) {
 			return "redirect:/";
 		}
 		if (bindingResult.hasErrors()) {
+			model.addAttribute("categories", categoryRepository.findAllByOrderByNameAsc());
 			return "category/createCategory";
 		}
 		if (categoryRepository.existsByName(categoryDTO.getName())) {
+			model.addAttribute("categories", categoryRepository.findAllByOrderByNameAsc());
 			bindingResult.addError(new FieldError("category", "name", "Kategorie bereits vorhanden"));
 			return "category/createCategory";
 		}
@@ -98,8 +100,10 @@ public class CategoryController {
 			return "redirect:/";
 		}
 		Category category = categoryRepository.findById(categoryId).get();
+		category.getArticles().add(article);
 		article.getCategories().add(category);
 		articleRepository.save(article);
+		categoryRepository.save(category);
 		return "redirect:/" + article.getId() + "/edit";
 	}
 
@@ -109,10 +113,10 @@ public class CategoryController {
 			return "redirect:/";
 		}
 		Category category = categoryRepository.findById(categoryId).get();
-//		category.getCategories().remove(article);
+		category.getArticles().remove(article);
 		article.getCategories().remove(category);
 		articleRepository.save(article);
-//		categoryRepository.save(category);
+		categoryRepository.save(category);
 		return "redirect:/" + article.getId() + "/edit";
 	}
 
@@ -143,6 +147,7 @@ public class CategoryController {
 		Category category = categoryRepository.findById(categoryId).get();
 		for (Article article : articleRepository.findByCategoriesContainsOrderByCreationDateTimeAsc(category)) {
 			article.getCategories().remove(category);
+			articleRepository.save(article);
 		}
 		categoryRepository.delete(category);
 		return "redirect:/1/createCategory";

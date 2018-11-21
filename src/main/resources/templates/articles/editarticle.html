@@ -11,14 +11,15 @@
                 <button class="btn btn-outline-light" type="submit" name="addarticle">Speichern</button>
             </div>
             <div class="row px-3">
-                <div class="col-md-6">Ausgewählte Kategorien<br>
+                <div class="col-md-6 pt-4 pt-md-2">Ausgewählte Kategorien<br>
                     <th:block th:each="categoryArticle:${article.getCategories()}">
                         <!--Add category button just shown if User is Admin or his own comment-->
                         <th:block th:if="${currentUser != null}">
                             <th:block th:if="${currentUser.admin OR currentUser.id == comment.user.id}">
-                                <form th:action="@{deleteCategory/{categoryId}(categoryId=${categoryArticle.getId()})}"
+                                <form class="pt-2 d-inline"
+                                      th:action="@{deleteCategory/{categoryId}(categoryId=${categoryArticle.getId()})}"
                                       method="post">
-                                    <button class="btn btn-outline-light" type="submit">
+                                    <button class="btn mt-2 btn-outline-light" type="submit">
                                     <span th:text="${categoryArticle.name+'  '}">Kategorie
                                     </span>
                                         <i class="fas fa-times-circle"></i>
@@ -28,14 +29,15 @@
                         </th:block>
                     </th:block>
                 </div>
-                <div class="col-md-6 text-right">Verfügbare Kategorien<br>
+                <div class="col-md-6 pt-4 pt-md-2 text-md-right text-left">Verfügbare Kategorien<br>
                     <th:block th:each="category1:${categories}">
                         <!--Add category button just shown if User is Admin or his own comment-->
                         <th:block th:if="${currentUser != null}">
                             <th:block th:if="${currentUser.admin OR currentUser.id == comment.user.id}">
-                                <form th:action="@{addCategory/{categoryId}/add(categoryId=${category1.id})}"
+                                <form class="pt-2 d-inline"
+                                      th:action="@{addCategory/{categoryId}/add(categoryId=${category1.id})}"
                                       method="post">
-                                    <button class="btn btn-outline-light" type="submit">
+                                    <button class="btn mt-2 btn-outline-light" type="submit">
                                         <span th:text="${category1.name}+'  '">Kategorie
                                         </span>
                                         <i class="fas fa-plus-circle"></i>
