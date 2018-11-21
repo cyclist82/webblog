@@ -25,11 +25,6 @@
                     <li th:replace="fragments/navigationButton ::menuItem ('/1/createCategory','newCategory','Kategorien','categories')"></li>
                 </th:block>
             </th:block>
-            <li>
-                <form th:if="${currentUser != null}" th:action="@{/logout}" method="post">
-                    <button class="btn btn-primary" type="submit">Logout</button>
-                </form>
-            </li>
             <li class="nav-item dropdown">
                 <th:block th:if="${currentUser == null}">
                         <span class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
@@ -49,6 +44,12 @@
             </th:block>
             <li th:replace="fragments/navigationButton :: menuItem ('/impressum','impressum','Impressum','impressum')">
             </li>
+            <li>
+                <form th:if="${currentUser != null}" th:action="@{/logout}" method="post">
+                    <button class="btn btn-outline-light" type="submit">Logout</button>
+                </form>
+            </li>
+
         </ul>
     </div>
 </nav>

@@ -115,7 +115,7 @@ div.col-12.backgrounddarker {
 }
 
 div.container.backgrounddarker {
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.4);
     border-radius: 10px;
 }
 
@@ -124,7 +124,7 @@ div.backgrounddarker {
     border-radius: 10px;
 }
 span.backgrounddarker {
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.4);
     border-radius: 10px;
 }
 

@@ -3,99 +3,98 @@
 <html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'home')}">
 
 <body>
-<!--The articles are starting here-->
-<div class="text-center mt-3" style="margin-bottom: 2rem">
-    <h1><span class="backgrounddarker p-2"
-              th:text="${currentUser != null ? 'Hallo '+currentUser.username+' Willkommen zurück' : 'Willkommen zu unserem Blog'}">Text</span>
+<div class="row backgrounddarker px-md-4 mx-md-4 py-3 my-3 justify-content-center">
+    <h1><span
+            th:text="${currentUser != null ? 'Hallo '+currentUser.username+' Willkommen zurück' : 'Willkommen zu unserem Blog'}">Text</span>
     </h1>
 </div>
+<!--The articles are starting here-->
 <th:block th:each="article: ${articles}">
-    <div class="container backgrounddarker px-md-4 mx-md-4 py-3 my-3">
-        <div class="row">
-            <div class="col-md-9">
-                <!--Text created by User and Creation DateTime-->
-                <small th:text="'Erstellt von '+${article.getUser().username+' am '+{#temporals.format(article.creationDateTime,'EEEE dd. MMMM yyyy, HH:mm:ss',#locale.GERMANY)}}"></small>
-                <!--If text was edited later lastEditUser and lastEditTime-->
-                <div th:if="${article.lastEditUser!=null}">
-                    <small th:text="'Zuletzt bearbeitet von '+${article.getLastEditUser().username+' am '+{#temporals.format(article.lastEditedDateTime,'EEEE dd. MMMM yyyy, HH:mm:ss',#locale.GERMANY)}}"></small>
-                </div>
+    <div class="row backgrounddarker px-md-4 mx-md-4 py-3 my-3">
+        <div class="col-md-9">
+            <!--Text created by User and Creation DateTime-->
+            <small th:text="'Erstellt von '+${article.getUser().username+' am '+{#temporals.format(article.creationDateTime,'EEEE dd. MMMM yyyy, HH:mm:ss',#locale.GERMANY)}}"></small>
+            <!--If text was edited later lastEditUser and lastEditTime-->
+            <div th:if="${article.lastEditUser!=null}">
+                <small th:text="'Zuletzt bearbeitet von '+${article.getLastEditUser().username+' am '+{#temporals.format(article.lastEditedDateTime,'EEEE dd. MMMM yyyy, HH:mm:ss',#locale.GERMANY)}}"></small>
             </div>
-            <div class="col-md-3 text-right">
-                <form class="ml-auto" th:action="@{{articleId}/delete(articleId=${article.id})}" method="post">
-                    <div class="btn-group" role="group" aria-label="Article Control">
-                        <a th:href="@{{id}/showHistory(id=${article.getId()})}"
-                           class="btn btn-outline-light"><i class="fas fa-history"></i></a>
-                        <th:block th:if="${currentUser!=null}">
-                            <th:block th:if="${currentUser.admin}">
-                                <a th:href="@{{id}/edit(id=${article.getId()})}"
-                                   class="btn btn-outline-light"><i class="fas fa-edit"></i></a>
-                                <button class="btn btn-outline-light" type="submit"><i class="fas fa-trash-alt"></i>
-                                </button>
-                            </th:block>
+        </div>
+        <div class="col-md-3 text-right">
+            <form class="ml-auto" th:action="@{{articleId}/delete(articleId=${article.id})}" method="post">
+                <div class="btn-group" role="group" aria-label="Article Control">
+                    <a th:href="@{{id}/showHistory(id=${article.getId()})}"
+                       class="btn btn-outline-light"><i class="fas fa-history"></i></a>
+                    <th:block th:if="${currentUser!=null}">
+                        <th:block th:if="${currentUser.admin}">
+                            <a th:href="@{{id}/edit(id=${article.getId()})}"
+                               class="btn btn-outline-light"><i class="fas fa-edit"></i></a>
+                            <button class="btn btn-outline-light" type="submit"><i class="fas fa-trash-alt"></i>
+                            </button>
                         </th:block>
-                    </div>
-                </form>
-            </div>
+                    </th:block>
+                </div>
+            </form>
+        </div>
 
 
-            <div class="py-md-4 col-12">
-                <h1 th:text="${article.title}">Titel</h1>
-            </div>
-            <div class="py-md-2 col-12" style="word-wrap: break-word">
+        <div class="py-md-4 col-12">
+            <h1 th:text="${article.title}">Titel</h1>
+        </div>
+        <div class="py-md-2 col-12" style="word-wrap: break-word">
+            <th:block th:if="${article.image!=null}">
                 <img th:attr="id='image', class='rounded embed-responsive'"
-                     th:src="@{'data:image/jpeg;base64,'+${article.image.getImageData()}}"/>
-                <p th:text="${article.text}">Text</p>
+                     th:src="@{'data:image/jpeg;base64,'+${article.image.getImageData()}}"/></th:block>
+            <p th:text="${article.text}">Text</p>
+        </div>
+        <div class="col-md-10">
+            <!--Fragment to show the Categories associated with the article-->
+            <div th:replace="~{category/showCategories :: categories}"></div>
+        </div>
+        <div class="col-md-2 py-2" th:if="${currentUser != null}">
+            <div id="commentbutton">
+                <div th:replace="~{fragments/newCommentButton :: newCommentButton}"></div>
             </div>
-            <div class="col-md-10">
-                <!--Fragment to show the Categories associated with the article-->
-                <div th:replace="~{category/showCategories :: categories}"></div>
-            </div>
-            <div class="col-md-2 py-2" th:if="${currentUser != null}">
-                <div id="commentbutton">
-                    <div th:replace="~{fragments/newCommentButton :: newCommentButton}"></div>
-                </div>
-            </div>
-            <!--The comments to the Article are Starting here-->
-            <div class="col-12">
-                <div th:if="${article.comments.size()>0}" class="dropdown">
-                    <button th:text="${article.comments.size()>1} ? ${article.comments.size()}+' Kommentare':${article.comments.size()}+' Kommentar'"
-                            class="btn btn-outline-light ml-3 mb-3" type="button" data-toggle="collapse"
-                            th:attr="data-target='#collapseComment'+${article.id}, aria-controls='collapseComment'+${article.id}"
-                            aria-expanded="false">
-                        Button with data-target
-                    </button>
-                    <div class="collapse" th:attr="id='collapseComment'+${article.id}">
-                        <th:block th:each="comment:${article.comments}">
-                            <div class="col-12 backgrounddarker my-3 pt-3 mx-auto">
+        </div>
+        <!--The comments to the Article are Starting here-->
+        <div class="col-12">
+            <div th:if="${article.comments.size()>0}" class="dropdown">
+                <button th:text="${article.comments.size()>1} ? ${article.comments.size()}+' Kommentare ansehen':${article.comments.size()}+' Kommentar ansehen'"
+                        class="btn btn-outline-light mt-4" type="button" data-toggle="collapse"
+                        th:attr="data-target='#collapseComment'+${article.id}, aria-controls='collapseComment'+${article.id}"
+                        aria-expanded="false">
+                    Button with data-target
+                </button>
+                <div class="collapse" th:attr="id='collapseComment'+${article.id}">
+                    <th:block th:each="comment:${article.comments}">
+                        <div class="col-12 backgrounddarker my-3 pt-3 mx-auto">
 
-                                <form class="row"
-                                      th:action="@{{articleId}/comments/{commentId}/delete(commentId=${comment.id}, articleId=${article.id})}"
-                                      method="post">
+                            <form class="row"
+                                  th:action="@{{articleId}/comments/{commentId}/delete(commentId=${comment.id}, articleId=${article.id})}"
+                                  method="post">
 
-                                    <div class="col-10">
-                                        <div class="col-12">
-                                            <small th:text="'Erstellt von '+${comment.getUser().username+' am '+{#temporals.format(comment.createdDateTime,'EEEE dd. MMMM yyyy, HH:mm:ss',#locale.GERMANY)}}"></small>
-                                        </div>
-                                        <div class="col-12 pt-2">
-                                            <p th:text="${comment.text}">Kommentar Text</p>
-                                        </div>
+                                <div class="col-10">
+                                    <div class="col-12">
+                                        <small th:text="'Erstellt von '+${comment.getUser().username+' am '+{#temporals.format(comment.createdDateTime,'EEEE dd. MMMM yyyy, HH:mm:ss',#locale.GERMANY)}}"></small>
                                     </div>
-                                    <div class="col-2 text-right p-md-4">
-                                        <!--Delete comment button just shown if User is Admin or his own comment-->
-                                        <th:block th:if="${currentUser != null}">
-                                            <th:block th:if="${currentUser.admin OR currentUser.id == comment.user.id}">
-                                                <button title="Löschen"
-                                                        class="btn btn-outline-light deleteButton mr-3"
-                                                        type="submit"><i
-                                                        class="fas fa-trash-alt"></i></button>
+                                    <div class="col-12 pt-2">
+                                        <p th:text="${comment.text}">Kommentar Text</p>
+                                    </div>
+                                </div>
+                                <div class="col-2 text-right p-md-4">
+                                    <!--Delete comment button just shown if User is Admin or his own comment-->
+                                    <th:block th:if="${currentUser != null}">
+                                        <th:block th:if="${currentUser.admin OR currentUser.id == comment.user.id}">
+                                            <button title="Löschen"
+                                                    class="btn btn-outline-light deleteButton mr-3"
+                                                    type="submit"><i
+                                                    class="fas fa-trash-alt"></i></button>
 
-                                            </th:block>
                                         </th:block>
-                                    </div>
-                                </form>
-                            </div>
-                        </th:block>
-                    </div>
+                                    </th:block>
+                                </div>
+                            </form>
+                        </div>
+                    </th:block>
                 </div>
             </div>
         </div>
