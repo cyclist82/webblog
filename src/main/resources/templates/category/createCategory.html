@@ -3,7 +3,7 @@
 <html lang="de" xmlns:th="http://www.thymeleaf.org"
       th:replace="~{fragments/layout :: layout (~{::body},'newCategory')}">
 <body>
-<div class="col-md-8 offset-md-2">
+<div class="pt-4 col-md-8 offset-md-2">
     <div class="row backgrounddarker px-md-4 mx-md-0 py-3 mt-md-3 mb-md-5 justify-content-center">
         <div class="col-12 text-center">
             <h3 class="px-3"><span>Kategorie erstellen</span>
@@ -11,24 +11,26 @@
         </div>
         <div class="col-12">
             <form th:object="${category}" method="post">
-                <div th:replace="~{fragments/inputField :: input ('Kategorie', 'name', 'text')}"/>
-                <button class="btn btn-primary" type="submit">Speichern</button>
-
-
+                <div class="col-md-10 offset-md-1">
+                    <div th:replace="~{fragments/inputField :: input ('Kategorie', 'name', 'text')}"/>
+                </div>
+                <div class="col-4 col-md-2 offset-8">
+                    <button class="btn btn-outline-light" type="submit">Speichern</button>
+                </div>
             </form>
         </div>
-        <div class="col-12">
+        <div class="col-12 pt-4">
             <form>
-                <div class="row" th:each="allCategory : ${categories}">
-                    <div class="col-md-6 offset-md-2" th:text="${allCategory.name}"></div>
-                    <div class="col-md-2">
+                <div class="row pt-4" th:each="allCategory : ${categories}">
+                    <div class="col-8 text-center" th:text="${allCategory.name}"></div>
+                    <div class="col-4 col-md-2">
                         <div class="btn-group" role="group" aria-label="Category Control">
                             <a th:if="${allCategory.isActive()}" th:href="@{setActive/{id}(id=${allCategory.id})}"
-                               class="btn btn-primary">Aktiv</a>
+                               class="btn btn-outline-light">Aktiv</a>
                             <a th:if="${!allCategory.isActive()}" th:href="@{setActive/{id}(id=${allCategory.id})}"
-                               class="btn btn-primary">Deaktiviert</a>
+                               class="btn btn-outline-light">Deaktiviert</a>
                             <a th:href="@{delete/{id}(id=${allCategory.id})}"
-                               class="btn btn-primary">
+                               class="btn btn-outline-light">
                                 <i class="fas fa-trash-alt"></i>
                             </a>
                         </div>
