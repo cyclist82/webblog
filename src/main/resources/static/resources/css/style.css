@@ -114,20 +114,33 @@ div.col-12.backgrounddarker {
     border-radius: 10px;
 }
 
+#categoriesLayout {
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 10px;
+}
+
 div.container.backgrounddarker {
     background-color: rgba(0, 0, 0, 0.4);
     border-radius: 10px;
+}
+
+.btn.btn-outline-light.nooutline {
+    border: none;
+}
+
+.darkbackground {
+    background-color: rgba(0, 0, 0, 0.4);
 }
 
 div.backgrounddarker {
     background-color: rgba(0, 0, 0, 0.7);
     border-radius: 10px;
 }
+
 span.backgrounddarker {
     background-color: rgba(0, 0, 0, 0.4);
     border-radius: 10px;
 }
-
 
 div.container-fluid.gesamt.my-md-3 {
     background-color: white;
