@@ -98,7 +98,9 @@ public class CategoryController {
 			return "redirect:/";
 		}
 		Category category = categoryRepository.findById(categoryId).get();
+		category.getArticles().add(article);
 		article.getCategories().add(category);
+		categoryRepository.save(category);
 		articleRepository.save(article);
 		return "redirect:/" + article.getId() + "/edit";
 	}
