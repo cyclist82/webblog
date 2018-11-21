@@ -3,9 +3,7 @@ package de.awacademy.weblogTilLeif.category;
 import de.awacademy.weblogTilLeif.article.Article;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 @Entity
 public class Category {
@@ -15,9 +13,8 @@ public class Category {
 	private String name;
 	private boolean active;
 
-	@ManyToMany(fetch = FetchType.EAGER)
-	@OrderBy
-	private Set<Article> articles = new HashSet<>();
+	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "categories")
+	private List<Article> articles;
 
 
 	public Category() {
@@ -47,11 +44,11 @@ public class Category {
 		return id;
 	}
 
-	public Set<Article> getArticles() {
+	public List<Article> getArticles() {
 		return articles;
 	}
 
-	public void setArticles(Set<Article> articles) {
+	public void setArticles(List<Article> articles) {
 		this.articles = articles;
 	}
 

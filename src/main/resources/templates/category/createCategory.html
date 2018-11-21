@@ -22,7 +22,7 @@
         <div class="col-12 pt-4">
             <form>
                 <div class="row pt-4" th:each="allCategory : ${categories}">
-                    <div class="col-6 align-middle text-right" th:text="${allCategory.name}"></div>
+                    <div class="col-6 pt-2 text-right" th:text="${allCategory.name}"></div>
                     <div class="col-6">
                         <div class="btn-group" role="group" aria-label="Category Control">
                             <a th:if="${allCategory.isActive()}" th:href="@{setActive/{id}(id=${allCategory.id})}"

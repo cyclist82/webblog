@@ -98,9 +98,7 @@ public class CategoryController {
 			return "redirect:/";
 		}
 		Category category = categoryRepository.findById(categoryId).get();
-		category.getArticles().add(article);
 		article.getCategories().add(category);
-		categoryRepository.save(category);
 		articleRepository.save(article);
 		return "redirect:/" + article.getId() + "/edit";
 	}
@@ -111,11 +109,10 @@ public class CategoryController {
 			return "redirect:/";
 		}
 		Category category = categoryRepository.findById(categoryId).get();
-		article.getCategories().remove(article);
+//		category.getCategories().remove(article);
 		article.getCategories().remove(category);
 		articleRepository.save(article);
-		categoryRepository.save(category);
-//		model.addAttribute("category", new CategoryDTO());
+//		categoryRepository.save(category);
 		return "redirect:/" + article.getId() + "/edit";
 	}
 
@@ -150,8 +147,6 @@ public class CategoryController {
 		categoryRepository.delete(category);
 		return "redirect:/1/createCategory";
 	}
-
-
 
 
 //	@GetMapping("/edit/{categoryId}")
