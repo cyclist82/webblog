@@ -1,18 +1,13 @@
 <div th:fragment="showArticle">
-    <div class="row py-3 px-md-3 backgrounddarker mx-md-4">
+    <div class="backgrounddarker">
         <!--Text created by User and Creation DateTime-->
         <div class="col-md-12 pt-2">
-            <small th:text="'Erstellt von '+${article.getUser().username}"></small>
-            <small th:text="${#temporals.format(article.creationDateTime,'EEEE dd. MMMM yyyy, HH:mm:ss',#locale.GERMANY)}">
-                Zeit
-            </small>
+            <small th:text="'Erstellt von '+${article.getUser().username}+' am '+${#temporals.format(article.creationDateTime,'EEEE dd. MMMM yyyy, HH:mm:ss',#locale.GERMANY)}"></small>
         </div>
         <!--If text was edited later lastEditUser and lastEditTime-->
         <div class="col-md-12 pb-2" th:if="${article.lastEditUser!=null}">
-            <small th:text="'Zuletz bearbeitet von '+${article.getLastEditUser().getUsername()}">Username
-            </small>
-            <small th:text="${#temporals.format(article.lastEditedDateTime,'EEEE dd. MMMM yyyy, HH:mm:ss',#locale.GERMANY)}">
-                Zeit
+            <small th:text="'Zuletz bearbeitet von '+${article.getLastEditUser().getUsername()}+' am '+${#temporals.format(article.lastEditedDateTime,'EEEE dd. MMMM yyyy, HH:mm:ss',#locale.GERMANY)}">
+                Username
             </small>
         </div>
         <div class="col-12 py-3">
