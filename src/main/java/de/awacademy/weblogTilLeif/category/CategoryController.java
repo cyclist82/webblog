@@ -107,7 +107,7 @@ public class CategoryController {
 
 	//	This deletes one Category just from the associated article
 	@PostMapping("/deleteCategory/{categoryId}")
-	public String deleteCategory(@ModelAttribute("article") Article article, @ModelAttribute("currentUser") User currentUser, @PathVariable String categoryId, BindingResult bindingResult) {
+	public String deleteCategoryFromArticle(@ModelAttribute("article") Article article, @ModelAttribute("currentUser") User currentUser, @PathVariable String categoryId, BindingResult bindingResult) {
 		if (currentUser == null || (!currentUser.isAdmin())) {
 			return "redirect:/";
 		}
