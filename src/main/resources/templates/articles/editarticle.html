@@ -1,17 +1,53 @@
 <!DOCTYPE html>
 <html lang="de" xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'newarticle')}">
 <body>
-<h1>Beitrag bearbeiten</h1>
-
-
 <form method="post" th:object="${article}">
-    <input th:replace="~{fragments/inputField :: input ('Titel', 'title', 'text')}"/>
-    <input th:replace="~{fragments/inputField :: input ('Text', 'text', 'textarea')}"/>
-    <button class="btn btn-primary" type="submit" name="addarticle">Speichern</button>
+    <div class="row">
+        <div class="col-md-10 offset-md-1 backgrounddarker my-2 py-3 px-md-2">
+            <div class="col-12"><h3>Beitrag bearbeiten</h3></div>
+            <input th:replace="~{fragments/inputField :: input ('Titel', 'title', 'text')}"/>
+            <input th:replace="~{fragments/inputField :: input ('Text', 'text', 'textarea')}"/>
+            <div class="col-12 pb-2 text-right">
+                <button class="btn btn-outline-light" type="submit" name="addarticle">Speichern</button>
+            </div>
+            <div class="row px-3">
+                <div class="col-md-6">Ausgewählte Kategorien<br>
+                    <th:block th:each="categoryArticle:${article.getCategories()}">
+                        <!--Add category button just shown if User is Admin or his own comment-->
+                        <th:block th:if="${currentUser != null}">
+                            <th:block th:if="${currentUser.admin OR currentUser.id == comment.user.id}">
+                                <form th:action="@{deleteCategory/{categoryId}(categoryId=${categoryArticle.getId()})}"
+                                      method="post">
+                                    <button class="btn btn-outline-light" type="submit">
+                                    <span th:text="${categoryArticle.name+'  '}">Kategorie
+                                    </span>
+                                        <i class="fas fa-times-circle"></i>
+                                    </button>
+                                </form>
+                            </th:block>
+                        </th:block>
+                    </th:block>
+                </div>
+                <div class="col-md-6 text-right">Verfügbare Kategorien<br>
+                    <th:block th:each="category1:${categories}">
+                        <!--Add category button just shown if User is Admin or his own comment-->
+                        <th:block th:if="${currentUser != null}">
+                            <th:block th:if="${currentUser.admin OR currentUser.id == comment.user.id}">
+                                <form th:action="@{addCategory/{categoryId}/add(categoryId=${category1.id})}"
+                                      method="post">
+                                    <button class="btn btn-outline-light" type="submit">
+                                        <span th:text="${category1.name}+'  '">Kategorie
+                                        </span>
+                                        <i class="fas fa-plus-circle"></i>
+                                    </button>
+                                </form>
+                            </th:block>
+                        </th:block>
+                    </th:block>
+                </div>
+            </div>
+        </div>
+    </div>
 </form>
-<!--<div th:replace="~{category/createCategory :: input}"></div>-->
-<br>
-<div th:replace="~{fragments/categoryChange :: categoryChange}">
-</div>
 </body>
 </html>

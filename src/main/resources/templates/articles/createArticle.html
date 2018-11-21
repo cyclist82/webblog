@@ -2,25 +2,20 @@
 <html lang="de" xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'newarticle')}">
 <body>
 <form th:action="@{/article}" method="post" enctype="multipart/form-data" th:object="${article}">
-
-    <div class="container">
-        <div class="row">
-            <div class="col-md-10 offset-md-1 backgrounddarker my-2 py-3 px-md-2">
-                <div class="col-12"><h1>Beitrag erstellen</h1></div>
-                <div class="col-12">
-                    <label for="PictureUpload">Bild Auswählen</label>
-                </div>
-                <div class="col-12 pb-2">
-                    <input class="btn btn-file btn-light" type="file" name="file" id="PictureUpload"
-                           th:value="${file}"/>
-                </div>
-                <input th:replace=" ~{fragments/inputField :: input ('Titel', 'title', 'text')}"/>
-                <input th:replace="~{fragments/inputField :: input ('Text', 'text', 'textarea')}"/>
-                <div class="col-12 text-right">
-                    <!--Titel: <input type="text" th:field="*{title}"><br/>-->
-                    <!--Text: <textarea type="text" th:field="*{text}"></textarea><br/>-->
-                    <button class="btn btn-outline-light" type="submit">Abschicken</button>
-                </div>
+    <div class="row">
+        <div class="col-md-10 offset-md-1 backgrounddarker my-2 py-3 px-md-2">
+            <div class="col-12"><h3>Beitrag erstellen</h3></div>
+            <div class="col-12">
+                <label for="PictureUpload">Bild Auswählen</label>
+            </div>
+            <div class="col-12 pb-2">
+                <input class="btn btn-file btn-light" type="file" name="file" id="PictureUpload"
+                       th:value="${file}"/>
+            </div>
+            <input th:replace=" ~{fragments/inputField :: input ('Titel', 'title', 'text')}"/>
+            <input th:replace="~{fragments/inputField :: input ('Text', 'text', 'textarea')}"/>
+            <div class="col-12 text-right">
+                <button class="btn btn-outline-light" type="submit">Abschicken</button>
             </div>
         </div>
     </div>

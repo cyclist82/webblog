@@ -85,6 +85,10 @@ public class ArticleController {
 		for (ArticleOLD articleOLD : articleOLDRepository.findByParentArticleIdOrderBySavedDateTimeDesc(articleId)) {
 			articleOLDRepository.delete(articleOLD);
 		}
+		for (Category category : article.getCategories()) {
+			category.getArticles().remove(article);
+			categoryRepository.save(category);
+		}
 		articleRepository.delete(article);
 		if (article.getImage() != null) {
 			imageRepository.delete(article.getImage());
