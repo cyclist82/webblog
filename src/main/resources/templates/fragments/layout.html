@@ -34,7 +34,7 @@
                                 <div class="col-sm-6 col-md-12 text-center">
                                     <th:block th:if="${activeCategory.articles.size()>0}">
                                         <a th:href="@{/{id}/showArticles(id=${activeCategory.getId()})}"
-                                           class="btn btn-secondary" type="submit"
+                                           class="btn btn-outline-light" type="submit"
                                            th:text="${activeCategory.getName()} + ' (' +  ${activeCategory.articles.size()} + ')'">Kategorie
                                         </a>
                                     </th:block>
