@@ -17,10 +17,10 @@
     <div th:replace="fragments/navigation::navigation">
     </div>
     <div id="content" class="row py-lg-3 px-1 px-lg-4">
-        <div class="col-lg-9 p-0 px-md-2">
+        <div class="col-lg-9 p-0 px-4">
             <th:block th:include="${template}"/>
         </div>
-        <div class="col-lg-3 p-0 px-md-2">
+        <div class="col-lg-3 p-0 px-4">
             <div id="sponsoren" class="row py-lg-3 mx-md-0 mt-3 mt-lg-0 py-sm-1 px-lg-4 sticky-top sticky-offet">
                 <th:block th:if="${activeCategories.size()>0}">
                     <div class="col-12 text-center mx-lg-4" id="categoriesLayout">
