@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="de" th:fragment="layout (template, menu)">
+<html lang="de" th:fragment="layout (template, menu)" xmlns:th="http://www.w3.org/1999/html">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta charset="UTF-8">
@@ -16,60 +16,63 @@
     </div>
     <div th:replace="fragments/navigation::navigation">
     </div>
-    <div id="content" class="row py-1 py-md-3 px-1 px-md-4">
-        <div class="col-md-9">
+    <div id="content" class="row py-lg-3 px-1 px-lg-4">
+        <div class="col-lg-9">
             <th:block th:include="${template}"/>
         </div>
-        <div class="col-md-3">
-            <div id="sponsoren" class="sticky-top sticky-offet">
-                <div class="container">
-                    <div class="row">
-                        <th:block th:if="${activeCategories.size()>0}">
-                            <div class="col-12 text-center pt-2 mt-3" id="categoriesLayout"><h4>Kategorien</h4>
-                                <th:block th:each="activeCategory:${activeCategories}">
+        <div class="col-lg-3">
+            <div id="sponsoren" class="row py-lg-3 px-1 px-lg-4 sticky-top sticky-offet">
 
 
-                                    <!--Hier Logik aus FindByCategory und show categories-->
+                <th:block th:if="${activeCategories.size()>0}">
+                    <div class="col-12 text-center" id="categoriesLayout">
+                        <div class="col-12 mt-2 text-center">
+                            <h4>Kategorien</h4>
+                        </div>
+                        <div class="row">
+                            <th:block th:each="activeCategory:${activeCategories}">
 
 
-                                    <div class="col-sm-6 col-md-12 text-center">
-                                        <th:block th:if="${activeCategory.articles.size()>0}">
-                                            <a th:href="@{/{id}/showArticles(id=${activeCategory.getId()})}"
-                                               class="btn btn-outline-light nooutline" type="submit"
-                                               th:text="${activeCategory.getName()} + ' (' +  ${activeCategory.articles.size()} + ')'">Kategorie
-                                            </a>
-                                        </th:block>
+                                <!--Hier Logik aus FindByCategory und show categories-->
+                                <th:block th:if="${activeCategory.articles.size()>0}">
+
+                                    <div class="col-sm-6 col-lg-12 text-center">
+                                        <a th:href="@{/{id}/showArticles(id=${activeCategory.getId()})}"
+                                           class="btn btn-outline-light nooutline" type="submit"
+                                           th:text="${activeCategory.getName()} + ' (' +  ${activeCategory.articles.size()} + ')'">Kategorie
+                                        </a>
                                     </div>
                                 </th:block>
-                            </div>
-                        </th:block>
-                        <div class="col-12 text-center pt-3"><h4>Partner</h4></div>
-                        <div class="col-sm-6 col-md-12 text-center">
-                            <a href="http://www.bundeswehr.de" target="_blank"> <img
-                                    class="mx-auto sponsor"
-                                    src="/resources/images/bundeswehr.png"
-                                    alt="Bundeswehr"></a>
-                        </div>
-                        <div class="col-sm-6 col-md-12 text-center">
-                            <a href="http://www.maloja.de" target="_blank"> <img
-                                    class="mx-auto sponsor"
-                                    src="/resources/images/Maloja.png"
-                                    alt="Maloja"></a>
-                        </div>
-                        <div class="col-sm-6 col-md-12 text-center">
-                            <a href="http://pioneer-cyclesports.com/de/" target="_blank"> <img
-                                    class="mx-auto sponsor"
-                                    src="/resources/images/Pioneer_logo.png"
-                                    alt="Pioneer"></a>
-                        </div>
-                        <div class="col-sm-6 col-md-12 text-center">
-                            <a href="https://www.alpina-sports.com/de/" target="_blank"> <img
-                                    class="mx-auto sponsor"
-                                    src="/resources/images/Alpina%202016.png"
-                                    alt="Alpina"></a>
+                            </th:block>
                         </div>
                     </div>
+                </th:block>
+                <div class="col-12 text-center pt-3"><h4>Partner</h4></div>
+                <div class="col-sm-6 col-lg-12 text-center">
+                    <a href="http://www.bundeswehr.de" target="_blank"> <img
+                            class="mx-auto sponsor"
+                            src="/resources/images/bundeswehr.png"
+                            alt="Bundeswehr"></a>
                 </div>
+                <div class="col-sm-6 col-lg-12 text-center">
+                    <a href="http://www.maloja.de" target="_blank"> <img
+                            class="mx-auto sponsor"
+                            src="/resources/images/Maloja.png"
+                            alt="Maloja"></a>
+                </div>
+                <div class="col-sm-6 col-lg-12 text-center">
+                    <a href="http://pioneer-cyclesports.com/de/" target="_blank"> <img
+                            class="mx-auto sponsor"
+                            src="/resources/images/Pioneer_logo.png"
+                            alt="Pioneer"></a>
+                </div>
+                <div class="col-sm-6 col-lg-12 text-center">
+                    <a href="https://www.alpina-sports.com/de/" target="_blank"> <img
+                            class="mx-auto sponsor"
+                            src="/resources/images/Alpina%202016.png"
+                            alt="Alpina"></a>
+                </div>
+
             </div>
         </div>
     </div>
