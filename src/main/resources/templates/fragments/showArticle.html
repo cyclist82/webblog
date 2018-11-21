@@ -19,8 +19,10 @@
             <h1 th:text="${article.title}">Titel</h1>
         </div>
         <div style="word-wrap: break-word" class="col-12 py-2">
-            <img th:attr="id='image', class='rounded embed-responsive'"
-                 th:src="@{'data:image/jpeg;base64,'+${article.image.getImageData()}}"/>
+            <th:block th:if="${article.image!=null}">
+                <img th:attr="id='image', class='rounded embed-responsive'"
+                     th:src="@{'data:image/jpeg;base64,'+${article.image.getImageData()}}"/>
+            </th:block>
             <p th:text="${article.text}">Text</p>
         </div>
     </div>
