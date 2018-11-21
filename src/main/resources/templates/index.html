@@ -3,14 +3,14 @@
 <html xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'home')}">
 
 <body>
-<div class="row backgrounddarker px-md-4 mx-md-4 py-3 mt-md-3 mb-md-5 justify-content-center">
+<div class="row backgrounddarker px-md-4 mx-md-0 py-3 mt-md-3 mb-md-5 justify-content-center">
     <h1><span
-            th:text="${currentUser != null ? 'Hallo '+currentUser.username+' Willkommen zurück' : 'Willkommen zu unserem Blog'}">Text</span>
+            th:text="${currentUser != null ? 'Hallo '+currentUser.username+', willkommen zurück' : 'Willkommen zu unserem Blog'}">Text</span>
     </h1>
 </div>
 <!--The articles are starting here-->
 <th:block th:each="article: ${articles}">
-    <div class="row backgrounddarker px-md-4 mx-md-4 py-3 my-3">
+    <div class="row backgrounddarker mx-md-0 py-3 my-3">
         <div class="col-md-9">
             <!--Text created by User and Creation DateTime-->
             <small th:text="'Erstellt von '+${article.getUser().username+' am '+{#temporals.format(article.creationDateTime,'EEEE dd. MMMM yyyy, HH:mm:ss',#locale.GERMANY)}}"></small>
@@ -42,15 +42,15 @@
         </div>
         <div class="py-md-2 col-12" style="word-wrap: break-word">
             <th:block th:if="${article.image!=null}">
-                <img th:attr="id='image', class='rounded embed-responsive'"
+                <img th:attr="id='image', class='rounded float-left embed-responsive'"
                      th:src="@{'data:image/jpeg;base64,'+${article.image.getImageData()}}"/></th:block>
             <p th:text="${article.text}">Text</p>
         </div>
-        <div class="col-md-10">
+        <div class="col-md-8">
             <!--Fragment to show the Categories associated with the article-->
             <div th:replace="~{category/showCategories :: categories}"></div>
         </div>
-        <div class="col-md-2 py-2" th:if="${currentUser != null}">
+        <div class="col-md-4 py-2" th:if="${currentUser != null}">
             <div id="commentbutton">
                 <div th:replace="~{fragments/newCommentButton :: newCommentButton}"></div>
             </div>
