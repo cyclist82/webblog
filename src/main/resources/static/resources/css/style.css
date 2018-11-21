@@ -206,3 +206,23 @@ div.container-fluid.gesamt.my-md-3 {
 .marginComment {
     margin-left: 20px;
 }
+
+.widthlim {
+    min-width: 200px;
+    max-width: 1000px;
+    background-color: red; /*This is just for us to be able to see the width*/
+    display: table-cell;
+    word-wrap: break-word;
+    word-break: break-word;
+}
+
+.borderTable{
+    border-style: solid;
+    border-color: black;
+    border-radius: 35px;
+}
+
+.blackBackground{
+    background-color: black;
+    border-color: black;
+}
