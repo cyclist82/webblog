@@ -24,23 +24,25 @@
             <div id="sponsoren" class="sticky-top sticky-offet">
                 <div class="container">
                     <div class="row">
-                        <div class="col-12 text-center pt-3"><h4>Kategorien</h4>
-                            <th:block th:each="activeCategory:${activeCategories}">
+                        <th:block th:if="${activeCategories.size()>0}">
+                            <div class="col-12 text-center pt-2 mt-3" id="categoriesLayout"><h4>Kategorien</h4>
+                                <th:block th:each="activeCategory:${activeCategories}">
 
 
-                                <!--Hier Logik aus FindByCategory und show categories-->
+                                    <!--Hier Logik aus FindByCategory und show categories-->
 
 
-                                <div class="col-sm-6 col-md-12 text-center">
-                                    <th:block th:if="${activeCategory.articles.size()>0}">
-                                        <a th:href="@{/{id}/showArticles(id=${activeCategory.getId()})}"
-                                           class="btn btn-secondary" type="submit"
-                                           th:text="${activeCategory.getName()} + ' (' +  ${activeCategory.articles.size()} + ')'">Kategorie
-                                        </a>
-                                    </th:block>
-                                </div>
-                            </th:block>
-                        </div>
+                                    <div class="col-sm-6 col-md-12 text-center">
+                                        <th:block th:if="${activeCategory.articles.size()>0}">
+                                            <a th:href="@{/{id}/showArticles(id=${activeCategory.getId()})}"
+                                               class="btn btn-outline-light nooutline" type="submit"
+                                               th:text="${activeCategory.getName()} + ' (' +  ${activeCategory.articles.size()} + ')'">Kategorie
+                                            </a>
+                                        </th:block>
+                                    </div>
+                                </th:block>
+                            </div>
+                        </th:block>
                         <div class="col-12 text-center pt-3"><h4>Partner</h4></div>
                         <div class="col-sm-6 col-md-12 text-center">
                             <a href="http://www.bundeswehr.de" target="_blank"> <img
