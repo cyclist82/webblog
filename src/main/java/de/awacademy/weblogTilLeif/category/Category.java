@@ -13,8 +13,8 @@ public class Category {
 	private String name;
 	private boolean active;
 
-	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "categories")
-	private List<Article> articles;
+	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "categories")
+	private Set<Article> articles = new HashSet<>();
 
 
 	public Category() {
@@ -44,12 +44,12 @@ public class Category {
 		return id;
 	}
 
-	public List<Article> getArticles() {
+	public Set<Article> getArticles() {
 		return articles;
 	}
 
 
-	public void setArticles(List<Article> articles) {
+	public void setArticles(Set<Article> articles) {
 		this.articles = articles;
 	}
 

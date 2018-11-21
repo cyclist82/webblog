@@ -54,10 +54,10 @@ public class SessionControllerAdvice {
 		return new CommentDTO();
 	}
 
-	@ModelAttribute("articles")
-	public List<Article> articles() {
-		return articleRepository.findAllByOrderByCreationDateTimeDesc();
-	}
+//	@ModelAttribute("articles")
+//	public List<Article> articles() {
+//		return articleRepository.findAllByOrderByCreationDateTimeDesc();
+//	}
 
 	@ModelAttribute("activeCategories")
 	public Set<Category> activeCategories() {

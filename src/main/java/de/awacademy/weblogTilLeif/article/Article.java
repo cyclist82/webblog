@@ -24,19 +24,19 @@ public class Article {
 	@Lob
 	private String text;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn
 	private User user;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn
 	private User lastEditUser;
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "article")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "article")
 	@OrderBy(value = "createdDateTime ASC")
 	private List<Comment> comments = new ArrayList<>();
 
-	@ManyToMany(fetch = FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.LAZY)
 	@OrderBy(value = "name DESC")
 	private Set<Category> categories = new HashSet<>();
 

@@ -19,15 +19,15 @@ public class ArticleOLD {
 	@Lob
 	private String text;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn
 	private User user;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn
 	private User creatorUser;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Article parentArticle;
