@@ -150,10 +150,9 @@ span.backgrounddarker {
 }
 
 div.container-fluid.gesamt.my-md-3 {
-    background-color: white;
-    background-color: white;
     max-width: 1600px;
     border-radius: 10px;
+    background-color: grey;
     /*background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url("/resources/images/evGlasgow.JPG");*/
     background-size: cover;
     background-position: center;
