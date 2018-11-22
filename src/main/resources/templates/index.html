@@ -22,8 +22,10 @@
         <div class="col-sm-3 text-right">
             <form class="ml-auto" th:action="@{{articleId}/delete(articleId=${article.id})}" method="post">
                 <div class="btn-group" role="group" aria-label="Article Control">
-                    <a th:href="@{{id}/showHistory(id=${article.getId()})}"
-                       class="btn btn-outline-light"><i class="fas fa-history"></i></a>
+                    <th:block th:if="${article.lastEditUser!=null}">
+                        <a th:href="@{{id}/showHistory(id=${article.getId()})}"
+                           class="btn btn-outline-light"><i class="fas fa-history"></i></a>
+                    </th:block>
                     <th:block th:if="${currentUser!=null}">
                         <th:block th:if="${currentUser.admin}">
                             <a th:href="@{{id}/edit(id=${article.getId()})}"

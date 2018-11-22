@@ -13,10 +13,8 @@
 <body>
 <th:block th:if="${currentUser!=null}">
     <th:block th:if="${currentUser.backgroundImage!=null}">
-
         <div class="container-fluid gesamt my-md-3"
              th:style="'background-image:linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(data:image/jpeg;base64,'+${currentUser.backgroundImage.getImageData()}+')'">
-
     </th:block>
     <th:block th:if="${currentUser.backgroundImage==null}">
         <div class="container-fluid gesamt my-md-3">
