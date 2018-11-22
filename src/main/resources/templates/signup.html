@@ -2,23 +2,25 @@
 <html lang="de" xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'signup')}">
 
 <body>
-<h1>Signup</h1>
-<form th:action="@{/signup}" th:object="${signup}" method="post">
-    <div class="resizeInputField">
-        <input th:replace="~{fragments/inputField :: input ('Benutzername', 'username', 'text')}"/>
-        <!--<input th:replace="~{fragments/inputField :: input ('Vorname', 'firstname', 'text')}"/>-->
-        <!--<input th:replace="~{fragments/inputField :: input ('Nachname', 'surname', 'text')}"/>-->
-        <input th:replace="~{fragments/inputField :: input ('Passwort', 'password1', 'password')}"/>
-        <input th:replace="~{fragments/inputField :: input ('Passwortwiederholung', 'password2', 'password')}"/>
+<div class="backgrounddarker col-md-4">
+    <h1 class="ml-3">Signup</h1>
+    <form th:action="@{/signup}" th:object="${signup}" method="post">
+        <div class="resizeInputField">
+            <input th:replace="~{fragments/inputField :: input ('Benutzername', 'username', 'text')}"/>
+            <!--<input th:replace="~{fragments/inputField :: input ('Vorname', 'firstname', 'text')}"/>-->
+            <!--<input th:replace="~{fragments/inputField :: input ('Nachname', 'surname', 'text')}"/>-->
+            <input th:replace="~{fragments/inputField :: input ('Passwort', 'password1', 'password')}"/>
+            <input th:replace="~{fragments/inputField :: input ('Passwortwiederholung', 'password2', 'password')}"/>
 
 
-        <!--Username: <input type="text" th:field="*{username}"><br/>-->
-        <!--<div th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>-->
-        <!--Password: <input type="password" th:field="*{password1}"><br/>-->
-        <!--<div th:if="${#fields.hasErrors('password1')}" th:errors="*{password1}"></div>-->
-        <!--Password repeat: <input type="password" th:field="*{password2}"><br/>-->
-        <!--<div th:if="${#fields.hasErrors('password2')}" th:errors="*{password2}"></div>-->
-        <button class="btn btn-secondary" type="submit">Singup</button>
-    </div>
+            <!--Username: <input type="text" th:field="*{username}"><br/>-->
+            <!--<div th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>-->
+            <!--Password: <input type="password" th:field="*{password1}"><br/>-->
+            <!--<div th:if="${#fields.hasErrors('password1')}" th:errors="*{password1}"></div>-->
+            <!--Password repeat: <input type="password" th:field="*{password2}"><br/>-->
+            <!--<div th:if="${#fields.hasErrors('password2')}" th:errors="*{password2}"></div>-->
+            <button class="btn btn-outline-light ml-3 mb-3" type="submit">Singup</button>
+        </div>
 </form>
+</div>
 </body>
