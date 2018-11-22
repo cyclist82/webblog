@@ -1,5 +1,5 @@
 <div th:fragment="showArticle">
-    <div class="row py-3 px-md-3 backgrounddarker mx-md-0">
+    <div class="row py-3 px-md-3 mt-3 backgrounddarker mx-md-0">
         <!--Text created by User and Creation DateTime-->
         <div class="col-md-12 pt-2">
             <small th:text="'Erstellt von '+${article.getUser().username}"></small>
@@ -20,7 +20,7 @@
         </div>
         <div style="word-wrap: break-word" class="col-12 py-2">
             <th:block th:if="${article.image!=null}">
-                <img th:attr="id='image', class='rounded embed-responsive'"
+                <img th:attr="id='image', class='rounded embed-responsive float-left'"
                      th:src="@{'data:image/jpeg;base64,'+${article.image.getImageData()}}"/>
             </th:block>
             <p th:text="${article.text}">Text</p>

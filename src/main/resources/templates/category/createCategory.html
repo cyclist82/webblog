@@ -19,7 +19,10 @@
                 </div>
             </form>
         </div>
-        <div class="col-12 pt-4">
+        <div class="col-12 pt-4 text-center">
+            Nur aktive Kategorien werden im Layout rechts angezeigt
+        </div>
+        <div class="col-12">
             <form>
                 <div class="row pt-4" th:each="allCategory : ${categories}">
                     <div class="col-6 pt-2 text-right" th:text="${allCategory.name}"></div>
