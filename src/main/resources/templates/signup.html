@@ -2,16 +2,18 @@
 <html lang="de" xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'signup')}">
 
 <body>
-<div class="backgrounddarker col-md-4">
+<div class="backgrounddarker col-md-5">
     <h1 class="ml-3">Signup</h1>
     <form th:action="@{/signup}" enctype="multipart/form-data" th:object="${signup}" method="post">
 
         <div class="resizeInputField">
             <div class="col-12">
-                <label for="BackgroundPic">Bild Auswählen</label>
+                <label for="BackgroundPic">Hintergrundbild auswählen</label>
             </div>
+            <div class="ml-3">
             <input class="btn btn-file btn-light" type="file" name="file1" id="BackgroundPic"
                    th:field="*{file1}"/>
+            </div>
             <div class="col-12 pb-2">
                 <!--File1 should be here-->
             </div>
