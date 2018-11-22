@@ -5,12 +5,13 @@
 <div class="backgrounddarker col-md-4">
     <h1 class="ml-3">Signup</h1>
     <form th:action="@{/signup}" enctype="multipart/form-data" th:object="${signup}" method="post">
-        <input class="btn btn-file btn-light" type="file" name="file1" id="BackgroundPic"
-               th:field="*{file1}"/>
+
         <div class="resizeInputField">
             <div class="col-12">
                 <label for="BackgroundPic">Bild Auswählen</label>
             </div>
+            <input class="btn btn-file btn-light" type="file" name="file1" id="BackgroundPic"
+                   th:field="*{file1}"/>
             <div class="col-12 pb-2">
                 <!--File1 should be here-->
             </div>
