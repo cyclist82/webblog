@@ -17,7 +17,7 @@ public class User {
 	private String password;
 	private boolean isAdmin = false;
 
-	@OneToOne(fetch = FetchType.EAGER)
+	@OneToOne(fetch = FetchType.LAZY)
 	private Image backgroundImage;
 
 	public User() {
