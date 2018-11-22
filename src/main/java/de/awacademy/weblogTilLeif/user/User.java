@@ -1,6 +1,8 @@
 package de.awacademy.weblogTilLeif.user;
 
 
+import de.awacademy.weblogTilLeif.image.Image;
+
 import javax.persistence.*;
 import java.util.UUID;
 
@@ -14,6 +16,9 @@ public class User {
 	private String username;
 	private String password;
 	private boolean isAdmin = false;
+
+	@OneToOne
+	private Image backgroundImage;
 
 	public User() {
 	}
@@ -39,6 +44,14 @@ public class User {
 
 	public String getUsername() {
 		return username;
+	}
+
+	public Image getBackgroundImage() {
+		return backgroundImage;
+	}
+
+	public void setBackgroundImage(Image backgroundImage) {
+		this.backgroundImage = backgroundImage;
 	}
 }
 

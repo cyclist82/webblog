@@ -11,69 +11,82 @@
     <link rel="stylesheet" th:href="@{/resources/css/style.css}"/>
 </head>
 <body>
-<div class="container-fluid gesamt my-md-3">
-    <div th:fragment="header" class="img-fluid mx-auto d-block" id="banner">
+<th:block th:if="${currentUser!=null}">
+    <th:block th:if="${currentUser.backgroundImage!=null}">
+
+        <div class="container-fluid gesamt my-md-3"
+             th:style="'background-image:url(data:image/jpeg;base64,'+${currentUser.backgroundImage.getImageData()}+')'">
+
+    </th:block>
+    <th:block th:if="${currentUser.backgroundImage==null}">
+        <div class="container-fluid gesamt my-md-3">
+    </th:block>
+</th:block>
+<th:block th:if="${currentUser==null}">
+    <div class="container-fluid gesamt my-md-3">
+</th:block>
+<div th:fragment="header" class="img-fluid mx-auto d-block" id="banner">
+</div>
+<div th:replace="fragments/navigation::navigation">
+</div>
+<div id="content" class="row py-lg-3 px-lg-4">
+    <div class="col-lg-9 p-0 px-4">
+        <th:block th:include="${template}"/>
     </div>
-    <div th:replace="fragments/navigation::navigation">
-    </div>
-    <div id="content" class="row py-lg-3 px-lg-4">
-        <div class="col-lg-9 p-0 px-4">
-            <th:block th:include="${template}"/>
-        </div>
-        <div class="col-lg-3 p-0 px-4">
-            <div id="sponsoren" class="row py-lg-3 mx-md-0 mt-3 mt-lg-0 py-sm-1 px-lg-4 sticky-top sticky-offet">
-                <th:block th:if="${activeCategories.size()>0}">
-                    <div class="col-12 text-center mx-lg-4" id="categoriesLayout">
-                        <div class="col-12 mt-2 text-center">
-                            <h4>Kategorien</h4>
-                        </div>
-                        <div class="row">
-                            <th:block th:each="activeCategory:${activeCategories}">
-
-
-                                <!--Hier Logik aus FindByCategory und show categories-->
-                                <th:block th:if="${activeCategory.articles.size()>0}">
-
-                                    <div class="col-sm-6 col-lg-12 text-center">
-                                        <a th:href="@{/{id}/showArticles(id=${activeCategory.getId()})}"
-                                           class="btn btn-outline-light nooutline mb-1," type="submit"
-                                           th:text="${activeCategory.getName()} + ' (' +  ${activeCategory.articles.size()} + ')'">Kategorie
-                                        </a>
-                                    </div>
-                                </th:block>
-                            </th:block>
-                        </div>
+    <div class="col-lg-3 p-0 px-4">
+        <div id="sponsoren" class="row py-lg-3 mx-md-0 mt-3 mt-lg-0 py-sm-1 px-lg-4 sticky-top sticky-offet">
+            <th:block th:if="${activeCategories.size()>0}">
+                <div class="col-12 text-center mx-lg-4" id="categoriesLayout">
+                    <div class="col-12 mt-2 text-center">
+                        <h4>Kategorien</h4>
                     </div>
-                </th:block>
-                <div class="col-12 text-center pt-3"><h4>Partner</h4></div>
-                <div class="col-sm-6 col-lg-12 text-center">
-                    <a href="http://www.bundeswehr.de" target="_blank"> <img
-                            class="mx-auto sponsor"
-                            src="/resources/images/bundeswehr.png"
-                            alt="Bundeswehr"></a>
-                </div>
-                <div class="col-sm-6 col-lg-12 text-center">
-                    <a href="http://www.maloja.de" target="_blank"> <img
-                            class="mx-auto sponsor"
-                            src="/resources/images/Maloja.png"
-                            alt="Maloja"></a>
-                </div>
-                <div class="col-sm-6 col-lg-12 text-center">
-                    <a href="http://pioneer-cyclesports.com/de/" target="_blank"> <img
-                            class="mx-auto sponsor"
-                            src="/resources/images/Pioneer_logo.png"
-                            alt="Pioneer"></a>
-                </div>
-                <div class="col-sm-6 col-lg-12 text-center">
-                    <a href="https://www.alpina-sports.com/de/" target="_blank"> <img
-                            class="mx-auto sponsor"
-                            src="/resources/images/Alpina%202016.png"
-                            alt="Alpina"></a>
-                </div>
+                    <div class="row">
+                        <th:block th:each="activeCategory:${activeCategories}">
 
+
+                            <!--Hier Logik aus FindByCategory und show categories-->
+                            <th:block th:if="${activeCategory.articles.size()>0}">
+
+                                <div class="col-sm-6 col-lg-12 text-center">
+                                    <a th:href="@{/{id}/showArticles(id=${activeCategory.getId()})}"
+                                       class="btn btn-outline-light nooutline mb-1," type="submit"
+                                       th:text="${activeCategory.getName()} + ' (' +  ${activeCategory.articles.size()} + ')'">Kategorie
+                                    </a>
+                                </div>
+                            </th:block>
+                        </th:block>
+                    </div>
+                </div>
+            </th:block>
+            <div class="col-12 text-center pt-3"><h4>Partner</h4></div>
+            <div class="col-sm-6 col-lg-12 text-center">
+                <a href="http://www.bundeswehr.de" target="_blank"> <img
+                        class="mx-auto sponsor"
+                        src="/resources/images/bundeswehr.png"
+                        alt="Bundeswehr"></a>
             </div>
+            <div class="col-sm-6 col-lg-12 text-center">
+                <a href="http://www.maloja.de" target="_blank"> <img
+                        class="mx-auto sponsor"
+                        src="/resources/images/Maloja.png"
+                        alt="Maloja"></a>
+            </div>
+            <div class="col-sm-6 col-lg-12 text-center">
+                <a href="http://pioneer-cyclesports.com/de/" target="_blank"> <img
+                        class="mx-auto sponsor"
+                        src="/resources/images/Pioneer_logo.png"
+                        alt="Pioneer"></a>
+            </div>
+            <div class="col-sm-6 col-lg-12 text-center">
+                <a href="https://www.alpina-sports.com/de/" target="_blank"> <img
+                        class="mx-auto sponsor"
+                        src="/resources/images/Alpina%202016.png"
+                        alt="Alpina"></a>
+            </div>
+
         </div>
     </div>
+</div>
 </div>
 <script th:src="@{/webjars/jquery/3.3.1-1/jquery.min.js}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"

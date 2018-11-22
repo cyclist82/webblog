@@ -4,8 +4,17 @@
 <body>
 <div class="backgrounddarker col-md-4">
     <h1 class="ml-3">Signup</h1>
-    <form th:action="@{/signup}" th:object="${signup}" method="post">
+    <form th:action="@{/signup}" enctype="multipart/form-data" th:object="${signup}" method="post">
+        <input class="btn btn-file btn-light" type="file" name="file1" id="BackgroundPic"
+               th:field="*{file1}"/>
         <div class="resizeInputField">
+            <div class="col-12">
+                <label for="BackgroundPic">Bild Auswählen</label>
+            </div>
+            <div class="col-12 pb-2">
+                <!--File1 should be here-->
+            </div>
+
             <input th:replace="~{fragments/inputField :: input ('Benutzername', 'username', 'text')}"/>
             <!--<input th:replace="~{fragments/inputField :: input ('Vorname', 'firstname', 'text')}"/>-->
             <!--<input th:replace="~{fragments/inputField :: input ('Nachname', 'surname', 'text')}"/>-->
@@ -21,6 +30,6 @@
             <!--<div th:if="${#fields.hasErrors('password2')}" th:errors="*{password2}"></div>-->
             <button class="btn btn-outline-light ml-3 mb-3" type="submit">Singup</button>
         </div>
-</form>
+    </form>
 </div>
 </body>

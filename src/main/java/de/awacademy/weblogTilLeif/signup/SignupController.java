@@ -1,5 +1,7 @@
 package de.awacademy.weblogTilLeif.signup;
 
+import de.awacademy.weblogTilLeif.image.Image;
+import de.awacademy.weblogTilLeif.image.ImageRepository;
 import de.awacademy.weblogTilLeif.login.LoginController;
 import de.awacademy.weblogTilLeif.login.LoginDTO;
 import de.awacademy.weblogTilLeif.session.Session;
@@ -17,16 +19,19 @@ import org.springframework.web.bind.annotation.PostMapping;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.IOException;
 
 @Controller
 public class SignupController {
 
 	private UserRepository userRepository;
 	private SessionRepository sessionRepository;
+	private ImageRepository imageRepository;
 
-	public SignupController(UserRepository userRepository, SessionRepository sessionRepository) {
+	public SignupController(UserRepository userRepository, SessionRepository sessionRepository, ImageRepository imageRepository) {
 		this.userRepository = userRepository;
 		this.sessionRepository = sessionRepository;
+		this.imageRepository = imageRepository;
 	}
 
 	@GetMapping("/signup")
@@ -37,7 +42,7 @@ public class SignupController {
 	}
 
 	@PostMapping("/signup")
-	public String signup(@ModelAttribute("signup") @Valid SignupDTO signupDTO, BindingResult bindingResult, Model model, HttpServletResponse response) {
+	public String signup(@ModelAttribute("signup") @Valid SignupDTO signupDTO, BindingResult bindingResult, Model model, HttpServletResponse response) throws IOException {
 		// Validation for existing User
 		model.addAttribute("login", new LoginDTO());
 		if (userRepository.existsByUsername(signupDTO.getUsername())) {
@@ -48,15 +53,22 @@ public class SignupController {
 		if (!signupDTO.getPassword1().equals(signupDTO.getPassword2())) {
 			bindingResult.addError(new FieldError("signup", "password2", "Passwörter stimmen nicht überein"));
 		}
-		// Validaiton for all errors in Form
-		if (bindingResult.hasErrors()) {
-			return "signup";
-		}
+
 		// Happy Path. New User is created
 		User user = new User(signupDTO.getUsername(), signupDTO.getPassword2());
 		// Der erste neue Benutzer wird automatisch Admin
 		if (userRepository.count() == 0) {
 			user.setAdmin(true);
+		}
+		System.out.println("geht nicht");
+		if (!signupDTO.getFile1().isEmpty()) {
+			Image image = new Image(signupDTO.getFile1().getName(), signupDTO.getFile1().getContentType(), signupDTO.getFile1().getBytes());
+			imageRepository.save(image);
+			user.setBackgroundImage(image);
+		}
+		//		 Validaiton for all errors in Form
+		if (bindingResult.hasErrors()) {
+			return "signup";
 		}
 		userRepository.save(user);
 		Session session = new Session(user);
