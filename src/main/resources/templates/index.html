@@ -10,7 +10,7 @@
 </div>
 <!--The articles are starting here-->
 <th:block th:each="article: ${articles}">
-    <div class="row backgrounddarker mx-md-0 py-3 my-3">
+    <div th:id="'article'+${article.id}" class="row backgrounddarker mx-md-0 py-3 my-3">
         <div class="col-sm-9">
             <!--Text created by User and Creation DateTime-->
             <small th:text="'Erstellt von '+${article.getUser().username+' am '+{#temporals.format(article.creationDateTime,'EEEE dd. MMMM yyyy, HH:mm:ss',#locale.GERMANY)}}"></small>

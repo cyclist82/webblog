@@ -54,15 +54,15 @@ public class CommentController {
 		Comment comment = new Comment(commentDTO.getCommenttext(), currentUser, article);
 		article.addComment(comment);
 		this.commentRepository.save(comment);
-		return "redirect:/";
+		return "redirect:/#article" + article.getId();
 	}
 
 	@PostMapping("/comments/{commentId}/delete")
-	private String deleteComment(@PathVariable("commentId") String commentId, @ModelAttribute("currentUser") User currentUser) {
+	private String deleteComment(@PathVariable("commentId") String commentId, @ModelAttribute("currentUser") User currentUser, @ModelAttribute("article") Article article) {
 		Comment comment = commentRepository.findById(commentId).get();
 		if (currentUser.isAdmin() || currentUser.getId() == comment.getUser().getId()) {
 			this.commentRepository.delete(comment);
 		}
-		return "redirect:/";
+		return "redirect:/#article" + article.getId();
 	}
 }

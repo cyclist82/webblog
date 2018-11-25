@@ -23,7 +23,8 @@ public class IndexController {
 
 	// Website is loaded
 	@GetMapping("/")
-	public String homeGet() {
+	public String homeGet(Model model) {
+		model.addAttribute("articles", articleRepository.findAllByOrderByCreationDateTimeDesc());
 		return "index";
 	}
 }

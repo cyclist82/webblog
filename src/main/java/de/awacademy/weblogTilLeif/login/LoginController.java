@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
@@ -41,7 +42,7 @@ public class LoginController {
 	}
 
 	@PostMapping("/login")
-	public String loginSubmit(Model model, @ModelAttribute("login") LoginDTO loginDTO, HttpServletResponse response, BindingResult bindingResult) {
+	public String loginSubmit(Model model, @ModelAttribute("login") LoginDTO loginDTO, HttpServletResponse response, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 		Optional<User> optionalUser = userRepository.findFirstByUsernameAndPassword(loginDTO.getUsername(), loginDTO.getPassword());
 		if (optionalUser.isPresent()) {
 			Session session = new Session(optionalUser.get());
@@ -50,7 +51,8 @@ public class LoginController {
 			return "redirect:/";
 		}
 		bindingResult.addError(new FieldError("login", "password", "Benutzer oder Passwort ungültig"));
-		return "login/loginerror";
+		redirectAttributes.addAttribute("loginErrors", true);
+		return "redirect:/";
 	}
 
 	@PostMapping("/logout")
